@@ -1,2 +1,4 @@
-package com.moda.moda.main;public class MainVO {
+package com.moda.moda.main;
+
+public class MainVO {
 }

@@ -1,2 +1,4 @@
-package com.moda.moda.main.dao;public class MainDao {
+package com.moda.moda.main.dao;
+
+public class MainDao {
 }
