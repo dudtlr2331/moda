@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원 수정</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .logo{
+            margin-top: 50px;
+            padding-bottom: 20px;
+        }
+        .input-form {
+            margin-top: 20px;
+        }
+        .input-form input[type="text"],
+        .input-form input[type="password"],
+        .input-form input[type="email"],
+        .input-form input[type="tel"] {
+            margin: 10px 0;
+            padding: 10px;
+            width: 300px;
+            border: none;
+            background: none;
+            border-bottom: 1px solid black;
+            outline: none;
+        }
+        .input-form input[type="submit"] {
+            margin-top: 20px;
+            width: 320px;
+            height: 50px;
+            background-color: #F6F7F9;
+            color: #6A6E71;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!-- 로고 -->
+<div class="logo">
+    <form action="main.jsp" method="POST">
+        <input type="image" name="logoimg" src="/image/logo.png" alt="로고 이미지">
+    </form>
+</div>
+
+<!-- 입력 폼 -->
+<div class="input-form">
+    <form action="main.jsp" method="POST">
+        <input type="text" name="id" placeholder="아이디" disabled><br>
+        <input type="password" name="password" placeholder="비밀번호"><br>
+        <input type="email" name="email" placeholder="이메일"><br>
+        <input type="text" name="address" placeholder="주소"><br>
+        <input type="tel" name="phone" placeholder="전화번호"><br>
+        <input type="submit" class="signup-button" value="회원 수정">
+    </form>
+</div>
+</body>
+</html>
