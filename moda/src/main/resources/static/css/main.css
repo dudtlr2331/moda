@@ -1,0 +1,152 @@
+#header{
+  background-color: #ffffff;
+}
+
+.top_btn i {
+  font-size: 18px;
+  margin: 0 3px;
+}
+
+/* 상단메뉴 시작 */
+#main_benner{
+  height: 60px;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+}
+
+#main_benner .menu {
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  background-color: #ffffff;
+}
+
+#main_benner .menu ul {
+  border-radius: 5px;
+}
+
+#main_benner .menu a {
+  width: 100%;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+/*상단메뉴 호버시*/
+#main_benner .menu a:hover{
+  border-radius: 10px;
+  color: #ff0000;
+}
+
+#product_ranking{
+  margin-top: 10px;
+  padding:20px
+}
+.product_group{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  font-size: 18px;
+  font-weight: 200;
+}
+.product_group pre{
+  margin-left: 15px;
+}
+
+.img_area .img_a{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 25px;
+}
+.img_area .img_a .item{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 24%;
+  height: 400px;
+  cursor: pointer;
+  position: relative;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.img_area .img_a .item .txt_area{
+  padding: 10px 15px;
+}
+
+.img_area .img_a .item .txt_area .item_name{
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.img_area .img_a .item .txt_area .item_price{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 15px;
+}
+
+.img_area .img_a .item .dim{
+  background-color: black;
+  /* background-color: dimgray; */
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 1;
+  top: 1;
+  opacity: 0;
+}
+
+.img_area .img_a .item:hover .dim{
+  opacity: 0.5;
+}
+
+.img_area .img_a .item img{
+  overflow: hidden;
+  border: 1px solid #111;
+  width: 100%;
+  height: 100%;
+}
+
+.menu_category{
+  left: 25%;
+  position: absolute;
+  width: 25%;
+  height: 160px;
+  opacity: 0;
+  pointer-events: none;
+  background-color: #ffffff;
+  z-index: 99;
+}
+
+.menu_category.visible{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.menu_category ul{
+  list-style: none;
+}
+
+.menu_category_item{
+  width: 100%;
+  height: 40px;
+  background-color: #ffffff;
+}
+
+.menu_category li a:hover{
+  color: white;
+}
+
+#event_page_main{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}

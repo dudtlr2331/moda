@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/common.css" type="text/css">
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+    <title>홈</title>
+    <script src="https://kit.fontawesome.com/db1622cae4.js" crossorigin="anonymous"></script>
+    <style>
+        /* CSS 코드 추가 */
+        #header_login {
+            float: right; /* 오른쪽으로 이동 */
+        }
+
+        /* 로그인 및 회원가입 버튼 색상 설정 */
+        #header_login a {
+            margin-right: 10px; /* 로그인과 회원가입 사이 간격 조정 */
+            color: #FF5733; /* 원하는 색상으로 변경 */
+            text-decoration: none; /* 밑줄 제거 */
+        }
+
+        #header_login a:hover {
+            text-decoration: underline; /* 마우스 호버 시 밑줄 추가 (선택 사항) */
+        }
+
+        /* 스타일 수정 */
+        #header {
+            padding: 10px; /* 예시로 패딩 추가 */
+        }
+
+        #header .top_btn {
+            float: right; /* 오른쪽으로 이동 */
+        }
+
+        #header .top_btn input {
+            margin-right: 10px; /* 검색 입력 상자와 장바구니, 사용자 아이콘 사이 간격 조정 */
+        }
+    </style>
+
+</head>
+<body>
+<header id="header_login">
+    <div>
+        <a href="/html/shp/user/login.html">로그인</a>
+        <a href="/html/shp/user/join.html" space="line">    회원가입</a>
+    </div>
+</header>
+<header id="header">
+    <div class="logo">쇼핑몰로고...</div>
+    <div class="top_btn">
+        <input type="text"/>
+        <a href="/html/shp/goods/goods_cart.html"><i class="fa fa-cart-shopping"></i></a>
+        <a href="/html/shp/user/login.html"><i class="fa fa-user-large"></i></a>
+    </div>
+</header>
+
+<section id="main_benner">
+    <ul class="menu">
+        <a href="/html/shp/goods/goods_list.html"><li>홈</li></a>
+        <li class="menu_category_item_main">카테고리</li>
+        <div class="menu_category">
+            <ul>
+                <li class="menu_category_item"><a href="/html/shp/goods/goods_category.html"><div>카테고리</div></a></li>
+                <li class="menu_category_item"><a href=""><div>상의</div></a></li>
+                <li class="menu_category_item"><a href=""><div>아우터</div></a></li>
+                <li class="menu_category_item"><a href=""><div>바지</div></a></li>
+            </ul>
+        </div>
+        <a href="/html/shp/qna/qna.html"><li>1:1문의</li></a>
+        <a href="/html/shp/dress/dress_main.html"><li>커뮤니티</li></a>
+    </ul>
+</section>
+
+<footer id="product_ranking">
+    <h2>Today 랭킹</h2>
+    <div class="product_group">
+        <pre>전체</pre>
+        <pre>상의</pre>
+        <pre>아우터</pre>
+        <pre>바지</pre>
+    </div>
+    <div class="img_area">
+        <div class="img_a">
+            <div class="item">
+                <img src="/images/' + ${item.imageName}">
+                <div class="txt_area">
+                    <div class="item_name">${item.name}</div>
+                    <div class="item_price">
+                        <span class="color_red">50%</span>
+                        <span>30000원</span>
+                    </div>
+                </div>
+                <div class="dim"></div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
