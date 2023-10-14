@@ -29,6 +29,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+	implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3' // MariaDB 드라이버 의존성 추가
 }
 
 tasks.named('test') {
