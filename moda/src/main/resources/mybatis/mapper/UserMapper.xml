@@ -3,8 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.moda.moda.user.service.UserRepository">
-    <select id="getAllMember" resultType="MemberVo">
-        SELECT user_no, user_nm, user_id FROM MEMBER_INFO
+<mapper namespace="com.moda.moda.user.dao.UserDao">
+    <select id="selectUserList" resultType="UserVO">
+        SELECT USR_BASE_SEQ AS userBaseSeq,
+                USR_ID AS userId,
+                USR_NM AS userNm
+        FROM USR_BASE;
     </select>
 </mapper>

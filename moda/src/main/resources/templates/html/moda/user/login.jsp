@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -54,6 +56,16 @@
         <input type="password" name="password" placeholder="비밀번호"><br>
         <input type="submit" class="signup-button" value="로그인">
     </form>
+</div>
+
+<div>
+    <c:forEach items="${pvo}" var="user">
+        <tr>
+            <td>${user.userBaseSeq}</td>
+            <td>${user.userId}</td>
+            <td>${user.userNm}</td>
+        </tr>
+    </c:forEach>
 </div>
 </body>
 </html>
