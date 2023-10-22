@@ -6,6 +6,6 @@ import lombok.Data;
 public class UserVO {
     private long userBaseSeq;
     private String userId;
-    private String userNm;
-    private String passWd;
+    private String userName;
+    private String userPass;
 }

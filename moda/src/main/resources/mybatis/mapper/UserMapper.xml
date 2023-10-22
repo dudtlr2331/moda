@@ -4,10 +4,10 @@
 
 
 <mapper namespace="com.moda.moda.user.dao.UserDao">
-    <select id="selectUserList" resultType="UserVO">
-        SELECT USR_BASE_SEQ AS userBaseSeq,
-                USR_ID AS userId,
-                USR_NM AS userNm
-        FROM USR_BASE;
+    <select id="selectUserList" resultType="com.moda.moda.user.UserVO">
+        SELECT u_id AS userId,
+               u_pass AS userPass,
+               u_name AS userName
+        FROM users;
     </select>
 </mapper>
