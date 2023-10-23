@@ -1,0 +1,12 @@
+<beans>
+    <!-- MyBatis 설정 파일 로드 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- Mapper 파일 위치 지정 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.moda.moda.user.dao" />
+    </bean>
+</beans>

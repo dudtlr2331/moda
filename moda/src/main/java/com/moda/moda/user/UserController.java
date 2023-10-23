@@ -30,9 +30,11 @@ public class UserController {
 
     @GetMapping("/users")
     public String selectUserList(HttpServletRequest req, HttpServletResponse res, UserVO pvo) {
+        // UserService를 통해 selectUserList 메서드 호출
+        List<UserVO> userList = userService.selectUserList(pvo);
 
-        pvo = (UserVO) userService.selectUserList(pvo);
-        req.setAttribute("pvo", pvo);
+        // 사용자 목록을 request에 설정
+        req.setAttribute("userList", userList);
 
         return "html/moda/user/login";
     }
