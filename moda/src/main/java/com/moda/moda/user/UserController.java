@@ -24,8 +24,11 @@ public class UserController {
     }
 
     @GetMapping("/join")
-    public String join() {
-        return "html/moda/user/join";
+    public String join() { return "html/moda/user/join"; }
+
+    @GetMapping("/edit")
+    public String edit() {
+        return "html/moda/user/edit";
     }
 
     @GetMapping("/users")
