@@ -8,11 +8,11 @@ public class MainController {
 
     @GetMapping("/main")
     public String show() {
-        return "main";
+        return "html/moda/main/main";
     }
 
-    @GetMapping("/product")
-    public String product() {
-        return "product";
-    }
+//    @GetMapping("/product")
+//    public String product() {
+//        return "product";
+//    }
 }
