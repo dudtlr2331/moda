@@ -10,4 +10,41 @@
                u_name AS userName
         FROM users;
     </select>
+
+    <insert id="insertUser">
+        INSERT INTO users
+        ( u_id
+        , u_pass
+        , u_name
+        , u_email
+        , u_post
+        , u_addr
+        , u_phone
+        , u_date
+        , u_admin
+        ) VALUES
+        ( #{userId}
+        , #{userPass}
+        , #{userName}
+        , #{userEmail}
+        , #{userPost}
+        , #{userAddr}
+        , #{userPhone}
+        , NOW()
+        , '1')
+    </insert>
+
+    <select id="userLogin" resultType="com.moda.moda.user.UserVO">
+        SELECT u_id AS userId,
+            u_pass AS userPass,
+            u_name AS userName,
+            u_email AS userEmail,
+            u_post AS userPost,
+            u_addr AS userAddr,
+            u_phone AS userPhone,
+            u_date AS userDate,
+            u_admin AS userAdmin
+        FROM users
+        WHERE u_id = #{userId}
+    </select>
 </mapper>

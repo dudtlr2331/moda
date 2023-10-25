@@ -17,10 +17,27 @@ public class UserServiceImpl implements UserService{
         }
 
         @Override
+        public void save(UserVO pvo) {
+
+        }
+
+        @Override
+        public int insertUser(UserVO pvo) {
+                return userDao.insertUser(pvo);
+        }
+
+        @Override
+        public UserVO userLogin(UserVO pvo) {
+                System.out.println(pvo);
+                return userDao.userLogin(pvo);
+        }
+
+        @Override
         public List<UserVO> selectUserList(UserVO pvo) {
                 // UserDao를 이용하여 사용자 데이터를 가져옵니다.
-//                return (List<UserVO>) userDao.selectUserList(pvo);
                 return userDao.selectUserList(pvo);
         }
+
+
 
 }

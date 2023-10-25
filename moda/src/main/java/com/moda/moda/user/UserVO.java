@@ -4,8 +4,13 @@ import lombok.Data;
 
 @Data
 public class UserVO {
-    private long userBaseSeq;
     private String userId;
-    private String userName;
     private String userPass;
+    private String userName;
+    private String userEmail;
+    private String userPost;
+    private String userAddr;
+    private String userPhone;
+    private String userDate;
+    private String userAdmin;
 }
