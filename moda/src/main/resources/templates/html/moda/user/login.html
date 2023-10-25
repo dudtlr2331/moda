@@ -49,21 +49,20 @@
 
 <!-- 입력 폼 -->
 <div class="input-form">
-    <form action="main" method="POST">
-        <input type="text" name="id" placeholder="아이디"><br>
-        <input type="password" name="password" placeholder="비밀번호"><br>
+    <form action="/user/login" method="POST">
+        <input type="text" name="userId" placeholder="아이디"><br>
+        <input type="password" name="userPass" placeholder="비밀번호"><br>
         <input type="submit" class="signup-button" value="로그인">
     </form>
 </div>
+<script th:inline="javascript">
+    var articleObject = [[${article}]];
 
-<div>
-    <ul>
-        <li th:each="user : ${userList}">
-            <span th:text="${user.userId}"></span>
-            <span th:text="${user.userName}"></span>
-            <span th:text="${user.userPass}"></span>
-        </li>
-    </ul>
-</div>
+    window.onload = function() {
+        //article의 정보를 alert창으로 표시한다.
+        alert('article : ' + articleObject
+            + '\n내용 : ' + articleObject.content);
+    };
+</script>
 </body>
 </html>

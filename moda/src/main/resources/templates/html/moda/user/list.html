@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>회원 가입</title>
+    <meta charset="UTF-8">
+    <title>로그인</title>
     <style>
         body {
             text-align: center;
@@ -14,9 +15,7 @@
             margin-top: 20px;
         }
         .input-form input[type="text"],
-        .input-form input[type="password"],
-        .input-form input[type="email"],
-        .input-form input[type="tel"] {
+        .input-form input[type="password"] {
             margin: 10px 0;
             padding: 10px;
             width: 300px;
@@ -43,22 +42,28 @@
 <body>
 <!-- 로고 -->
 <div class="logo">
-    <form action="/main" method="POST">
-        <input type="image" name="logoimg" src="/image/logo.png" alt="로고 이미지">
+    <form action="main" method="POST">
+        <img th:src="@{/image/logo.png}" alt="로고 이미지">
     </form>
 </div>
 
 <!-- 입력 폼 -->
 <div class="input-form">
-    <form action="/user/save" method="POST">
-        <input type="text" name="userId" placeholder="아이디"><br>
-        <input type="password" name="userPass" placeholder="비밀번호"><br>
-        <input type="text" name="userName" placeholder="닉네임"><br>
-        <input type="email" name="userEmail" placeholder="이메일"><br>
-        <input type="text" name="userAddr" placeholder="주소"><br>
-        <input type="tel" name="userPhone" placeholder="전화번호"><br>
-        <input type="submit" class="signup-button" value="회원 가입">
+    <form action="main" method="POST">
+        <input type="text" name="id" placeholder="아이디"><br>
+        <input type="password" name="password" placeholder="비밀번호"><br>
+        <input type="submit" class="signup-button" value="로그인">
     </form>
+</div>
+
+<div>
+    <ul>
+        <li th:each="user : ${userList}">
+            <span th:text="${user.userId}"></span>
+            <span th:text="${user.userName}"></span>
+            <span th:text="${user.userPass}"></span>
+        </li>
+    </ul>
 </div>
 </body>
 </html>

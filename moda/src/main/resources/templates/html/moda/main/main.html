@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE edge">
@@ -61,7 +61,7 @@
 <header id="header_login">
     <div>
         <a href="/login">로그인</a>
-        <a href="/join" space="line">    회원가입</a>
+        <a href="/join" space="line">회원가입</a>
     </div>
 </header>
 <header id="header">
@@ -93,18 +93,25 @@
     <div class="img_area">
         <div class="img_a">
             <div class="item">
-                <img src="/images/' + ${item.imageName}">
-                <div class="txt_area">
-                    <div class="item_name">${item.name}</div>
-                    <div class="item_price">
-                        <span class="color_red">50%</span>
-                        <span>30000원</span>
-                    </div>
-                </div>
+<!--                <img th:src="'/images/' + ${item.imageName}">-->
+<!--                <div class="txt_area">-->
+<!--                    <div class="item_name" th:text="${item.name}"></div>-->
+<!--                    <div class="item_price">-->
+<!--                        <span class="color_red">50%</span>-->
+<!--                        <span th:text="${item.price}"></span>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="dim"></div>
             </div>
         </div>
     </div>
 </footer>
+
+<script th:if="${not #strings.isEmpty(message)}">
+    /* 메시지가 비어 있지 않다면 alert 창으로 메시지를 출력합니다. */
+    var message = /*[[${message}]]*/ ''; // Thymeleaf로부터 메시지 값을 가져온다
+    console.log(message); // 콘솔에 메시지를 출력
+    alert(message);
+</script>
 </body>
 </html>
