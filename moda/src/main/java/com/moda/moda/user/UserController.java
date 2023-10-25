@@ -28,30 +28,38 @@ public class UserController {
     }
 
     @PostMapping("/user/login")
-    public String login(HttpServletRequest req, HttpServletResponse res, @ModelAttribute UserVO pvo, Model model){
+    public String login(Model model, HttpServletRequest req, HttpServletResponse res, @ModelAttribute UserVO pvo){
         HttpSession session = req.getSession();
         String returnPage = "";
 
         UserVO sessionVO = userService.userLogin(pvo);
 
         if (null == sessionVO) {
-//            session.setAttribute("message", "아이디/비밀번호를 입력해 주세요.");
-            model.addAttribute("article", "아이디/비밀번호를 입력해 주세요.");
+            session.setAttribute("message", "아이디 / 비밀번호를 입력해 주세요.");
+//            model.addAttribute("message", "아이디/비밀번호를 입력해 주세요."); // redirect로 요청해서 model로 값을 넘길 수 없다.
             returnPage = "redirect:/login";
         } else if (pvo.getUserId().equals(sessionVO.getUserId()) && pvo.getUserPass().equals(sessionVO.getUserPass())) {
             session.setAttribute("loginInfo", sessionVO);
             returnPage = "redirect:/main";
         } else {
-//            session.setAttribute("message", "아이디/비밀번호를 확인해 주세요.");
-            model.addAttribute("message", "아이디/비밀번호를 확인해 주세요.");
+            session.setAttribute("message", "아이디 / 비밀번호를 확인해 주세요.");
             returnPage = "redirect:/login";
         }
 
         System.out.println("입력 정보 : " + pvo);
-        System.out.println(model.getAttribute("message"));
+        System.out.println("loginInfo : " + session.getAttribute("loginInfo"));
         System.out.println("returnPage : "+ returnPage + " , sessionVO : " + sessionVO);
 
         return returnPage;
+    }
+
+    // 로그아웃
+    @GetMapping("/user/userLogout")
+    public String userLogout(HttpServletRequest req, HttpServletResponse res) {
+        HttpSession session = req.getSession();
+        session.invalidate();
+
+        return "redirect:/main";
     }
 
     @GetMapping("/join")

@@ -58,6 +58,16 @@
     </style>
 </head>
 <body>
+<div th:if="${loginInfo != null}">
+    <span th:text="${loginInfo.userId} + '님 환영합니다.'"></span>
+<!--    <input type="button" class="w70" id="btn_edit" th:onclick="'fn_user_edit(' + ${loginInfo.usrBaseSeq} + ')'" value="수정">-->
+    <input type="button" class="w70" id="logout_btn" th:onclick="'location.href=\'/user/userLogout\''" value="로그아웃">
+</div>
+<div th:if="${loginInfo == null}">
+    <div>
+        <input type="button" class="w70" th:onclick="'location.href=\'/login\''" value="로그인"/>
+    </div>
+</div>
 <header id="header_login">
     <div>
         <a href="/login">로그인</a>
@@ -106,12 +116,5 @@
         </div>
     </div>
 </footer>
-
-<script th:if="${not #strings.isEmpty(message)}">
-    /* 메시지가 비어 있지 않다면 alert 창으로 메시지를 출력합니다. */
-    var message = /*[[${message}]]*/ ''; // Thymeleaf로부터 메시지 값을 가져온다
-    console.log(message); // 콘솔에 메시지를 출력
-    alert(message);
-</script>
 </body>
 </html>

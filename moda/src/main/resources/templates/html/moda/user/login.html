@@ -56,12 +56,13 @@
     </form>
 </div>
 <script th:inline="javascript">
-    var articleObject = [[${article}]];
+    var message = [[${session.message}]];
 
     window.onload = function() {
-        //article의 정보를 alert창으로 표시한다.
-        alert('article : ' + articleObject
-            + '\n내용 : ' + articleObject.content);
+        if (message !== null) {
+            // 메시지가 null이 아닌 경우에만 알림 창을 표시합니다.
+            alert(message);
+        }
     };
 </script>
 </body>
