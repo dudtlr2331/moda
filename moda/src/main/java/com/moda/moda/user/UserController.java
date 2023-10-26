@@ -46,7 +46,6 @@ public class UserController {
             returnPage = "redirect:/login";
         }
 
-        System.out.println("입력 정보 : " + pvo);
         System.out.println("loginInfo : " + session.getAttribute("loginInfo"));
         System.out.println("returnPage : "+ returnPage + " , sessionVO : " + sessionVO);
 
@@ -74,6 +73,7 @@ public class UserController {
     public String saveForm(){
         return "save";
     }
+
     @PostMapping("/user/save")
     public String save(HttpServletRequest req, HttpServletResponse res, @ModelAttribute UserVO pvo, Model model){
         System.out.println("가입정보 = " + pvo);

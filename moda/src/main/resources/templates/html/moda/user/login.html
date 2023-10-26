@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>로그인</title>
     <style>
         body {
             text-align: center;
         }
+
         .logo{
             margin-top: 50px;
             padding-bottom: 20px;
         }
+
         .input-form {
             margin-top: 20px;
         }
+
         .input-form input[type="text"],
         .input-form input[type="password"] {
             margin: 10px 0;
@@ -24,6 +27,7 @@
             border-bottom: 1px solid black;
             outline: none;
         }
+
         .input-form input[type="submit"] {
             margin-top: 20px;
             width: 320px;
@@ -37,13 +41,25 @@
             border-radius: 8px;
             cursor: pointer;
         }
+
+        .id_pwd_sarch {
+            text-decoration: none;
+            color: #6A6E71;
+            margin: 50px;
+        }
+
+        .join {
+            text-decoration: none;
+            color: #6A6E71;
+            margin: 50px;
+        }
     </style>
 </head>
 <body>
 <!-- 로고 -->
 <div class="logo">
-    <form action="main" method="POST">
-        <img th:src="@{/image/logo.png}" alt="로고 이미지">
+    <form action="/main" method="GET">
+        <input type="image" name="logoimg" src="/images/logo.png" alt="로고 이미지">
     </form>
 </div>
 
@@ -55,6 +71,12 @@
         <input type="submit" class="signup-button" value="로그인">
     </form>
 </div>
+
+<div>
+    <a class="id_pwd_sarch" href="idpwsarch.html">아이디/비밀번호 찾기</a>
+    <a class="join" href="/join">회원가입</a>
+</div>
+
 <script th:inline="javascript">
     var message = [[${session.message}]];
 
