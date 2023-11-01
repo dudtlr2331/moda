@@ -18,7 +18,7 @@
 
 
     <!-- 게시글 저장 -->
-    <insert id="save" parameterType="com.moda.adm.post.PostSearch">
+    <insert id="save" parameterType="com.moda.adm.post.PostSearch" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO tb_post (
         <include refid="postColumns" />
         ) VALUES (
