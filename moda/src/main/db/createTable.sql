@@ -111,3 +111,13 @@ CREATE TABLE IF NOT EXISTS 'users' (
     PRIMARY KEY ('u_id')
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `qna` (
+     'qna_num'       bigint(20)    NOT NULL AUTO_INCREMENT COMMENT 'PK',
+     'u_id'          VARCHAR(20)  NOT NULL COMMENT '작성자 ID',
+     'qna_title'     VARCHAR(100)   NOT NULL COMMENT '제목',
+     'qna_q'         VARCHAR(3000) NOT NULL COMMENT '질문 내용',
+     'qna_a'         VARCHAR(3000) NULL COMMENT '답변 내용',
+     'qna_stat'      tinyint(1)    NOT NULL DEFAULT 0 COMMENT '답변대기:0, 답변종료:1',
+     'qna_date'  	  datetime      NOT NULL DEFAULT current_timestamp() COMMENT '답변일',
+     PRIMARY KEY ('qna_num')
+) COMMENT '문의DB';moda
