@@ -1,7 +1,7 @@
 package com.moda.adm.qna.dao;
 
-import com.moda.adm.qna.service.QnaReqDto;
-import com.moda.adm.qna.service.QnaResDto;
+import com.moda.adm.qna.QnaSearch;
+import com.moda.adm.qna.QnaDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -13,17 +13,17 @@ public interface QnaDao {
      *  @param num - 문의 일련번호(PK)
      * @return 문의 상세 정보
      */
-    QnaResDto findByNum(Long num);
-
-    /**
-     *  문의글 답변 추가
-     * @param params - 문의 정보
-     */
-    void update(QnaReqDto params);
+    QnaDto findByNum(Long num);
 
     /**
      *  문의 답변 추가
+     * @param params - 문의 정보
+     */
+    void update(QnaSearch params);
+
+    /**
+     *  문의 리스트 조회
      * @return 문의 리스트
      */
-    List<QnaResDto> findAll();
+    List<QnaDto> findAll();
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moda.adm.qna.dao.QnaDao">
+    <!-- qna 테이블 전체 컬럼 -->
+    <sql id="qnaColumns">
+        qna_num
+        , u_id
+        , qna_title
+        , qna_q
+        , qna_a
+        , qna_stat
+        , qna_date
+    </sql>
+
+    <!-- 게시글 상세정보 조회 -->
+    <select id="findByNum" parameterType="long" resultType="com.moda.adm.qna.QnaSearch">
+        SELECT
+        <include refid="qnaColumns" />
+        FROM
+        qna
+        WHERE
+        qna_num = #{value}
+    </select>
+
+
+    <!-- 게시글 수정 -->
+    <update id="update" parameterType="com.moda.adm.qna.QnaDto">
+        UPDATE qna
+        SET
+            qna_a = #{a_content}
+          , qna_stat = #{stat}
+        WHERE
+            qna_num = #{qna_num}
+    </update>
+
+    <!-- 게시글 리스트 조회 -->
+    <select id="findAll" resultType="com.moda.adm.qna.QnaSearch">
+        SELECT
+        <include refid="qnaColumns" />
+        FROM
+        qna
+        WHERE
+        qna_stat = 0
+        ORDER BY
+        qna_num ASC
+    </select>
+
+</mapper>
