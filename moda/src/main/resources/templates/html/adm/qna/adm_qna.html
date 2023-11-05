@@ -26,10 +26,10 @@
                 </thead>
                 <tbody>
                 <tr th:if="${not #lists.isEmpty(qnas)}" th:each="row, status : ${qnas}">
-                    <td th:text="${row.qna_num}"></td>
+                    <td th:text="${row.qnaNum}"></td>
                     <td th:text="${row.title}"></td>
                     <td th:text="${row.id}"></td>
-                    <td th:text="${#temporals.format(row.qna_date, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${#temporals.format(row.qnaDate, 'yyyy-MM-dd HH:mm')}"></td>
                     <td th:text="${row.stat == false ? '답변 대기' : '답변 완료'}"></td>
                 </tr>
                 <tr th:unless="${not #lists.isEmpty(qnas)}">
