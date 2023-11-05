@@ -17,12 +17,6 @@ public class QnaController {
     public String openPostList(Model model){
         List<QnaDto> qnas = qnaService.findAllQna();
         model.addAttribute("qnas", qnas);
-        for(QnaDto data: qnas) {
-            System.out.println(data);
-        }
-//        String a = "a", b = "b";
-//        model.addAttribute("a", a);
-//        model.addAttribute("b", b);
         return "html/adm/qna/adm_qna";
     }
 }

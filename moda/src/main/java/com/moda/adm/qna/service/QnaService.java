@@ -31,7 +31,7 @@ public class QnaService {
     @Transactional
     public Long updateQna(final QnaSearch params){
         qnaDao.update(params);
-        return params.getQna_num();
+        return params.getQnaNum();
     }
 
     /**
