@@ -1,130 +1,77 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>관리자 메뉴</title>
-    <style>
-        a {
-            color: #000000;
-            text-decoration: none;
-        }
-        body, html {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        .admin-container {
-            display: flex;
-            flex-direction: row;
-            height: 100%;
-        }
-
-        .menu-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .menu-logo {
-            margin: 10px;
-        }
-
-        .menu-logo img {
-            width: 230px;
-        }
-
-        .menu-box {
-            background-color: #ccc;
-            padding: 18px;
-            width: 200px;
-            height: 100%;
-        }
-
-        .menu-text {
-            display: block;
-            margin: 30px 0 0 20px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .menu-text:hover {
-            color: #666;
-        }
-
-        .content-container {
-            flex: 1;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .content-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 60px 0 40px;
-        }
-
-        .inquiry-table {
-            width: 100%;
-            border-collapse: collapse;
-            border-bottom: 1px solid black;
-            border-top: 1px solid black;
-            border-left: none;
-            border-right: none;
-            text-align: center;
-            background-color: white;
-            font-size: 16px;
-        }
-        .inquiry-table th, .inquiry-table td {
-            padding: 15px;
-        }
-        .inquiry-table th {
-            border-bottom: 1px solid black;
-            border-top: 1px solid black;
-            font-size: 18px;
-            padding: 15px;
-        }
-
-        .inquiry-checkbox {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <div class="admin-container">
-        <div class="menu-container">
-            <div class="menu-logo">
-                <img src="logo.png" alt="로고 이미지">
-            </div>
-            <div class="menu-box">
-                <a href="adm_main.html" class="menu-text">메인화면</a>
-                <a href="../user/adm_member.html" class="menu-text">회원관리</a>
-                <a href="adm_category.html" class="menu-text">카테고리 관리</a>
-                <a href="adm_product.html" class="menu-text">상품 관리</a>
-                <a href="adm_qna.html" class="menu-text">문의 관리</a>
-                <a href="adm_event.html" class="menu-text">이벤트 관리</a>
-            </div>
-        </div>
-        <div class="content-container">
-            <div class="content-title">문의 관리</div>
-            <table class="inquiry-table">
-                <tr>
-                    <th class="inquiry-checkbox">선택</th>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>등록일</th>
-                    <th>답변상태</th>
-                </tr>
-                <tr>
-                    <td class="inquiry-checkbox"><input type="checkbox"></td>
-                    <td>1</td>
-                    <td><a href="inquiry_details.html">상품에 관한 문의</a></td>
-                    <td>사용자1</td>
-                    <td>2023-10-15</td>
-                    <td>답변 대기</td>
-                </tr>
-            </table>
-        </div>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
+<th:block layout:fragment="title">
+    <title>문의 관리 페이지</title>
+</th:block>
+<th:block layout:fragment="content">
+    <div class="page_tits">
+        <h3>문의 관리</h3>
+        <p class="path"><strong>현재 위치 :</strong> <span>게시판 관리</span> <span>리스트형</span> <span>리스트</span></p>
     </div>
-</body>
+    <div class="content">
+        <section>
+            <!--/* 리스트 */-->
+            <table class="tb tb_col">
+                <colgroup>
+                    <col style="width:50px;"/><col style="width:7.5%;"/><col style="width:auto;"/><col style="width:10%;"/><col style="width:15%;"/><col style="width:7.5%;"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">등록일</th>
+                    <th scope="col">조회</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${not #lists.isEmpty(qnas)}" th:each="row, status : ${qnas}">
+                    <td th:text="${row.qna_num}"></td>
+                    <td th:text="${row.title}"></td>
+                    <td th:text="${row.id}"></td>
+                    <td th:text="${#temporals.format(row.qna_date, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${row.stat == false ? '답변 대기' : '답변 완료'}"></td>
+                </tr>
+                <tr th:unless="${not #lists.isEmpty(qnas)}">
+                    <td colspan="5">
+                        <div class="no_data_msg">검색된 결과가 없습니다.</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!--/* 페이지네이션 */-->
+            <div class="paging">
+                <a href="#" class="page_bt first">첫 페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>
+                <p><span class="on">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a></p>
+                <a href="#" class="page_bt next">다음 페이지 그룹</a><a href="#" class="page_bt last">마지막 페이지</a>
+            </div>
+        </section>
+    </div> <!--/* .content */-->
+</th:block>
 </html>
+<!--<table class="inquiry-table">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th scope="col">번호</th>-->
+<!--        <th scope="col">제목</th>-->
+<!--        <th scope="col">작성자</th>-->
+<!--        <th scope="col">등록일</th>-->
+<!--        <th scope="col">조회</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:if="${not #lists.isEmpty(qnas)}" th:each="row, status : ${qnas}">-->
+<!--        <td th:text="${row.qna_num}"></td>-->
+<!--        <td th:text="${row.title}"></td>-->
+<!--        <td th:text="${row.id}"></td>-->
+<!--        <td th:text="${#temporals.format(row.qna_date, 'yyyy-MM-dd HH:mm')}"></td>-->
+<!--        <td th:text="${row.stat == false ? '답변 대기' : '답변 완료'}"></td>-->
+<!--    </tr>-->
+<!--    <tr th:unless="${not #lists.isEmpty(qnas)}">-->
+<!--        <td colspan="5">-->
+<!--            <div class="no_data_msg">검색된 결과가 없습니다.</div>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->

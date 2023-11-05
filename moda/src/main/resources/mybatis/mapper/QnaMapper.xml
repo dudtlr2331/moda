@@ -14,7 +14,7 @@
     </sql>
 
     <!-- 게시글 상세정보 조회 -->
-    <select id="findByNum" parameterType="long" resultType="com.moda.adm.qna.QnaSearch">
+    <select id="findByNum" parameterType="long" resultType="com.moda.adm.qna.QnaDto">
         SELECT
         <include refid="qnaColumns" />
         FROM
@@ -25,7 +25,7 @@
 
 
     <!-- 게시글 수정 -->
-    <update id="update" parameterType="com.moda.adm.qna.QnaDto">
+    <update id="update" parameterType="com.moda.adm.qna.QnaSearch">
         UPDATE qna
         SET
             qna_a = #{a_content}
@@ -35,7 +35,7 @@
     </update>
 
     <!-- 게시글 리스트 조회 -->
-    <select id="findAll" resultType="com.moda.adm.qna.QnaSearch">
+    <select id="findAll" resultType="com.moda.adm.qna.QnaDto">
         SELECT
         <include refid="qnaColumns" />
         FROM
