@@ -1,7 +1,7 @@
 package com.moda.adm.post;
 
 import com.moda.adm.post.service.PostService;
-import com.moda.cmm.MessageDto;
+import com.moda.cmm.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +16,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
+    private final FileService fileService;
+    private final FileUtils fileUtils;
+
+    // 신규 게시글 생성
+    @PostMapping("/post/save.do")
+    public String savePost(final PostSearch params, Model model) {
+        Long id = postService.savePost(params);
+        List<FileRequest> files = fileUtils.uploadFiles(params.getFiles());
+        fileService.saveFiles(id, files);
+        MessageDto message = new MessageDto("게시글 생성이 완료되었습니다.", "/post/list.do", RequestMethod.GET, null);
+        return showMessageAndRedirect(message, model);
+    }
 
     // 게시글 작성 페이지
     @GetMapping("/post/write.do")
@@ -25,14 +37,6 @@ public class PostController {
             model.addAttribute("post", post);
         }
         return "html/write";
-    }
-
-    // 신규 게시글 생성
-    @PostMapping("/post/save.do")
-    public String savePost(final PostSearch params, Model model) {
-        postService.savePost(params);
-        MessageDto message = new MessageDto("게시글 생성이 완료되었습니다.", "/post/list.do", RequestMethod.GET, null);
-        return showMessageAndRedirect(message, model);
     }
 
     // 게시글 리스트 페이지
@@ -54,7 +58,25 @@ public class PostController {
     // 기존 게시글 수정
     @PostMapping("/post/update.do")
     public String updatePost(final PostSearch params, Model model) {
+
+        // 1. 게시글 정보 수정
         postService.updatePost(params);
+
+        // 2. 파일 업로드 (to disk)
+        List<FileRequest> uploadFiles = fileUtils.uploadFiles(params.getFiles());
+
+        // 3. 파일 정보 저장 (to database)
+        fileService.saveFiles(params.getId(), uploadFiles);
+
+        // 4. 삭제할 파일 정보 조회 (from database)
+        List<FileResponse> deleteFiles = fileService.findAllFileByIds(params.getRemoveFileIds());
+
+        // 5. 파일 삭제 (from disk)
+        fileUtils.deleteFiles(deleteFiles);
+
+        // 6. 파일 삭제 (from database)
+        fileService.deleteAllFileByIds(params.getRemoveFileIds());
+
         MessageDto message = new MessageDto("게시글 수정이 완료되었습니다.", "/post/list.do", RequestMethod.GET, null);
         return showMessageAndRedirect(message, model);
     }
