@@ -21,16 +21,16 @@
                     <th scope="col">작성자</th>
                     <th scope="col">제목</th>
                     <th scope="col">등록일</th>
-                    <th scope="col">조회</th>
+                    <th scope="col">답변</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:if="${not #lists.isEmpty(qnas)}" th:each="row, status : ${qnas}">
                     <td th:text="${row.qnaNum}"></td>
-                    <td th:text="${row.id}"></td>
-                    <td th:text="${row.title}"></td>
+                    <td th:text="${row.UId}"></td>
+                    <td th:text="${row.qnaTitle}"></td>
                     <td th:text="${#temporals.format(row.qnaDate, 'yyyy-MM-dd')}"></td>
-                    <td><a th:text="${row.stat == 0 ? '답변 대기' : '답변 완료'}"></a></td>
+                    <td><button href="#">답변하기</button></td>
                 </tr>
                 <tr th:unless="${not #lists.isEmpty(qnas)}">
                     <td colspan="5">
