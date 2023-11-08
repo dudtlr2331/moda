@@ -33,25 +33,25 @@
 
                     <tr>
                         <th>이름 <span class="es">필수 입력</span></th>
-                        <td colspan="3"><input type="text" id="uName" name="uName" maxlength="10" placeholder="이름을 입력해 주세요." th:value="${user.uName}"/></td>
+                        <td colspan="3"><input type="text" id="uName" name="uName" maxlength="15" placeholder="이름을 입력해 주세요." th:value="${user.uName}"/></td>
                     </tr>
 
                     <tr>
                         <th>이메일 <span class="es">필수 입력</span></th>
-                        <td colspan="3"><input type="text" id="uEmail" name="uEmail" maxlength="10" placeholder="이메일을 입력해 주세요." th:value="${user.uEmail}"/></td>
+                        <td colspan="3"><input type="text" id="uEmail" name="uEmail" maxlength="50" placeholder="이메일을 입력해 주세요." th:value="${user.uEmail}"/></td>
                     </tr>
 
                     <tr>
                         <th>우편번호</th>
-                        <td colspan="3"><input type="text" id="uPost" name="uPost" cols="50" rows="10" placeholder="우편번호를 입력해 주세요"  th:value="${user.uPost}"/></td>
+                        <td colspan="3"><input type="text" id="uPost" name="uPost" maxlength="50" placeholder="우편번호를 입력해 주세요"  th:value="${user.uPost}"/></td>
                     </tr>
                     <tr>
                         <th>주소</th>
-                        <td colspan="3"><input id="uAddr" name="uAddr" cols="50" rows="10" placeholder="주소를 입력해 주세요" th:value="${user.uAddr}"/></td>
+                        <td colspan="3"><input type="text" id="uAddr" name="uAddr" maxlength="100" placeholder="주소를 입력해 주세요" th:value="${user.uAddr}"/></td>
                     </tr>
                     <tr>
                         <th>연락처 <span class="es">필수 입력</span></th>
-                        <td colspan="3"><input id="uPhone" name="uPhone" cols="50" rows="10" placeholder="연락처를 입력해 주세요" th:value="${user.uPhone}"/></td>
+                        <td colspan="3"><input type="text" id="uPhone" name="uPhone" maxlength="15" placeholder="연락처를 입력해 주세요" th:value="${user.uPhone}"/></td>
                     </tr>
                     </tbody>
                 </table>
