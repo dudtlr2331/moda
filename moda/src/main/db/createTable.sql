@@ -113,19 +113,19 @@ CREATE TABLE IF NOT EXISTS 'users' (
 
 /* QnA 테이블 */
 CREATE TABLE `qna` (
-     `qnaNum`       bigint(20)    NOT NULL AUTO_INCREMENT COMMENT 'PK',
-     `uId`          VARCHAR(20)  NOT NULL COMMENT '작성자 ID',
-     `qnaTitle`     VARCHAR(100)   NOT NULL COMMENT '제목',
-     `qContent`         VARCHAR(3000) NOT NULL COMMENT '질문 내용',
-     `aContent`         VARCHAR(3000) NULL COMMENT '답변 내용',
-     `qnaStat`      tinyint(1)    NOT NULL DEFAULT 0 COMMENT '답변대기:0, 답변종료:1',
-     `qnaDate`  	 datetime      NOT NULL DEFAULT current_timestamp() COMMENT '문의일',
+     `qna_num`       bigint(20)    NOT NULL AUTO_INCREMENT COMMENT 'PK',
+     `u_id`          VARCHAR(20)  NOT NULL COMMENT '작성자 ID',
+     `qna_title`     VARCHAR(100)   NOT NULL COMMENT '제목',
+     `qna_q`         VARCHAR(3000) NOT NULL COMMENT '질문 내용',
+     `qna_a`         VARCHAR(3000) NULL COMMENT '답변 내용',
+     `qna_stat`      tinyint(1)    NOT NULL DEFAULT 0 COMMENT '답변대기:0, 답변종료:1',
+     `qna_date`  	 datetime      NOT NULL DEFAULT current_timestamp() COMMENT '문의일',
      PRIMARY KEY (`qnaNum`)
 ) COMMENT '문의DB';
 /* QnA 테이블 예시 데이터 */
-INSERT INTO `moda`.`qna` (`uId`, `qnaTitle`, `qContent`) VALUES ('test123', '문의 입니다.', '이렇게 팔면 안됩니다!');
-INSERT INTO `moda`.`qna` (`uId`, `qnaTitle`, `qContent`) VALUES ('test234', '문의 합니다.', '이게 맞는건가..싶습니다.');
-INSERT INTO `moda`.`qna` (`uId`, `qnaTitle`, `qContent`) VALUES ('test345', '문의 있습니다.', '잘 생각해보세요.');
-INSERT INTO `moda`.`qna` (`uId`, `qnaTitle`, `qContent`) VALUES ('test6363', '꼭 봐주세요.', '환불은 안되나요?');
-INSERT INTO `moda`.`qna` (`uId`, `qnaTitle`, `qContent`, `aContent`, `qnaStat`) VALUES ('ddd123', '환불해주세요.', '청바지 샀는데 환불 안되면 고소합니다.', '환불 해드렸습니다.', '1');
-INSERT INTO `moda`.`qna` (`uId`, `qnaTitle`, `qContent`, `aContent`, `qnaStat`) VALUES ('aaa6234', '교환가능?', '교환해주세요. 사이즈가 안맞네요.', '교환 해드렸습니다.', '1');
+INSERT INTO `moda`.`qna` (`u_id`, `qna_title`, `qna_q`) VALUES ('test123', '문의 입니다.', '이렇게 팔면 안됩니다!');
+INSERT INTO `moda`.`qna` (`u_id`, `qna_title`, `qna_q`) VALUES ('test234', '문의 합니다.', '이게 맞는건가..싶습니다.');
+INSERT INTO `moda`.`qna` (`u_id`, `qna_title`, `qna_q`) VALUES ('test345', '문의 있습니다.', '잘 생각해보세요.');
+INSERT INTO `moda`.`qna` (`u_id`, `qna_title`, `qna_q`) VALUES ('test6363', '꼭 봐주세요.', '환불은 안되나요?');
+INSERT INTO `moda`.`qna` (`u_id`, `qna_title`, `qna_q`, `qna_a`, `qna_stat`) VALUES ('ddd123', '환불해주세요.', '청바지 샀는데 환불 안되면 고소합니다.', '환불 해드렸습니다.', '1');
+INSERT INTO `moda`.`qna` (`u_id`, `qna_title`, `qna_q`, `qna_a`, `qna_stat`) VALUES ('aaa6234', '교환가능?', '교환해주세요. 사이즈가 안맞네요.', '교환 해드렸습니다.', '1');
