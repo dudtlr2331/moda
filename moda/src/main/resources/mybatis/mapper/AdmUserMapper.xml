@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moda.adm.user.dao.AdmUserDao">
+    <!--유저의 전체 칼럼-->
+    <sql id="userListColumns">
+        u_id
+        , u_name
+        , u_date
+        , u_admin
+    </sql>
+
+    <sql id="userPassLess">
+        u_id
+        , u_name
+        , u_email
+        , u_post
+        , u_addr
+        , u_phone
+        , u_date
+        , u_admin
+    </sql>
+
+    <!-- 유저 리스트 조회 -->
+    <select id="findAll" resultType="com.moda.adm.user.AdmUserDto">
+        SELECT
+        <include refid="userListColumns" />
+        FROM
+        users
+        ORDER BY
+        u_date DESC
+    </select>
+
+    <!-- 회원정보 업데이트 -->
+    <update id="updateUser" parameterType="com.moda.adm.user.AdmUserSearch">
+        UPDATE users
+        SET
+            u_name = #{uName}
+          , u_email = #{uEmail}
+          , u_post = #{uPost}
+          , u_addr = #{uAddr}
+          , u_phone = #{uPhone}
+          , u_admin = #{uAdmin}
+        WHERE
+            u_id = #{uId}
+    </update>
+
+
+    <!-- 회원정보 삭제 -->
+    <delete id="deleteUser" parameterType="String">
+        DELETE
+        FROM
+        users
+        WHERE
+            u_id = #{uId}
+    </delete>
+    <!-- 회원 상세정보 조회 -->
+    <select id="findById" parameterType="String" resultType="com.moda.adm.user.AdmUserSearch">
+        SELECT
+        <include refid="userPassLess" />
+        FROM
+        users
+        WHERE
+        u_id = #{uId}
+    </select>
+
+</mapper>

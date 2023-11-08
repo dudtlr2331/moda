@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="layout/basic">
+<th:block layout:fragment="title">
+    <title>글작성 페이지</title>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="page_tits">
+        <h3>게시판 관리</h3>
+        <p class="path"><strong>현재 위치 :</strong> <span>회원 관리</span></p>
+    </div>
+
+    <div class="content">
+        <section>
+            <form id="saveForm" method="post" autocomplete="off">
+                <!--/* 회원정보 수정인 경우, 서버로 전달할 회원 아이디 (PK) */-->
+                <input type="hidden" id="id" name="id" th:if="${user != null}" th:value="${user.uId}" />
+
+                <!--/* 서버로 전달할 권한 여부 */-->
+                <input type="hidden" id="uAdmin" name="uAdmin" />
+                <table class="tb tb_row">
+                    <colgroup>
+                        <col style="width:15%;" /><col style="width:35%;" /><col style="width:15%;" /><col style="width:35%;" />
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row">관리자 권한</th>
+                        <td><span class="chkbox"><input type="checkbox" id="isAdmin" name="isAdmin" class="chk" /><i></i><label for="isAdmin"> 설정</label></span></td>
+
+                        <th scope="row">아이디</th>
+                        <td colspan="3"><input type="text" id="uId" name="uId" th:value="${user.uId}" readonly /></td>
+                    </tr>
+
+                    <tr>
+                        <th>이름 <span class="es">필수 입력</span></th>
+                        <td colspan="3"><input type="text" id="uName" name="uName" maxlength="10" placeholder="이름을 입력해 주세요." th:value="${user.uName}"/></td>
+                    </tr>
+
+                    <tr>
+                        <th>이메일 <span class="es">필수 입력</span></th>
+                        <td colspan="3"><input type="text" id="uEmail" name="uEmail" maxlength="10" placeholder="이메일을 입력해 주세요." th:value="${user.uEmail}"/></td>
+                    </tr>
+
+                    <tr>
+                        <th>우편번호</th>
+                        <td colspan="3"><input type="text" id="uPost" name="uPost" cols="50" rows="10" placeholder="우편번호를 입력해 주세요"  th:value="${user.uPost}"/></td>
+                    </tr>
+                    <tr>
+                        <th>주소</th>
+                        <td colspan="3"><input id="uAddr" name="uAddr" cols="50" rows="10" placeholder="주소를 입력해 주세요" th:value="${user.uAddr}"/></td>
+                    </tr>
+                    <tr>
+                        <th>연락처 <span class="es">필수 입력</span></th>
+                        <td colspan="3"><input id="uPhone" name="uPhone" cols="50" rows="10" placeholder="연락처를 입력해 주세요" th:value="${user.uPhone}"/></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+            <p class="btn_set">
+                <button type="button" id="saveBtn" onclick="saveUser();" class="btns btn_st3 btn_mid">저장</button>
+                <a th:href="@{/adm/userList}" class="btns btn_bdr3 btn_mid">뒤로</a>
+            </p>
+        </section>
+    </div> <!--/* .content */-->
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        window.onload = () => {
+            renderUserInfo();
+        }
+        // 게시글 상세정보 렌더링
+        function renderUserInfo() {
+            const user = [[ ${user} ]];
+            const form = document.getElementById('saveForm');
+            form.isAdmin.checked = user['uAdmin'] === '1' ? true : false;
+        }
+
+
+        // 게시글 저장(수정)
+        function saveUser() {
+            const form = document.getElementById('saveForm');
+            const fields = [form.uId, form.uName, form.uEmail,form.uPost , form.uAddr , form.uPhone];
+            const fieldNames = ['아이디', '이름', '이메일' , '우편 번호' , '주소' , '연락처'];
+
+            for (let i = 0, len = fields.length; i < len; i++) {
+                isValid(fields[i], fieldNames[i]);
+            }
+
+            document.getElementById('saveBtn').disabled = true;
+            form.uAdmin.value = form.isAdmin.checked === true? '1':'0';
+            form.action = '/adm/userUpdate';
+            form.submit();
+        }
+        /*]]>*/
+    </script>
+
+</th:block>
+</html>
