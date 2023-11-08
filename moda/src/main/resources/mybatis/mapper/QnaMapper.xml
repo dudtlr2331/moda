@@ -4,13 +4,13 @@
 <mapper namespace="com.moda.adm.qna.dao.QnaDao">
     <!-- qna 테이블 전체 컬럼 -->
     <sql id="qnaColumns">
-        qnaNum
-        , uId
-        , qnaTitle
-        , qContent
-        , aContent
-        , qnaStat
-        , qnaDate
+        qna_num
+        , u_id
+        , qna_Title
+        , qna_q
+        , qna_a
+        , qna_stat
+        , qna_date
     </sql>
 
     <!-- 게시글 상세정보 조회 -->
@@ -20,7 +20,7 @@
         FROM
         qna
         WHERE
-        qnaNum = #{value}
+        qna_num = #{value}
     </select>
 
 
@@ -28,18 +28,18 @@
     <update id="update" parameterType="com.moda.adm.qna.QnaSearch">
         UPDATE qna
         SET
-            aContent = #{a_content}
-          , qnaStat = #{stat}
+            qna_a = #{a_content}
+          , qna_stat = #{stat}
         WHERE
-            qnaNum = #{qna_num}
+            qna_num = #{qna_num}
     </update>
 
     <!-- 게시글 리스트 조회 -->
     <select id="findAll" resultType="com.moda.adm.qna.QnaDto">
         SELECT <include refid="qnaColumns" />
         FROM qna
-        WHERE qnaStat = 0
-        ORDER BY qnaNum ASC
+        WHERE qna_stat = 0
+        ORDER BY qna_num ASC
     </select>
 
 </mapper>
