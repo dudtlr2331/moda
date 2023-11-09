@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
+<th:block layout:fragment="title">
+    <title>상세 페이지</title>
+</th:block>
+
+<th:block layout:fragment="content">
+    <div class="page_tits">
+        <h3>상품 관리</h3>
+        <p class="path"><strong>현재 위치 :</strong> <span>상품 관리</span> <span>리스트형</span> <span>상세정보</span></p>
+    </div>
+
+    <div class="content">
+        <section>
+            <table class="tb tb_row">
+                <colgroup>
+                    <col style="width:10%;"/><col style="width:23%;"/><col style="width:10%;"/><col style="width:23%;"/>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row">글 유형</th>
+                    <td th:text="test"></td>
+
+                    <th scope="row">등록일</th>
+                    <td colspan="3">[[ ${rvo.prodDate} ]]</td>
+                </tr>
+                <tr>
+                    <th scope="row">번호</th>
+                    <td colspan="3">[[ ${rvo.prodCode} ]]</td>
+
+                    <th scope="row">제목</th>
+                    <td>[[ ${rvo.prodName} ]]</td>
+                </tr>
+                <tr>
+                    <th scope="row">가격</th>
+                    <td colspan="3">[[ ${rvo.prodPrice} ]]</td>
+                </tr>
+                <tr>
+                    <th scope="row">개수</th>
+                    <td colspan="3">[[ ${rvo.prodStock} ]]</td>
+                </tr>
+                <tr>
+                    <th scope="row">첨부파일</th>
+                    <td id="files" colspan="3">
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="btn_set">
+                <button type="button" onclick="goWritePage();" class="btns btn_bdr4 btn_mid">수정</button>
+                <button type="button" onclick="deletePost();" class="btns btn_bdr1 btn_mid">삭제</button>
+                <button type="button" onclick="goListPage();" class="btns btn_bdr3 btn_mid">뒤로</button>
+            </p>
+
+            <!--/* 댓글 작성 */-->
+            <div class="cm_write">
+                <fieldset>
+                    <legend class="skipinfo">댓글 입력</legend>
+                    <div class="cm_input">
+                        <p><textarea id="content" name="content" onkeyup="countingLength(this);" cols="90" rows="4" placeholder="댓글을 입력해 주세요."></textarea></p>
+                        <span><button type="button" class="btns" onclick="saveComment();">등 록</button> <i id="counter">0/300자</i></span>
+                    </div>
+                </fieldset>
+            </div>
+
+            <!--/* 댓글 렌더링 영역 */-->
+            <div class="cm_list">
+
+            </div>
+
+            <!--/* 페이지네이션 렌더링 영역 */-->
+            <div class="paging">
+
+            </div>
+        </section>
+    </div> <!--/* .content */-->
+
+    <!--/* 댓글 수정 popup */-->
+    <div id="commentUpdatePopup" class="popLayer">
+        <h3>댓글 수정</h3>
+        <div class="pop_container">
+            <table class="tb tb_row tl">
+                <colgroup>
+                    <col style="width:30%;" /><col style="width:70%;" />
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th scope="row">작성자<span class="es">필수 입력</span></th>
+                    <td><input type="text" id="modalWriter" name="modalWriter" placeholder="작성자를 입력해 주세요." /></td>
+                </tr>
+                <tr>
+                    <th scope="row">내용<span class="es">필수 입력</span></th>
+                    <td><textarea id="modalContent" name="modalContent" cols="90" rows="10" placeholder="수정할 내용을 입력해 주세요."></textarea></td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="btn_set">
+                <button type="button" id="commentUpdateBtn" class="btns btn_st2">수정</button>
+                <button type="button" class="btns btn_bdr2" onclick="closeCommentUpdatePopup();">취소</button>
+            </p>
+        </div>
+        <button type="button" class="btn_close" onclick="closeCommentUpdatePopup();"><span><i class="far fa-times-circle"></i></span></button>
+    </div>
+</th:block>
+</html>
