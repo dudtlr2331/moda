@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moda.moda.product.dao.ProdDao">
+
+    <!-- product 테이블 전체 컬럼 -->
+    <sql id="prodColumns">
+        prod_code
+        , cate_code
+        , prod_name
+        , prod_stock
+        , prod_desc
+        , prod_dete
+        , prod_price
+        , prod_img
+        , prod_img_dtl
+        , prod_dcnt
+    </sql>
+
+    <!-- 상품 리스트 -->
+    <select id="selectProdList" resultType="com.moda.moda.product.ProdVO">
+        SELECT
+        <include refid="prodColumns" />
+        FROM product;
+    </select>
+
+    <!-- 상품 검색 -->
+    <select id="selectProdOne" resultType="com.moda.moda.product.ProdVO">
+        SELECT *
+        FROM product
+        WHERE prod_code = #{prodCode};
+    </select>
+
+    <!-- 상품 등록 -->
+    <insert id="addProduct" parameterType="com.moda.moda.product.ProdVO" useGeneratedKeys="true" keyProperty="prodCode">
+        INSERT INTO product(
+         <include refid="prodColumns" />
+        ) VALUES
+        ( #{prodCode}
+        , #{cateCode}
+        , #{prodName}
+        , #{prodStock}
+        , #{prodDesc}
+        , NOW()
+        , #{prodPrice}
+        , #{prodImg}
+        , #{prodImgDtl}
+        , #{prodDcnt} )
+    </insert>
+
+    <!-- 상품 수정 -->
+    <update id="updateProd" parameterType="com.moda.moda.product.ProdVO">
+        UPDATE product
+        SET
+            cate_code = #{cateCode}
+          , prod_name = #{prodName}
+          , prod_stock = #{prodStock}
+          , prod_desc = #{prodDesc}
+          , prod_price = #{prodPrice}
+        WHERE
+            prod_code = #{prodCode}
+    </update>
+
+
+    <!-- 상품 삭제 -->
+    <delete id="deleteProd" parameterType="int">
+        DELETE FROM product
+        WHERE 1=1
+        AND prod_code = #{prodCode}
+    </delete>
+
+</mapper>
+
