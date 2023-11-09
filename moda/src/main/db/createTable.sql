@@ -120,7 +120,7 @@ CREATE TABLE `qna` (
      `qna_a`         VARCHAR(3000) NULL COMMENT '답변 내용',
      `qna_stat`      tinyint(1)    NOT NULL DEFAULT 0 COMMENT '답변대기:0, 답변종료:1',
      `qna_date`  	 datetime      NOT NULL DEFAULT current_timestamp() COMMENT '문의일',
-     PRIMARY KEY (`qnaNum`)
+     PRIMARY KEY (`qna_num`)
 ) COMMENT '문의DB';
 /* QnA 테이블 예시 데이터 */
 INSERT INTO `moda`.`qna` (`u_id`, `qna_title`, `qna_q`) VALUES ('test123', '문의 입니다.', '이렇게 팔면 안됩니다!');
