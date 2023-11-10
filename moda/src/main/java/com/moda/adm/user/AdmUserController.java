@@ -1,11 +1,8 @@
 package com.moda.adm.user;
 
-import com.moda.adm.post.PostDto;
-import com.moda.adm.post.PostSearch;
 import com.moda.adm.user.service.AdmUserService;
 import com.moda.cmm.MessageDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.DriverManager;
 import java.util.List;
 
 @Controller
@@ -26,14 +22,14 @@ public class AdmUserController {
     public String openUserList(Model model) {
         List<AdmUserDto> users = admUserService.findAllUser();
         model.addAttribute("users", users);
-        return "html/adm/user/list";
+        return "html/adm/user/userlist";
     }
     // 유저 상세 페이지
     @GetMapping("/adm/userView")
     public String openUserView(@RequestParam final String id, Model model) {
         AdmUserSearch user = admUserService.findUserById(id);
         model.addAttribute("user", user);
-        return "html/adm/user/view";
+        return "html/adm/user/userview";
     }
 
     // 기존 게시글 수정
@@ -63,6 +59,6 @@ public class AdmUserController {
             AdmUserSearch user = admUserService.findUserById(id);
             model.addAttribute("user", user);
         }
-        return "html/adm/user/write";
+        return "html/adm/user/userwrite";
     }
 }

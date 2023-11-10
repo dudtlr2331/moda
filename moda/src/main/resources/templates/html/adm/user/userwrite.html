@@ -6,7 +6,7 @@
 
 <th:block layout:fragment="content">
     <div class="page_tits">
-        <h3>게시판 관리</h3>
+        <h3>회원 관리</h3>
         <p class="path"><strong>현재 위치 :</strong> <span>회원 관리</span></p>
     </div>
 
@@ -73,9 +73,8 @@
         }
         // 게시글 상세정보 렌더링
         function renderUserInfo() {
-            const user = [[ ${user} ]];
             const form = document.getElementById('saveForm');
-            form.isAdmin.checked = user['uAdmin'] === '1' ? true : false;
+            form.isAdmin.checked = [[ ${user.uAdmin} ]] == '1' ? true : false;
         }
 
 

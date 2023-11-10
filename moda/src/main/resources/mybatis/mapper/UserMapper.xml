@@ -31,7 +31,7 @@
         , #{userAddr}
         , #{userPhone}
         , NOW()
-        , '1')
+        , '0')
     </insert>
 
     <select id="userLogin" resultType="com.moda.moda.user.UserVO">
