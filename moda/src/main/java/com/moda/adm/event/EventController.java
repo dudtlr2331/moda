@@ -1,6 +1,6 @@
-package com.moda.adm.post;
+package com.moda.adm.event;
 
-import com.moda.adm.post.service.PostService;
+import com.moda.adm.event.service.EventService;
 import com.moda.cmm.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,53 +14,53 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class PostController {
-    private final PostService postService;
+public class EventController {
+    private final EventService eventService;
     private final FileService fileService;
     private final FileUtils fileUtils;
 
     // 신규 게시글 생성
-    @PostMapping("/post/save.do")
-    public String savePost(final PostSearch params, Model model) {
-        Long id = postService.savePost(params);
+    @PostMapping("/adm/event/save.do")
+    public String savePost(final EventSearch params, Model model) {
+        Long id = eventService.saveEvent(params);
         List<FileRequest> files = fileUtils.uploadFiles(params.getFiles());
         fileService.saveFiles(id, files);
-        MessageDto message = new MessageDto("게시글 생성이 완료되었습니다.", "/post/list.do", RequestMethod.GET, null);
+        MessageDto message = new MessageDto("게시글 생성이 완료되었습니다.", "/adm/event/list.do", RequestMethod.GET, null);
         return showMessageAndRedirect(message, model);
     }
 
     // 게시글 작성 페이지
-    @GetMapping("/post/write.do")
+    @GetMapping("/adm/event/write.do")
     public String openPostWrite(@RequestParam(value = "id", required = false) final Long id, Model model) {
         if (id != null) {
-            PostDto post = postService.findPostById(id);
+            EventDto post = eventService.findPostById(id);
             model.addAttribute("post", post);
         }
-        return "html/write";
+        return "html/adm/event/write";
     }
 
     // 게시글 리스트 페이지
-    @GetMapping("/post/list.do")
+    @GetMapping("/adm/event/list.do")
     public String openPostList(Model model) {
-        List<PostDto> posts = postService.findAllPost();
+        List<EventDto> posts = eventService.findAllEvent();
         model.addAttribute("posts", posts);
-        return "html/list";
+        return "html/adm/event/list";
     }
 
     // 게시글 상세 페이지
-    @GetMapping("/post/view.do")
+    @GetMapping("/adm/event/view.do")
     public String openPostView(@RequestParam final Long id, Model model) {
-        PostDto post = postService.findPostById(id);
+        EventDto post = eventService.findPostById(id);
         model.addAttribute("post", post);
-        return "html/view";
+        return "html/adm/event/view";
     }
 
     // 기존 게시글 수정
-    @PostMapping("/post/update.do")
-    public String updatePost(final PostSearch params, Model model) {
+    @PostMapping("/adm/event/update.do")
+    public String updatePost(final EventSearch params, Model model) {
 
         // 1. 게시글 정보 수정
-        postService.updatePost(params);
+        eventService.updateEvent(params);
 
         // 2. 파일 업로드 (to disk)
         List<FileRequest> uploadFiles = fileUtils.uploadFiles(params.getFiles());
@@ -77,15 +77,15 @@ public class PostController {
         // 6. 파일 삭제 (from database)
         fileService.deleteAllFileByIds(params.getRemoveFileIds());
 
-        MessageDto message = new MessageDto("게시글 수정이 완료되었습니다.", "/post/list.do", RequestMethod.GET, null);
+        MessageDto message = new MessageDto("게시글 수정이 완료되었습니다.", "/adm/event/list.do", RequestMethod.GET, null);
         return showMessageAndRedirect(message, model);
     }
 
     // 게시글 삭제
-    @PostMapping("/post/delete.do")
+    @PostMapping("/adm/event/delete.do")
     public String deletePost(@RequestParam final Long id, Model model) {
-        postService.deletePost(id);
-        MessageDto message = new MessageDto("게시글 삭제가 완료되었습니다.", "/post/list.do", RequestMethod.GET, null);
+        eventService.deleteEvent(id);
+        MessageDto message = new MessageDto("게시글 삭제가 완료되었습니다.", "/adm/event/list.do", RequestMethod.GET, null);
         return showMessageAndRedirect(message, model);
     }
 

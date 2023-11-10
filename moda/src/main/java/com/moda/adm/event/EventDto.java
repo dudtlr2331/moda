@@ -1,11 +1,11 @@
-package com.moda.adm.post;
+package com.moda.adm.event;
 
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class PostDto {
+public class EventDto {
 
     private Long id;                       // PK
     private String title;                  // 제목

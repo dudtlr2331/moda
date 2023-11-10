@@ -1,4 +1,4 @@
-package com.moda.adm.post;
+package com.moda.adm.event;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PostSearch {
+public class EventSearch {
     private Long id;             // PK
     private String title;        // 제목
     private String content;      // 내용

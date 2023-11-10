@@ -1,8 +1,8 @@
-package com.moda.adm.post.service;
+package com.moda.adm.event.service;
 
-import com.moda.adm.post.PostDto;
-import com.moda.adm.post.PostSearch;
-import com.moda.adm.post.dao.PostDao;
+import com.moda.adm.event.EventDto;
+import com.moda.adm.event.EventSearch;
+import com.moda.adm.event.dao.EventDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +11,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PostServiceImpl implements PostService {
-    private final PostDao postDao;
+public class EventServiceImpl implements EventService {
+    private final EventDao eventDao;
 
     /**
      * 게시글 저장
@@ -20,8 +20,8 @@ public class PostServiceImpl implements PostService {
      * @return Generated PK
      */
     @Transactional
-    public Long savePost(final PostSearch params) {
-        postDao.save(params);
+    public Long saveEvent(final EventSearch params) {
+        eventDao.save(params);
         return params.getId();
     }
 
@@ -30,8 +30,8 @@ public class PostServiceImpl implements PostService {
      * @param id - PK
      * @return 게시글 상세정보
      */
-    public PostDto findPostById(final Long id) {
-        return postDao.findById(id);
+    public EventDto findPostById(final Long id) {
+        return eventDao.findById(id);
     }
 
     /**
@@ -40,8 +40,8 @@ public class PostServiceImpl implements PostService {
      * @return PK
      */
     @Transactional
-    public Long updatePost(final PostSearch params) {
-        postDao.update(params);
+    public Long updateEvent(final EventSearch params) {
+        eventDao.update(params);
         return params.getId();
     }
 
@@ -50,8 +50,8 @@ public class PostServiceImpl implements PostService {
      * @param id - PK
      * @return PK
      */
-    public Long deletePost(final Long id) {
-        postDao.deleteById(id);
+    public Long deleteEvent(final Long id) {
+        eventDao.deleteById(id);
         return id;
     }
 
@@ -59,8 +59,8 @@ public class PostServiceImpl implements PostService {
      * 게시글 리스트 조회
      * @return 게시글 리스트
      */
-    public List<PostDto> findAllPost() {
-        return postDao.findAll();
+    public List<EventDto> findAllEvent() {
+        return eventDao.findAll();
     }
 
 }

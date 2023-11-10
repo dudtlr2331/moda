@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.moda.adm.post.dao.PostDao">
+<mapper namespace="com.moda.adm.event.dao.EventDao">
 
     <!-- tb_post 테이블 전체 컬럼 -->
-    <sql id="postColumns">
+    <sql id="eventColumns">
         id
         , title
         , content
@@ -16,11 +16,10 @@
         , modified_date
     </sql>
 
-
     <!-- 게시글 저장 -->
-    <insert id="save" parameterType="com.moda.adm.post.PostSearch" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="com.moda.adm.event.EventSearch" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO tb_post (
-        <include refid="postColumns" />
+        <include refid="eventColumns" />
         ) VALUES (
         #{id}
         , #{title}
@@ -36,9 +35,9 @@
 
 
     <!-- 게시글 상세정보 조회 -->
-    <select id="findById" parameterType="long" resultType="com.moda.adm.post.PostDto">
+    <select id="findById" parameterType="long" resultType="com.moda.adm.event.EventDto">
         SELECT
-        <include refid="postColumns" />
+        <include refid="eventColumns" />
         FROM
         tb_post
         WHERE
@@ -47,7 +46,7 @@
 
 
     <!-- 게시글 수정 -->
-    <update id="update" parameterType="com.moda.adm.post.PostSearch">
+    <update id="update" parameterType="com.moda.adm.event.EventSearch">
         UPDATE tb_post
         SET
             modified_date = NOW()
@@ -71,9 +70,9 @@
 
 
     <!-- 게시글 리스트 조회 -->
-    <select id="findAll" resultType="com.moda.adm.post.PostDto">
+    <select id="findAll" resultType="com.moda.adm.event.EventDto">
         SELECT
-        <include refid="postColumns" />
+        <include refid="eventColumns" />
         FROM
         tb_post
         WHERE

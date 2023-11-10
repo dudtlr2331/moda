@@ -177,7 +177,7 @@
       })
 
       const formHtml = `
-                    <form id="deleteForm" action="/post/delete.do" method="post">
+                    <form id="deleteForm" action="/adm/event/delete.do" method="post">
                         ${inputHtml}
                     </form>
                 `;
@@ -191,7 +191,7 @@
 
     // 게시글 수정 페이지로 이동
     function goWritePage() {
-      location.href = '/post/write.do' + location.search;
+      location.href = '/adm/event/write.do' + location.search;
     }
 
 
@@ -199,7 +199,7 @@
     function goListPage() {
       const queryString = new URLSearchParams(location.search);
       queryString.delete('id');
-      location.href = '/post/list.do' + '?' + queryString.toString();
+      location.href = '/adm/event/list.do' + '?' + queryString.toString();
     }
 
 

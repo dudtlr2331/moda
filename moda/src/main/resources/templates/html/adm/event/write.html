@@ -187,7 +187,7 @@
             document.getElementById('saveBtn').disabled = true;
             form.noticeYn.value = form.isNotice.checked;
             form.removeFileIds.value = removeFileId.getAll().join();
-            form.action = [[ ${post == null} ]] ? '/post/save.do' : '/post/update.do';
+            form.action = [[ ${post == null} ]] ? '/adm/event/save.do' : '/adm/event/update.do';
             form.submit();
         }
 
@@ -196,7 +196,7 @@
         function goListPage() {
             const queryString = new URLSearchParams(location.search);
             queryString.delete('id');
-            location.href = '/post/list.do' + '?' + queryString.toString();
+            location.href = '/adm/event/list.do' + '?' + queryString.toString();
         }
 
 

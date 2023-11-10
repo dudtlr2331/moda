@@ -1,32 +1,32 @@
-package com.moda.adm.post.dao;
+package com.moda.adm.event.dao;
 
-import com.moda.adm.post.PostDto;
-import com.moda.adm.post.PostSearch;
+import com.moda.adm.event.EventDto;
+import com.moda.adm.event.EventSearch;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
-public interface PostDao {
+public interface EventDao {
 
     /**
      * 게시글 저장
      * @param params - 게시글 정보
      */
-    void save(PostSearch params);
+    void save(EventSearch params);
 
     /**
      * 게시글 상세정보 조회
      * @param id - PK
      * @return 게시글 상세정보
      */
-    PostDto findById(Long id);
+    EventDto findById(Long id);
 
     /**
      * 게시글 수정
      * @param params - 게시글 정보
      */
-    void update(PostSearch params);
+    void update(EventSearch params);
 
     /**
      * 게시글 삭제
@@ -38,7 +38,7 @@ public interface PostDao {
      * 게시글 리스트 조회
      * @return 게시글 리스트
      */
-    List<PostDto> findAll();
+    List<EventDto> findAll();
 
     /**
      * 게시글 수 카운팅
