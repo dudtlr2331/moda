@@ -1,12 +1,8 @@
 package com.moda.moda;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.moda.adm.post.PostDto;
-import com.moda.adm.post.PostSearch;
-import com.moda.adm.post.dao.PostDao;
-import com.moda.adm.post.service.PostService;
+import com.moda.adm.event.EventDto;
+import com.moda.adm.event.EventSearch;
+import com.moda.adm.event.service.EventService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,18 +14,18 @@ public class PostMapperTest {
 //    @Autowired PostDao postDao;
 
     @Autowired
-    PostService postService;
+    EventService postService;
 
     @Test
     void save() {
-        PostSearch params = new PostSearch();
+        EventSearch params = new EventSearch();
         params.setTitle("1번 게시글 제목");
         params.setContent("1번 게시글 내용");
         params.setWriter("테스터");
         params.setNoticeYn(false);
-        postService.savePost(params);
+        postService.saveEvent(params);
 
-        List<PostDto> posts = postService.findAllPost();
+        List<EventDto> posts = postService.findAllEvent();
         System.out.println("전체 게시글 개수는 : " + posts.size() + "개입니다.");
     }
 

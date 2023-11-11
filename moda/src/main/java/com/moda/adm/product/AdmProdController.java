@@ -1,6 +1,5 @@
 package com.moda.adm.product;
 
-import com.moda.adm.post.PostDto;
 import com.moda.cmm.FileRequest;
 import com.moda.cmm.FileService;
 import com.moda.cmm.FileUtils;

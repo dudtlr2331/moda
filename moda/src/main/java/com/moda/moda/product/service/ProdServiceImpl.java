@@ -1,12 +1,10 @@
 package com.moda.moda.product.service;
 
-import com.moda.adm.post.PostSearch;
 import com.moda.moda.product.ProdVO;
 import com.moda.moda.product.dao.ProdDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service

@@ -1,7 +1,5 @@
 package com.moda.moda.product.service;
 
-import com.moda.adm.post.PostDto;
-import com.moda.adm.post.PostSearch;
 import com.moda.moda.product.ProdVO;
 
 import java.util.List;

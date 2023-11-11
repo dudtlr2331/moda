@@ -1,6 +1,5 @@
 package com.moda.adm.user.dao;
 
-import com.moda.adm.post.PostDto;
 import com.moda.adm.user.AdmUserDto;
 import com.moda.adm.user.AdmUserSearch;
 import org.apache.ibatis.annotations.Mapper;
