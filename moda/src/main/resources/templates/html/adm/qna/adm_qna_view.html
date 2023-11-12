@@ -12,7 +12,8 @@
 
   <div class="content">
     <section>
-      <form id="updateForm" method="post" autocomplete="off">
+      <form id="updateForm" method="get" autocomplete="off">
+        <input type="hidden" id="qnaNum" name="qnaNum" th:value="${qna.qnaNum}"/>
         <table class="tb tb_row">
           <colgroup>
             <col style="width:15%;" /><col style="width:35%;" /><col style="width:15%;" /><col style="width:35%;" />
@@ -32,12 +33,12 @@
 
           <tr>
             <th>질문</th>
-            <td colspan="3" th:text="${qna.qnaQ}"></textarea></td>
+            <td colspan="3" th:text="${qna.qnaQ}"></td>
           </tr>
 
           <tr>
             <th>답변</th>
-            <td colspan="3"><textarea id="content" name="content" cols="50" rows="10" placeholder="내용을 입력해 주세요."></textarea></td>
+            <td colspan="3"><textarea id="qnaA" name="qnaA" cols="50" rows="10" placeholder="내용을 입력해 주세요."></textarea></td>
           </tr>
           </tbody>
         </table>
@@ -53,18 +54,17 @@
 <th:block layout:fragment="script">
   <script th:inline="javascript">
     /*<![CDATA[*/
-     // 답변 하기(수정)
-     function updateQna() {
-       const form = document.getElementById('updateForm');
-       const aContent = form.content;
+    function updateQna() {
+      const form = document.getElementById('updateForm');
+      const aContent = form.qnaA;
 
-       if(aContent == null){
-
-       }else{
-         document.getElementById('updateBtn').disabled = true;
-         form.action = '/adm/qnaupdate.do';
-         form.submit();
-       }
+      if (aContent.value.trim() !== '') {
+        document.getElementById('updateBtn').disabled = true;
+        form.action = '/adm/qnaupdate.do';
+        form.submit();
+      } else {
+        console.log('aContent가 null 입니다.');
+      }
     }
 
     /*]]>*/

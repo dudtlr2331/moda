@@ -28,10 +28,10 @@
     <update id="update" parameterType="com.moda.adm.qna.QnaSearch">
         UPDATE qna
         SET
-            qna_a = #{a_content}
-          , qna_stat = #{stat}
+            qna_a = #{qnaA}
+          , qna_stat = 1
         WHERE
-            qna_num = #{qna_num}
+            qna_num = #{qnaNum}
     </update>
 
     <!-- 게시글 리스트 조회 -->
