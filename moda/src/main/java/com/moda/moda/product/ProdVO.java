@@ -3,6 +3,7 @@ package com.moda.moda.product;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class ProdVO {
     private String prodName;
     private int prodStock;
     private String prodDesc;
-    private String prodDate;
+    private LocalDateTime prodDete;
     private int prodPrice;
     private String prodImg;
     private String prodImgDtl;
