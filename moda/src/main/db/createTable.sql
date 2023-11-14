@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `u_post` int(11) DEFAULT NULL,
     `u_addr` varchar(200) DEFAULT NULL,
     `u_phone` varchar(30) DEFAULT NULL,
-    `u_date` varchar(20) NOT NULL DEFAULT 'null',
+    `u_date` datetime NOT NULL,
     `u_admin` varchar(1) NOT NULL DEFAULT '0',
     PRIMARY KEY (`u_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

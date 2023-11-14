@@ -51,12 +51,13 @@
 <!-- 입력 폼 -->
 <div class="input-form">
     <form action="/user/save" method="POST">
-        <input type="text" name="userId" placeholder="아이디"><br>
-        <input type="password" name="userPass" placeholder="비밀번호"><br>
-        <input type="text" name="userName" placeholder="닉네임"><br>
-        <input type="email" name="userEmail" placeholder="이메일"><br>
-        <input type="text" name="userAddr" placeholder="주소"><br>
-        <input type="tel" name="userPhone" placeholder="전화번호"><br>
+        <input type="text" name="userId" placeholder="아이디(필수)"><br>
+        <input type="password" name="userPass" placeholder="비밀번호(필수)"><br>
+        <input type="text" name="userName" placeholder="이름(필수)"><br>
+        <input type="email" name="userEmail" placeholder="이메일(필수)"><br>
+        <input type="text" name="userAddr" placeholder="우편번호(선택)"><br>
+        <input type="text" name="userAddr" placeholder="상세주소(선택)"><br>
+        <input type="tel" name="userPhone" placeholder="전화번호(선택)"><br>
         <input type="submit" class="signup-button" value="회원 가입">
     </form>
 </div>
