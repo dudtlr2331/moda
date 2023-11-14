@@ -14,7 +14,7 @@ public class ProdVO {
     private String prodName;
     private int prodStock;
     private String prodDesc;
-    private LocalDateTime prodDete;
+    private String prodDete;
     private int prodPrice;
     private String prodImg;
     private String prodImgDtl;

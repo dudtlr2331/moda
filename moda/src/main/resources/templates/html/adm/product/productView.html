@@ -22,7 +22,7 @@
                     <td th:text="test"></td>
 
                     <th scope="row">등록일</th>
-                    <td th:text="${#temporals.format( rvo.prodDete, 'yyyy-MM-dd HH:mm' )}"></td>
+                    <td th:text="${#temporals.format(T(java.time.LocalDateTime).parse(rvo.prodDete, T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd HH:mm:ss.S')), 'yyyy-MM-dd HH:mm')}"></td>
                 </tr>
                 <tr>
                     <th scope="row">번호</th>

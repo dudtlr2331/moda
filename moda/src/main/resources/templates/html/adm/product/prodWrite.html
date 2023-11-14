@@ -13,6 +13,9 @@
     <div class="content">
         <section>
             <form id="saveForm" method="post" autocomplete="off" enctype="multipart/form-data">
+                <!--/* 게시글 수정인 경우, 서버로 전달할 게시글 번호 (PK) */-->
+                <input type="hidden" id="prodCode" name="prodCode" th:if="${pvo != null}" th:value="${pvo.prodCode}" />
+
                 <!--/* 삭제 처리할 파일 번호 */-->
                 <input type="hidden" id="removeFileIds" name="removeFileIds" />
 

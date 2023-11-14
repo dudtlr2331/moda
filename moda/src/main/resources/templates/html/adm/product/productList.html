@@ -47,7 +47,7 @@
           <td><input type="checkbox"/></td>
           <td th:text="${row.prodCode}"></td>
           <td class="tl"><a th:href="@{/adm/product/prodView.do( code=${row.prodCode} )}" th:text="${row.prodName}"></a></td>
-          <td th:text="${#temporals.format( row.prodDete, 'yyyy-MM-dd HH:mm' )}"></td>
+          <td th:text="${#temporals.format(T(java.time.LocalDateTime).parse(row.prodDete, T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd HH:mm:ss.S')), 'yyyy-MM-dd HH:mm')}"></td>
           <td th:text="${row.prodPrice}"></td>
         </tr>
 
