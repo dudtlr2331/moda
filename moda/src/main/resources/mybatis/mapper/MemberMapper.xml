@@ -65,7 +65,7 @@
     </delete>
 
     <!-- ID 중복 체크 -->
-    <select id="chkByLoginId" parameterType="string" resultType="int">
+    <select id="chkById" parameterType="string" resultType="int">
         SELECT
             COUNT(*)
         FROM

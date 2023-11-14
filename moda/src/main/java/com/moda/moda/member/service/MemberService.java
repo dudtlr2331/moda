@@ -65,7 +65,7 @@ public class MemberService {
      * @param uId - UK
      * @return 회원 수
      */
-    public int countMemberByLoginId(final String uId) {
-        return memberDao.chkByLoginId(uId);
+    public int chkMemberById(final String uId) {
+        return memberDao.chkById(uId);
     }
 }

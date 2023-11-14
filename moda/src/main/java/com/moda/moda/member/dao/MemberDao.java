@@ -36,5 +36,5 @@ public interface MemberDao {
      * @param uId - UK
      * @return 회원 수
      */
-    int chkByLoginId(String uId);
+    int chkById(String uId);
 }
