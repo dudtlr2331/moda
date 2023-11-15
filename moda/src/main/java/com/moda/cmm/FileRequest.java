@@ -13,12 +13,20 @@ public class FileRequest {
     private String originalName;    // 원본 파일명
     private String saveName;        // 저장 파일명
     private long size;              // 파일 크기
+    private String filePath; // 추가된 부분
 
     @Builder
-    public FileRequest(String originalName, String saveName, long size) {
+    public FileRequest(String originalName, String saveName, long size, String filePath) {
         this.originalName = originalName;
         this.saveName = saveName;
         this.size = size;
+        this.filePath = filePath;
+    }
+
+    // 파일 경로를 설정하는 메서드 추가
+    public FileRequest filePath(String filePath) {
+        this.filePath = filePath;
+        return this;
     }
 
     public void setPostId(Long postId) {

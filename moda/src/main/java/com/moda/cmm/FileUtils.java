@@ -22,7 +22,8 @@ import java.util.UUID;
 @Component
 public class FileUtils {
 
-    private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
+//    private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
+    private final String uploadPath = Paths.get("C:", "git", "moda", "moda", "src", "main", "resources", "static", "images").toString();
 
     /**
      * 다중 파일 업로드
@@ -66,6 +67,7 @@ public class FileUtils {
                 .originalName(multipartFile.getOriginalFilename())
                 .saveName(saveName)
                 .size(multipartFile.getSize())
+                .filePath(uploadPath)  // 파일 경로 설정
                 .build();
     }
 
