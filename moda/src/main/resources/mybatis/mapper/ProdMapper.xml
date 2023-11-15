@@ -70,5 +70,15 @@
         AND prod_code = #{prodCode}
     </delete>
 
+
+    <!-- 상품 이미지 경로 추가 -->
+    <update id="addImagePath" parameterType="com.moda.moda.product.ProdVO">
+        UPDATE product
+        SET
+            prod_img = #{prodImg}
+          , prod_img_dtl = #{prodImgDtl}
+        WHERE
+            prod_code = #{prodCode}
+    </update>
 </mapper>
 

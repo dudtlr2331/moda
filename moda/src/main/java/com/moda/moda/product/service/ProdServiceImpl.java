@@ -5,7 +5,9 @@ import com.moda.moda.product.dao.ProdDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 public class ProdServiceImpl implements ProdService{
@@ -43,5 +45,11 @@ public class ProdServiceImpl implements ProdService{
     public int deleteProd(int code) {
         prodDao.deleteProd(code);
         return code;
+    }
+
+    @Override
+    public int addImagePath(ProdVO params) {
+        prodDao.addImagePath(params);
+        return params.getProdCode();
     }
 }

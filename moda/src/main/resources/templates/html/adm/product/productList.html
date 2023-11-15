@@ -30,16 +30,17 @@
       <!--/* 리스트 */-->
       <table class="tb tb_col">
         <colgroup>
-          <col style="width:50px;"/><col style="width:7.5%;"/><col style="width:auto;"/><col style="width:10%;"/><col style="width:15%;"/><col style="width:7.5%;"/>
+          <col style="width:50px;"/><col style="width:7.5%;"/><col style="width:auto;"/><col style="width:10%;"/><col style="width:15%;"/><col style="width:15%;"/><col style="width:7.5%;"/>
         </colgroup>
         <thead>
         <tr>
           <th scope="col"><input type="checkbox"/></th>
           <th scope="col">번호</th>
           <th scope="col">제목</th>
-          <th scope="col">작성자</th>
+          <th scope="col">사진</th>
+          <th scope="col">가격</th>
           <th scope="col">등록일</th>
-          <th scope="col">조회</th>
+          <th scope="col">작성자</th>
         </tr>
         </thead>
         <tbody>
@@ -47,8 +48,9 @@
           <td><input type="checkbox"/></td>
           <td th:text="${row.prodCode}"></td>
           <td class="tl"><a th:href="@{/adm/product/prodView.do( code=${row.prodCode} )}" th:text="${row.prodName}"></a></td>
-          <td th:text="${#temporals.format(T(java.time.LocalDateTime).parse(row.prodDete, T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd HH:mm:ss.S')), 'yyyy-MM-dd HH:mm')}"></td>
+          <td><img th:src="${row.prodImg} + ${row.prodImgDtl}" height="110px" width="120px" /></td>
           <td th:text="${row.prodPrice}"></td>
+          <td th:text="${#temporals.format(T(java.time.LocalDateTime).parse(row.prodDete, T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd HH:mm:ss.S')), 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
 
         <tr th:unless="${not #lists.isEmpty( prodList )}">

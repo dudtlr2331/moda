@@ -12,4 +12,5 @@ public interface ProdDao {
     ProdVO selectProdOne(int code);
     int updateProd(ProdVO params);
     int deleteProd(int code);
+    int addImagePath(ProdVO params);
 }

@@ -10,4 +10,5 @@ public interface ProdService {
     ProdVO selectProdOne(int code);
     public int updateProd(final ProdVO params);
     public int deleteProd(final int code);
+    public int addImagePath(ProdVO params);
 }
