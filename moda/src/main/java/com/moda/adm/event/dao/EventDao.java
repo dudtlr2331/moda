@@ -2,6 +2,7 @@ package com.moda.adm.event.dao;
 
 import com.moda.adm.event.EventDto;
 import com.moda.adm.event.EventSearch;
+import com.moda.adm.search.SearchDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -38,12 +39,12 @@ public interface EventDao {
      * 게시글 리스트 조회
      * @return 게시글 리스트
      */
-    List<EventDto> findAll();
+    List<EventDto> findAll(SearchDto params);
 
     /**
      * 게시글 수 카운팅
      * @return 게시글 수
      */
-    int count();
+    int count(SearchDto params);
 
 }

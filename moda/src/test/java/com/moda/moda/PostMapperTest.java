@@ -16,7 +16,7 @@ public class PostMapperTest {
     @Autowired
     EventService postService;
 
-    @Test
+    /*@Test
     void save() {
         EventSearch params = new EventSearch();
         params.setTitle("1번 게시글 제목");
@@ -27,6 +27,17 @@ public class PostMapperTest {
 
         List<EventDto> posts = postService.findAllEvent();
         System.out.println("전체 게시글 개수는 : " + posts.size() + "개입니다.");
+    }*/
+    @Test
+    void saveByForeach() {
+        for (int i = 1; i <= 1000; i++) {
+            EventSearch params = new EventSearch();
+            params.setTitle(i + "번 게시글 제목");
+            params.setContent(i + "번 게시글 내용");
+            params.setWriter("테스터" + i);
+            params.setNoticeYn(false);
+            postService.saveEvent(params);
+        }
     }
 
 //    @Test

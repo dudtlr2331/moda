@@ -1,16 +1,17 @@
 package com.moda.adm.event;
 
 import com.moda.adm.event.service.EventService;
+import com.moda.adm.paging.PagingResponse;
+import com.moda.adm.search.SearchDto;
 import com.moda.cmm.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -41,9 +42,9 @@ public class EventController {
 
     // 게시글 리스트 페이지
     @GetMapping("/adm/event/list.do")
-    public String openPostList(Model model) {
-        List<EventDto> posts = eventService.findAllEvent();
-        model.addAttribute("posts", posts);
+    public String openPostList(@ModelAttribute("params") final SearchDto params, Model model) {
+        PagingResponse<EventDto> response = eventService.findAllEvent(params);
+        model.addAttribute("response", response);
         return "html/adm/event/list";
     }
 
@@ -57,7 +58,7 @@ public class EventController {
 
     // 기존 게시글 수정
     @PostMapping("/adm/event/update.do")
-    public String updatePost(final EventSearch params, Model model) {
+    public String updatePost(final EventSearch params, final SearchDto queryParams, Model model) {
 
         // 1. 게시글 정보 수정
         eventService.updateEvent(params);
@@ -77,15 +78,23 @@ public class EventController {
         // 6. 파일 삭제 (from database)
         fileService.deleteAllFileByIds(params.getRemoveFileIds());
 
-        MessageDto message = new MessageDto("게시글 수정이 완료되었습니다.", "/adm/event/list.do", RequestMethod.GET, null);
+        MessageDto message = new MessageDto("게시글 수정이 완료되었습니다.", "/adm/event/list.do", RequestMethod.GET, queryParamsToMap(queryParams));
         return showMessageAndRedirect(message, model);
     }
-
+    private Map<String, Object> queryParamsToMap(final SearchDto queryParams) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("page", queryParams.getPage());
+        data.put("recordSize", queryParams.getRecordSize());
+        data.put("pageSize", queryParams.getPageSize());
+        data.put("keyword", queryParams.getKeyword());
+        data.put("searchType", queryParams.getSearchType());
+        return data;
+    }
     // 게시글 삭제
     @PostMapping("/adm/event/delete.do")
-    public String deletePost(@RequestParam final Long id, Model model) {
+    public String deletePost(@RequestParam final Long id, final SearchDto queryParams, Model model) {
         eventService.deleteEvent(id);
-        MessageDto message = new MessageDto("게시글 삭제가 완료되었습니다.", "/adm/event/list.do", RequestMethod.GET, null);
+        MessageDto message = new MessageDto("게시글 삭제가 완료되었습니다.", "/adm/event/list.do", RequestMethod.GET, queryParamsToMap(queryParams));
         return showMessageAndRedirect(message, model);
     }
 
