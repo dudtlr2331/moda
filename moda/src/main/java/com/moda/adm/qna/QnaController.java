@@ -18,6 +18,7 @@ import java.util.List;
 public class QnaController {
     private final QnaService qnaService;
 
+    //문의 관리 페이지
     @GetMapping("/adm/qna.do")
     public String openQnaList(@ModelAttribute("params") final SearchDto params, Model model){
         List<QnaDto> qnas = qnaService.findAllQna(params);
@@ -25,6 +26,7 @@ public class QnaController {
         return "html/adm/qna/adm_qna";
     }
 
+    //문의 상세 페이지
     @GetMapping("/adm/qnaview.do")
     public String openQnaView(@RequestParam final Long num, Model model){
         QnaDto qna = qnaService.findQnaByNum(num);
@@ -32,6 +34,7 @@ public class QnaController {
         return "html/adm/qna/adm_qna_view";
     }
 
+    //문의 업데이트
     @GetMapping("/adm/qnaupdate.do")
     public String updateQna(final QnaSearch params, Model model){
         qnaService.updateQna(params);

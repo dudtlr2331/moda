@@ -4,7 +4,8 @@
 <mapper namespace="com.moda.moda.member.dao.MemberDao">
     <!-- tb_member 테이블 전체 컬럼 -->
     <sql id="memberColumns">
-        u_id
+        u_num
+        , u_id
         , u_pass
         , u_name
         , u_email
@@ -20,7 +21,8 @@
         INSERT INTO users (
         <include refid="memberColumns" />
         ) VALUES (
-        #{uId}
+        NULL
+        , #{uId}
         , #{uPass}
         , #{uName}
         , #{uEmail}
@@ -39,7 +41,7 @@
         FROM
         users
         WHERE
-        u_id = #{value}
+        u_num = #{value}
     </select>
 
     <!-- 회원 정보 수정 -->
@@ -53,7 +55,7 @@
         , u_phone = #{uPhone}
         , u_date = NOW()
         WHERE
-        u_id = #{uId}
+        u_num = #{uNum}
     </update>
 
     <!-- 회원 정보 삭제 (회원 탈퇴) -->
@@ -61,7 +63,7 @@
         DELETE
         FROM users
         WHERE
-            u_id = #{uId}
+            u_num = #{uNum}
     </delete>
 
     <!-- ID 중복 체크 -->
@@ -71,7 +73,7 @@
         FROM
             users
         WHERE
-            u_id = #{value}
+            u_num = #{value}
     </select>
 
 </mapper>

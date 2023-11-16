@@ -6,7 +6,8 @@ import java.time.LocalDateTime;
 
 @Getter
 public class MemberDto {           // Response
-    private String uId;      // 로그인 아이디(PK)
+    private Long uNum;      // 계정 번호(PK)
+    private String uId;      // 로그인 아이디
     private String uPass;      // 비밀번호
     private String uName;    // 이름
     private String uEmail;   //이메일
