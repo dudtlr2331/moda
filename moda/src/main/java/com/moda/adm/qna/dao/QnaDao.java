@@ -2,6 +2,7 @@ package com.moda.adm.qna.dao;
 
 import com.moda.adm.qna.QnaSearch;
 import com.moda.adm.qna.QnaDto;
+import com.moda.adm.search.SearchDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -25,5 +26,7 @@ public interface QnaDao {
      *  문의 리스트 조회
      * @return 문의 리스트
      */
-    List<QnaDto> findAll();
+    List<QnaDto> findAll(SearchDto params);
+
+    int count(SearchDto params);
 }

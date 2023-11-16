@@ -1,5 +1,6 @@
 package com.moda.adm.user.service;
 
+import com.moda.adm.search.SearchDto;
 import com.moda.adm.user.AdmUserDto;
 import com.moda.adm.user.AdmUserSearch;
 import com.moda.adm.user.dao.AdmUserDao;
@@ -13,8 +14,8 @@ import java.util.List;
 public class AdmUserServiceImpl implements AdmUserService {
     private final AdmUserDao admUserDao;
 
-    public List<AdmUserDto> findAllUser() {
-        return admUserDao.findAll();
+    public List<AdmUserDto> findAllUser(final SearchDto params) {
+        return admUserDao.findAll(params);
     }
 
 

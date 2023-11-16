@@ -21,16 +21,6 @@
         , u_admin
     </sql>
 
-    <!-- 유저 리스트 조회 -->
-    <select id="findAll" resultType="com.moda.adm.user.AdmUserDto">
-        SELECT
-        <include refid="userListColumns" />
-        FROM
-        users
-        ORDER BY
-        u_date DESC
-    </select>
-
     <!-- 회원정보 업데이트 -->
     <update id="updateUser" parameterType="com.moda.adm.user.AdmUserSearch">
         UPDATE users
@@ -64,4 +54,21 @@
         u_id = #{uId}
     </select>
 
+    <!-- 유저 리스트 조회 -->
+    <select id="findAll" parameterType="com.moda.adm.search.SearchDto" resultType="com.moda.adm.user.AdmUserDto">
+        SELECT
+        <include refid="userListColumns" />
+        FROM
+        users
+        ORDER BY
+        u_date DESC
+        LIMIT #{offset}, #{recordSize}
+    </select>
+    <!-- 회원 수 카운팅 -->
+    <select id="count" parameterType="com.moda.adm.search.SearchDto" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        users
+    </select>
 </mapper>

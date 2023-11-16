@@ -3,6 +3,7 @@ package com.moda.adm.qna.service;
 import com.moda.adm.qna.QnaDto;
 import com.moda.adm.qna.QnaSearch;
 import com.moda.adm.qna.dao.QnaDao;
+import com.moda.adm.search.SearchDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,7 @@ public class QnaService {
      * @return 문의 리스트
      */
     @Transactional
-    public List<QnaDto> findAllQna(){
-        return qnaDao.findAll();
+    public List<QnaDto> findAllQna(final SearchDto params){
+        return qnaDao.findAll(params);
     }
 }

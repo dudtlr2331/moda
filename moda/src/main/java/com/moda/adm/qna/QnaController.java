@@ -1,11 +1,13 @@
 package com.moda.adm.qna;
 
 import com.moda.adm.qna.service.QnaService;
+import com.moda.adm.search.SearchDto;
 import com.moda.cmm.MessageDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,8 +19,8 @@ public class QnaController {
     private final QnaService qnaService;
 
     @GetMapping("/adm/qna.do")
-    public String openQnaList(Model model){
-        List<QnaDto> qnas = qnaService.findAllQna();
+    public String openQnaList(@ModelAttribute("params") final SearchDto params, Model model){
+        List<QnaDto> qnas = qnaService.findAllQna(params);
         model.addAttribute("qnas", qnas);
         return "html/adm/qna/adm_qna";
     }

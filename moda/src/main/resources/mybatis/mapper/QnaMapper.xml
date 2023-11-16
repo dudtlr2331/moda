@@ -23,7 +23,6 @@
         qna_num = #{value}
     </select>
 
-
     <!-- 게시글 수정 -->
     <update id="update" parameterType="com.moda.adm.qna.QnaSearch">
         UPDATE qna
@@ -40,6 +39,14 @@
         FROM qna
         WHERE qna_stat = 0
         ORDER BY qna_num ASC
+        LIMIT #{offset}, #{recordSize}
+    </select>
+
+    <select id="count" parameterType="com.moda.adm.search.SearchDto" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            qna
     </select>
 
 </mapper>

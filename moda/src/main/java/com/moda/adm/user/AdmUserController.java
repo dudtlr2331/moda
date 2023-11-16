@@ -1,14 +1,12 @@
 package com.moda.adm.user;
 
+import com.moda.adm.search.SearchDto;
 import com.moda.adm.user.service.AdmUserService;
 import com.moda.cmm.MessageDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,8 +17,8 @@ public class AdmUserController {
 
 
     @GetMapping("/adm/userList")
-    public String openUserList(Model model) {
-        List<AdmUserDto> users = admUserService.findAllUser();
+    public String openUserList(@ModelAttribute("params") final SearchDto params, Model model) {
+        List<AdmUserDto> users = admUserService.findAllUser(params);
         model.addAttribute("users", users);
         return "html/adm/user/userlist";
     }
