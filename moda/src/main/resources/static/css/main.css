@@ -1,152 +1,149 @@
-#header{
-  background-color: #ffffff;
-}
-
-.top_btn i {
-  font-size: 18px;
-  margin: 0 3px;
-}
-
-/* 상단메뉴 시작 */
-#main_benner{
-  height: 60px;
-  background-color: #ffffff;
-  margin-bottom: 10px;
-}
-
-#main_benner .menu {
-  display: flex;
-  list-style: none;
-  justify-content: space-around;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  background-color: #ffffff;
-}
-
-#main_benner .menu ul {
-  border-radius: 5px;
-}
-
-#main_benner .menu a {
-  width: 100%;
-  height: 40px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-/*상단메뉴 호버시*/
-#main_benner .menu a:hover{
-  border-radius: 10px;
-  color: #ff0000;
-}
-
-#product_ranking{
-  margin-top: 10px;
-  padding:20px
-}
-.product_group{
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-  font-size: 18px;
-  font-weight: 200;
-}
-.product_group pre{
-  margin-left: 15px;
-}
-
-.img_area .img_a{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding-bottom: 25px;
-}
-.img_area .img_a .item{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 24%;
-  height: 400px;
-  cursor: pointer;
-  position: relative;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.img_area .img_a .item .txt_area{
-  padding: 10px 15px;
-}
-
-.img_area .img_a .item .txt_area .item_name{
-  margin-bottom: 5px;
+a {
+  color: #888888;
+  text-decoration: none;
   font-weight: bold;
-  font-size: 16px;
 }
 
-.img_area .img_a .item .txt_area .item_price{
+.logo {
+  text-align: center;
+  padding: 20px;
+}
+.logo img {
+  width: 300px;
+}
+.horizontal-menu {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+.horizontal-menu li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.horizontal-menu a {
+  text-decoration: none;
+}
+
+.slider-container {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+}
+
+.slider {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: 15px;
-}
-
-.img_area .img_a .item .dim{
-  background-color: black;
-  /* background-color: dimgray; */
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 1;
-  top: 1;
-  opacity: 0;
-}
-
-.img_area .img_a .item:hover .dim{
-  opacity: 0.5;
-}
-
-.img_area .img_a .item img{
   overflow: hidden;
+}
+
+.slider .slide {
+  width: 100%;
+  height: 400px;
+  display: none;
+}
+
+.slider img {
+  width: 100%;
+  height: 400px;
+  transition: transform 0.5s ease;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  border: none;
+}
+
+.slider-button-prev {
+  left: 10px;
+}
+
+.slider-button-next {
+  right: 10px;
+}
+
+.recommendation-text {
+  text-align: center;
+  font-size: 18px;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image-grid img {
+  width: 20%;
+  margin: 5px;
+}
+
+.login-text {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: blue;
+  cursor: pointer;
+}
+
+.img_area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.img_area > div {
+  width: 18%; /* 조절 가능한 너비 */
+  margin: 10px 0; /* 이미지 간격 조절 가능 */
+  position: relative;
+}
+
+.img_area img {
+  width: 100%;
+  height: 100%; /* 이미지 크기를 부모 컨테이너에 맞게 설정 */
+  object-fit: cover; /* 가로 세로 비율 유지하며 이미지 크기 조절 */
   border: 1px solid #111;
+}
+
+.txt_area {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8); /* 배경 색상 및 투명도 조절 가능 */
+  padding: 8px;
+  text-align: center;
+}
+
+.item_name {
+  font-weight: bold;
+  font-size: 14px; /* 제목 글꼴 크기 조절 가능 */
+}
+
+.item_price {
+  font-size: 12px; /* 가격 글꼴 크기 조절 가능 */
+  color: #ff0000; /* 가격 글꼴 색상 조절 가능 */
+}
+
+.dim {
+  background-color: black;
   width: 100%;
   height: 100%;
-}
-
-.menu_category{
-  left: 25%;
   position: absolute;
-  width: 25%;
-  height: 160px;
+  left: 0;
+  top: 0;
   opacity: 0;
-  pointer-events: none;
-  background-color: #ffffff;
-  z-index: 99;
+  transition: opacity 0.3s ease; /* 투명도 변화 애니메이션 속성 */
 }
 
-.menu_category.visible{
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.menu_category ul{
-  list-style: none;
-}
-
-.menu_category_item{
-  width: 100%;
-  height: 40px;
-  background-color: #ffffff;
-}
-
-.menu_category li a:hover{
-  color: white;
-}
-
-#event_page_main{
-  justify-content: center;
-  align-items: center;
-  display: flex;
+.img_area > div:hover .dim {
+  opacity: 0.5;
 }
