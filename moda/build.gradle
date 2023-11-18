@@ -26,20 +26,20 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // Thymeleaf 의존성 추가
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' /* Thymeleaf Layout */
-
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'  /* Log4JDBC */
-
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0' // mybatis 추가
 	implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.1' // MariaDB 드라이버 의존성 추가
 	implementation 'mysql:mysql-connector-java:8.0.27'
 	implementation 'javax.servlet:jstl:1.2' // JSTL 의존성 추가
+	implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.7.6'  /* spring-security-crypto */
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools' // 소스 코드 변경시 자동으로 페이지 리로드 해주는 라이브러리
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-	implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.7.6'  /* spring-security-crypto */
 }
 
 
