@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moda.moda.main.dao.MainDao">
+
+    <!-- product 테이블 전체 컬럼 -->
+    <sql id="prodColumns">
+        prod_code
+        , cate_code
+        , prod_name
+        , prod_stock
+        , prod_desc
+        , prod_dete
+        , prod_price
+        , prod_img
+        , prod_img_dtl
+        , prod_dcnt
+    </sql>
+
+    <!-- 상품 리스트 -->
+    <select id="selectListMainHome" resultType="com.moda.moda.main.MainVO">
+        SELECT
+        <include refid="prodColumns" />
+        FROM product;
+    </select>
+</mapper>
+
