@@ -1,7 +1,7 @@
 package com.moda.moda.main;
 
 import com.moda.moda.main.service.MainService;
-import com.moda.moda.user.UserVO;
+import com.moda.moda.member.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +22,10 @@ public class MainController {
     @GetMapping("/main")
     public String show(Model model, HttpSession session) {
         // 세션에서 loginInfo를 가져와서 모델에 추가
-        UserVO loginInfo = (UserVO) session.getAttribute("loginInfo");
-        model.addAttribute("loginInfo", loginInfo);
+        String uId = (String) session.getAttribute("uId");
+        String uAdmin = (String) session.getAttribute("uAdmin");
+        model.addAttribute("uId", uId);
+        model.addAttribute("uAdmin", uAdmin);
 
         // 상품 리스트 가져와서 모델에 추가
         List<MainVO> mainHomeList = mainService.selectListMainHome();

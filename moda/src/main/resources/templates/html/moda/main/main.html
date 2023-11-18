@@ -10,13 +10,13 @@
 </div>
 
 <div class="login-text">
-    <div th:if="${loginInfo != null}">
-        <span th:text="${loginInfo.userId} + '님 환영합니다.'"></span>
-        <!--    <input type="button" class="w70" id="btn_edit" th:onclick="'fn_user_edit(' + ${loginInfo.usrBaseSeq} + ')'" value="수정">-->
-        <input type="button" class="w70" id="logout_btn" th:onclick="'location.href=\'/user/userLogout\''" value="로그아웃">
+    <div th:if="${uId}">
+        <span th:text="${uId} + '님 환영합니다.'"></span>
+        <input type="button" class="w70" id="logout_btn" th:onclick="'location.href=\'/moda/logout\''" value="로그아웃">
+        <input th:if="${uAdmin == '1'}" type="button" class="w70" id="admin_btn" onclick="openAdminPage()" value="관리">
     </div>
-    <div th:if="${loginInfo == null}">
-        <input type="button" class="w70" th:onclick="'location.href=\'/login\''" value="로그인"/>
+    <div th:if="${uId == null}">
+        <input type="button" class="w70" th:onclick="'location.href=\'/moda/login.do\''" value="로그인"/>
     </div>
 </div>
 
@@ -70,6 +70,17 @@
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
     const slideCount = slides.length;
+
+    //뒤로가기 못하게 하는 로직
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function() {
+        window.history.pushState(null, "", window.location.href);
+    };
+
+    //관리자 페이지를 새탭에서 열기
+    function openAdminPage() {
+        window.open('/adm/product/prodList.do', '_blank');
+    }
 
     function showSlide(n) {
         slides.forEach(slide => slide.style.display = 'none');
