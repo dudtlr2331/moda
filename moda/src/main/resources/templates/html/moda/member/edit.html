@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원 가입</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .logo{
+            margin-top: 50px;
+            padding-bottom: 20px;
+        }
+        .input-form {
+            margin-top: 20px;
+        }
+
+        .input-form input[type="text"],
+        .input-form input[type="password"],
+        .input-form input[type="email"],
+        .input-form input[type="tel"] {
+            margin: 10px 0;
+            padding: 10px;
+            width: 300px;
+            border: none;
+            background: none;
+            border-bottom: 1px solid black;
+            outline: none;
+        }
+
+        #edit-button {
+            margin-top: 20px;
+            width: 320px;
+            height: 50px;
+            background-color: #F6F7F9;
+            color: #6A6E71;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!-- 로고 -->
+<div class="logo">
+    <form action="/main" method="POST">
+        <input type="image" name="logoimg" src="/images/logo.png" alt="로고 이미지">
+    </form>
+</div>
+
+<!-- 입력 폼 -->
+<div class="input-form">
+    <form id="edit-Form" method="POST">
+        <input type="text" name="uId" placeholder="아이디(필수)" th:value="${uId}" readonly><br>
+        <input type="password" name="uPass" placeholder="비밀번호(필수)" th:value="${uPass}"><br>
+        <input type="text" name="uName" placeholder="이름(필수)" th:value="${uName}"><br>
+        <input type="email" name="uEmail" placeholder="이메일(필수)" th:value="${uEmail}"><br>
+        <input type="text" name="uPost" placeholder="우편번호(선택)" th:value="${uPost}"><br>
+        <input type="text" name="uAddr" placeholder="상세주소(선택)" th:value="${uAddr}"><br>
+        <input type="tel" name="uPhone" placeholder="전화번호(선택)" th:value="${uPhone}"><br>
+        <input type="button" id="edit-button" onclick="validateForm()" value="회원 수정">
+    </form>
+</div>
+<script>
+    function validateForm() {//유효성 검사
+        const form = document.getElementById('edit-Form');
+        const uId = form.uId;
+        const uPass = form.uPass;
+        const uName = form.uName;
+        const uEmail = form.uEmail;
+
+        if (uId.value.trim() === '' || uPass.value.trim() === '' || uName.value.trim() === '' || uEmail.value.trim() === '') {
+            alert('필수 항목을 모두 입력하세요.');
+        }else {
+            form.action = '/moda/edit';
+            form.submit();
+        }
+    }
+</script>
+</body>
+</html>

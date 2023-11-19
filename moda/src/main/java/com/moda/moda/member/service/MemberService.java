@@ -1,71 +1,67 @@
 package com.moda.moda.member.service;
 
-import com.moda.moda.member.MemberDto;
-import com.moda.moda.member.MemberSearch;
+import com.moda.moda.member.MemberVO;
 import com.moda.moda.member.dao.MemberDao;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
-    private final MemberDao memberDao;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    MemberDao memberDao;
 
-    /**
-     * 회원 정보 저장 (회원가입)
-     * @param params - 회원 정보
-     * @return PK
-     */
+    //회원 가입 및 회원 수정 시 시간구하기
+    SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:sss");
+    Date time = new Date();
+    String localTime = format.format(time);
+
     @Transactional
-    public String saveMember(final MemberSearch params) {
-        params.encodingPassword(passwordEncoder);
-        memberDao.save(params);
-        return params.getUId();
+    public void joinMember(MemberVO memberVO){        //회원가입 서비스
+        memberVO.setUDate(localTime);
+        if(memberVO.getUPost().isEmpty()){
+            memberVO.setUPost(null);
+        }
+        if(memberVO.getUAddr().isEmpty()){
+            memberVO.setUAddr(null);
+        }
+        if(memberVO.getUPhone().isEmpty()){
+            memberVO.setUPhone(null);
+        }
+        memberDao.saveMember(memberVO);
     }
 
-    /**
-     * 회원 상세정보 조회
-     * @param uId - UK
-     * @return 회원 상세정보
-     */
-    public MemberDto findMemberById(final String uId) {
+    @Transactional
+    public int checkDuplicate(String uId){          //아이디 중복 검사 서비스
+        return memberDao.countById(uId);
+    }
+
+    @Transactional
+    public int loginMember(MemberVO memberVO){          //로그인 서비스
+        return memberDao.matchMember(memberVO);
+    }
+
+    @Transactional
+    public MemberVO findByMember(String uId){          //id로 멤버 정보 가져오는 서비스
         return memberDao.findById(uId);
     }
 
-    /**
-     * 회원 정보 수정
-     * @param params - 회원 정보
-     * @return PK
-     */
     @Transactional
-    public String updateMember(final MemberSearch params) {
-        params.encodingPassword(passwordEncoder);
-        memberDao.update(params);
-        return params.getUId();
-    }
-
-    /**
-     * 회원 정보 삭제 (회원 탈퇴)
-     * @param uId - PK
-     * @return PK
-     */
-    @Transactional
-    public String deleteMemberById(final String uId) {
-        memberDao.deleteById(uId);
-        return uId;
-    }
-
-
-    /**
-     * 회원 수 카운팅 (ID 중복 체크)
-     * @param uId - UK
-     * @return 회원 수
-     */
-    public int chkMemberById(final String uId) {
-        return memberDao.chkById(uId);
+    public void editMember(MemberVO memberVO){          //회원 수정 서비스
+        if(memberVO.getUPost().isEmpty()){
+            memberVO.setUPost(null);
+        }
+        if(memberVO.getUAddr().isEmpty()){
+            memberVO.setUAddr(null);
+        }
+        if(memberVO.getUPhone().isEmpty()){
+            memberVO.setUPhone(null);
+        }
+        memberDao.modMember(memberVO);
     }
 }

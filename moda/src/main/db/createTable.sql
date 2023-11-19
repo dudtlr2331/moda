@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS `sub_category` (
 
 
 CREATE TABLE IF NOT EXISTS `users` (
+    `u_num` BIGINT(20) NOT NULL AUTO_INCREMENT,
     `u_id` varchar(50) NOT NULL,
     `u_pass` varchar(50) NOT NULL DEFAULT '',
     `u_name` varchar(15) NOT NULL DEFAULT '',
