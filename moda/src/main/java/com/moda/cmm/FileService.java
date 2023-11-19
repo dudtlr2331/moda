@@ -15,23 +15,38 @@ public class FileService {
     private final FileMapper fileMapper;
 
     @Transactional
-    public void saveFiles(final Long postId, final List<FileRequest> files) {
+    public void saveFiles(final Long id, final String dvsnValue, final List<FileRequest> files) {
         if (CollectionUtils.isEmpty(files)) {
             return;
         }
         for (FileRequest file : files) {
-            file.setPostId(postId);
+            if (dvsnValue != null || dvsnValue != "" || dvsnValue == "event"){
+                file.setEventId(id);
+                file.setDvsnValue(dvsnValue);
+            }else if (dvsnValue != null || dvsnValue != "" || dvsnValue == "product"){
+                file.setProdId(id);
+                file.setDvsnValue(dvsnValue);
+            }
         }
         fileMapper.saveAll(files);
     }
 
     /**
      * 파일 리스트 조회
-     * @param postId - 게시글 번호 (FK)
+     * @param prodId - 게시글 번호 (FK)
      * @return 파일 리스트
      */
-    public List<FileResponse> findAllFileByPostId(final Long postId) {
-        return fileMapper.findAllByPostId(postId);
+    public List<FileResponse> findAllFileByProdId(final Long prodId) {
+        return fileMapper.findAllFileByProdId(prodId);
+    }
+
+    /**
+     * 파일 리스트 조회
+     * @param eventId - 이벤트 번호 (FK)
+     * @return 파일 리스트
+     */
+    public List<FileResponse> findAllFileByEventId(final Long eventId) {
+        return fileMapper.findAllFileByEventId(eventId);
     }
 
     /**

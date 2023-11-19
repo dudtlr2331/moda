@@ -9,11 +9,13 @@ import java.util.List;
 @Getter
 public class FileRequest {
     private Long id;                // 파일 번호 (PK)
-    private Long postId;            // 게시글 번호 (FK)
+    private Long prodId;            // 상품 번호 (FK)
+    private Long eventId;           // 이벤트 번호
     private String originalName;    // 원본 파일명
     private String saveName;        // 저장 파일명
     private long size;              // 파일 크기
-    private String filePath; // 추가된 부분
+    private String filePath;        // 추가된 부분
+    private String dvsnValue;       // 구분 값 (ex "event", "product")
 
     @Builder
     public FileRequest(String originalName, String saveName, long size, String filePath) {
@@ -29,7 +31,15 @@ public class FileRequest {
         return this;
     }
 
-    public void setPostId(Long postId) {
-        this.postId = postId;
+    public void setProdId(Long prodId) {
+        this.prodId = prodId;
+    }
+
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
+    }
+
+    public void setDvsnValue(String dvsnValue) {
+        this.dvsnValue = dvsnValue;
     }
 }

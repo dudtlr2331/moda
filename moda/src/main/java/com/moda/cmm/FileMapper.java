@@ -13,11 +13,18 @@ public interface FileMapper {
     void saveAll(List<FileRequest> files);
 
     /**
-     * 파일 리스트 조회
-     * @param postId - 게시글 번호 (FK)
+     * 상품 파일 리스트 조회
+     * @param prodId - 상품 번호 (FK)
      * @return 파일 리스트
      */
-    List<FileResponse> findAllByPostId(Long postId);
+    List<FileResponse> findAllFileByProdId(Long prodId);
+
+    /**
+     *  이벤트 파일 리스트 조회
+     * @param eventId - 이벤트 번호 (FK)
+     * @return 파일 리스트
+     */
+    List<FileResponse> findAllFileByEventId(Long eventId);
 
     /**
      * 파일 리스트 조회
