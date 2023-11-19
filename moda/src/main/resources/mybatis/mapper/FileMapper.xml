@@ -37,28 +37,19 @@
         </foreach>
     </insert>
 
-    <!-- 상품 파일 리스트 조회 -->
-    <select id="findAllFileByProdId" parameterType="long" resultType="com.moda.cmm.FileResponse">
+    <!-- 파일 리스트 조회 -->
+    <select id="findAllFilesById" parameterType="long" resultType="com.moda.cmm.FileResponse">
         SELECT
         <include refid="fileColumns" />
         FROM
         tb_file
         WHERE
         delete_yn = 0
-        AND prod_id = #{value}
-        ORDER BY
-        id
-    </select>
-
-    <!-- 이벤트 파일 리스트 조회 -->
-    <select id="findAllFileByEventId" parameterType="long" resultType="com.moda.cmm.FileResponse">
-        SELECT
-        <include refid="fileColumns" />
-        FROM
-        tb_file
-        WHERE
-        delete_yn = 0
-        AND event_id = #{value}
+        AND (
+        prod_id = #{value}
+        OR
+        event_id = #{value}
+        )
         ORDER BY
         id
     </select>

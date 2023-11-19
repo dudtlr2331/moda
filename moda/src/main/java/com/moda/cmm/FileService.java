@@ -20,10 +20,10 @@ public class FileService {
             return;
         }
         for (FileRequest file : files) {
-            if (dvsnValue != null || dvsnValue != "" || dvsnValue == "event"){
+            if (dvsnValue != null && dvsnValue != "" && dvsnValue == "event"){
                 file.setEventId(id);
                 file.setDvsnValue(dvsnValue);
-            }else if (dvsnValue != null || dvsnValue != "" || dvsnValue == "product"){
+            }else if (dvsnValue != null && dvsnValue != "" && dvsnValue == "product"){
                 file.setProdId(id);
                 file.setDvsnValue(dvsnValue);
             }
@@ -33,20 +33,11 @@ public class FileService {
 
     /**
      * 파일 리스트 조회
-     * @param prodId - 게시글 번호 (FK)
+     * @param id - 게시글 번호 (FK)
      * @return 파일 리스트
      */
-    public List<FileResponse> findAllFileByProdId(final Long prodId) {
-        return fileMapper.findAllFileByProdId(prodId);
-    }
-
-    /**
-     * 파일 리스트 조회
-     * @param eventId - 이벤트 번호 (FK)
-     * @return 파일 리스트
-     */
-    public List<FileResponse> findAllFileByEventId(final Long eventId) {
-        return fileMapper.findAllFileByEventId(eventId);
+    public List<FileResponse> findAllFilesById(final Long id) {
+        return fileMapper.findAllFilesById(id);
     }
 
     /**

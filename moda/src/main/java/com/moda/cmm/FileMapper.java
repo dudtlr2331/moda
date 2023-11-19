@@ -14,17 +14,10 @@ public interface FileMapper {
 
     /**
      * 상품 파일 리스트 조회
-     * @param prodId - 상품 번호 (FK)
+     * @param id - 상품 번호 (FK)
      * @return 파일 리스트
      */
-    List<FileResponse> findAllFileByProdId(Long prodId);
-
-    /**
-     *  이벤트 파일 리스트 조회
-     * @param eventId - 이벤트 번호 (FK)
-     * @return 파일 리스트
-     */
-    List<FileResponse> findAllFileByEventId(Long eventId);
+    List<FileResponse> findAllFilesById(final Long id);
 
     /**
      * 파일 리스트 조회

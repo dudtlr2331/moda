@@ -20,16 +20,10 @@ public class FileApiController {
     private final FileService fileService;
     private final FileUtils fileUtils;
 
-    // 상품 리스트 조회
-    @GetMapping("/posts/{prodId}/files")
-    public List<FileResponse> findAllFileByProdId(@PathVariable final Long prodId) {
-        return fileService.findAllFileByProdId(prodId);
-    }
-
-    // 이벤트 리스트 조회
-    @GetMapping("/posts/{eventId}/files")
-    public List<FileResponse> findAllFileByEventId(@PathVariable final Long eventId) {
-        return fileService.findAllFileByEventId(eventId);
+    // id를 기반으로 파일 리스트 조회 로직 구현
+    @GetMapping("/posts/{id}/files")
+    public List<FileResponse> findAllFilesById(@PathVariable final Long id) {
+        return fileService.findAllFilesById(id);
     }
 
     // 첨부파일 다운로드
