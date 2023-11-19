@@ -90,7 +90,48 @@ public class MemberController {
         return "redirect:/main";
     }
 
-    // 사용자에게 메시지를 전달하고, 페이지를 리다이렉트 한다.
+    /**
+     * 회원 수정 폼
+     * @return
+     */
+    @GetMapping("/moda/edit.do")
+    public String editForm(Model model, HttpSession session){
+//        String uId = (String) session.getAttribute("uId");
+//        MemberVO memberInfo = memberService.findByMember(uId);
+        ////////////////////////////예시 자료///////////////////////////////
+        model.addAttribute("uId", "1");
+        model.addAttribute("uPass", "555");
+        model.addAttribute("uName", "555");
+        model.addAttribute("uEmail", "555");
+        model.addAttribute("uPost", 55555);
+        model.addAttribute("uAddr", "555");
+        model.addAttribute("uPhone", "555");
+        //////////////////////////////////////////////////////////////////
+//        model.addAttribute("uId", memberInfo.getUId());
+//        model.addAttribute("uPass", memberInfo.getUPass());
+//        model.addAttribute("uName", memberInfo.getUName());
+//        model.addAttribute("uEmail", memberInfo.getUEmail());
+//        model.addAttribute("uPost", memberInfo.getUPost());
+//        model.addAttribute("uAddr", memberInfo.getUAddr());
+//        model.addAttribute("uPhone", memberInfo.getUPhone());
+        return "html/moda/member/edit";
+    }
+
+    /**
+     * 회원 수정 진행
+     * @param memberVO
+     * @return
+     */
+    @PostMapping("/moda/edit")
+    public String edit(@ModelAttribute MemberVO memberVO, Model model){
+        memberService.editMember(memberVO);
+        MessageDto message = new MessageDto("수정 성공", "/나중에 수정", RequestMethod.GET, null);
+        return showMessageAndRedirect(message, model);
+    }
+
+    /**
+     * 사용자에게 메시지를 전달하고, 페이지를 리다이렉트 한다.
+      */
     private String showMessageAndRedirect(final MessageDto params, Model model) {
         model.addAttribute("params", params);
         return "html/common/messageRedirect";

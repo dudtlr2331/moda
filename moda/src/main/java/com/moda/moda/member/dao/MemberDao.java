@@ -13,4 +13,6 @@ public interface MemberDao {
     int matchMember(MemberVO memberVO);
 
     MemberVO findById(String uId);
+
+    void modMember(MemberVO memberVO);
 }

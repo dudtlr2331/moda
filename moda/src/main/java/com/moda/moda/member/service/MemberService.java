@@ -47,7 +47,21 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberVO findByMember(String uId){          //로그인 서비스
+    public MemberVO findByMember(String uId){          //id로 멤버 정보 가져오는 서비스
         return memberDao.findById(uId);
+    }
+
+    @Transactional
+    public void editMember(MemberVO memberVO){          //회원 수정 서비스
+        if(memberVO.getUPost().isEmpty()){
+            memberVO.setUPost(null);
+        }
+        if(memberVO.getUAddr().isEmpty()){
+            memberVO.setUAddr(null);
+        }
+        if(memberVO.getUPhone().isEmpty()){
+            memberVO.setUPhone(null);
+        }
+        memberDao.modMember(memberVO);
     }
 }

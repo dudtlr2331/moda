@@ -61,4 +61,17 @@
         WHERE
             U_ID = #{value}
     </select>
+
+    <update id="modMember" parameterType="com.moda.moda.member.MemberVO">
+        UPDATE users
+        SET
+            U_PASS = #{uPass},
+            U_NAME = #{uName},
+            U_EMAIL = #{uEmail},
+            U_POST = #{uPost},
+            U_ADDR = #{uAddr},
+            U_PHONE = #{uPhone}
+        WHERE
+            U_ID = #{uId}
+    </update>
 </mapper>
