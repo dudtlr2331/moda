@@ -30,7 +30,7 @@ public class AdmProdController {
 
         // 파일 업로드 및 파일 정보 저장
         List<FileRequest> files = fileUtils.uploadFiles(params.getFiles());
-        fileService.saveFiles((long) code, files);
+        fileService.saveFiles((long) code, "product", files);
 
         // 파일 경로 가져오기
         String filePath = files.stream()
@@ -94,7 +94,7 @@ public class AdmProdController {
         List<FileRequest> uploadFiles = fileUtils.uploadFiles(params.getFiles());
 
         // 3. 파일 정보 저장 (to database)
-        fileService.saveFiles((long) params.getProdCode(), uploadFiles);
+        fileService.saveFiles((long) params.getProdCode(), "product", uploadFiles);
 
         // 4. 삭제할 파일 정보 조회 (from database)
         List<FileResponse> deleteFiles = fileService.findAllFileByIds(params.getRemoveFileIds());
