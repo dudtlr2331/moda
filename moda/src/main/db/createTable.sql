@@ -109,8 +109,8 @@ CREATE TABLE IF NOT EXISTS `users` (
     `u_phone` varchar(30) DEFAULT NULL,
     `u_date` datetime NOT NULL,
     `u_admin` varchar(1) NOT NULL DEFAULT '0',
-    PRIMARY KEY (`u_id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+    PRIMARY KEY (`u_num`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /* QnA 테이블 */
 CREATE TABLE `qna` (
