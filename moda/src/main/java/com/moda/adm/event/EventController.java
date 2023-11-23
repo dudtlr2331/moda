@@ -5,10 +5,14 @@ import com.moda.adm.paging.PagingResponse;
 import com.moda.adm.search.SearchDto;
 import com.moda.cmm.*;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +29,7 @@ public class EventController {
     public String savePost(final EventSearch params, Model model) {
         Long id = eventService.saveEvent(params);
         List<FileRequest> files = fileUtils.uploadFiles(params.getFiles());
-        fileService.saveFiles(id, files);
+        fileService.saveFiles(id, "event", files);
         MessageDto message = new MessageDto("게시글 생성이 완료되었습니다.", "/adm/event/list.do", RequestMethod.GET, null);
         return showMessageAndRedirect(message, model);
     }
@@ -67,7 +71,7 @@ public class EventController {
         List<FileRequest> uploadFiles = fileUtils.uploadFiles(params.getFiles());
 
         // 3. 파일 정보 저장 (to database)
-        fileService.saveFiles(params.getId(), uploadFiles);
+        fileService.saveFiles(params.getId(), "event", uploadFiles);
 
         // 4. 삭제할 파일 정보 조회 (from database)
         List<FileResponse> deleteFiles = fileService.findAllFileByIds(params.getRemoveFileIds());
@@ -96,6 +100,27 @@ public class EventController {
         eventService.deleteEvent(id);
         MessageDto message = new MessageDto("게시글 삭제가 완료되었습니다.", "/adm/event/list.do", RequestMethod.GET, queryParamsToMap(queryParams));
         return showMessageAndRedirect(message, model);
+    }
+
+    @RequestMapping(value = "/adm/event/admEventListAjax.do")
+    @ResponseBody
+    public JSONObject admEventListAjax() {
+        JSONObject data = new JSONObject();
+        JSONArray jArry = new JSONArray();
+
+        List<EventDto> list = eventService.admEventListAjax();
+
+        for(int i=0; i<list.size(); i++) {
+            JSONObject obj = new JSONObject();
+            obj.put("imgNm", list.get(i).getImgNm());
+            obj.put("imgPath", list.get(i).getImgPath());
+            jArry.put(obj);
+        }
+
+        data.put("result", "success");
+        data.put("data", jArry);
+
+        return data;
     }
 
     // 사용자에게 메시지를 전달하고, 페이지를 리다이렉트 한다.
