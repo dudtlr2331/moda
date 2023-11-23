@@ -13,4 +13,7 @@ public class UserVO {
     private String userPhone;
     private String userDate;
     private String userAdmin;
+
+    //카테고리 구현부
+    String usrId;
 }
