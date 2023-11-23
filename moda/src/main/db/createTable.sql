@@ -146,7 +146,6 @@ CREATE TABLE IF NOT EXISTS `tb_file` (
     PRIMARY KEY (`id`),
     KEY `fk_post_file` (`prod_id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=42;
-
     /* tb_file 테이블 데이터 삽입 */
 INSERT INTO `tb_file` (`id`, `prod_id`, `original_name`, `save_name`, `size`, `delete_yn`, `created_date`, `deleted_date`, `event_id`, `dvsn_value`) VALUES
 (21, 21, '1.jpg', 'b761cd9319cf4f4a8452464423f3c051.jpg', 652562, 0, '2023-11-16 20:29:27', NULL, NULL, 'product'),
@@ -169,3 +168,18 @@ INSERT INTO `tb_file` (`id`, `prod_id`, `original_name`, `save_name`, `size`, `d
 (39, NULL, 'banner_01.png', 'dbbf056a64054f8da6ff1f8709972af9.png', 188912, 0, '2023-11-20 03:27:36', NULL, 10, 'event'),
 (40, NULL, 'banner_03.png', '077fc5109d10415dbd7ff4e66c9106de.png', 65092, 0, '2023-11-20 03:28:43', NULL, 11, 'event'),
 (41, NULL, 'banner2.jpg', '511c1c3f3c5042c48b7742f4512b9c83.jpg', 67401, 0, '2023-11-20 03:29:12', NULL, 12, 'event');
+
+/**/
+USE moda;
+
+CREATE TABLE IF NOT EXISTS GOODS_CATA
+( `GOODS_CATA_SEQ`   INT(20)      AUTO_INCREMENT PRIMARY KEY
+    , `CATGRY_CD`   VARCHAR(20)      NOT NULL
+    , `GOODS_CD`   INT(12)      NOT NULL
+    , `CATGRY_NM`   VARCHAR(400)      NULL
+    , `NOTE_CONT`   VARCHAR(4000)      NULL
+    , `CLASS_LVL_CD`   VARCHAR(20)      NULL
+    , `UPR_CLASS_CD`   VARCHAR(20)      NULL
+    , `RGST_ID`   VARCHAR(200)      NULL
+    , `RGST_DATE`    DATETIME       NULLmoda
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
