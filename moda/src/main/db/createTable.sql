@@ -130,3 +130,42 @@ INSERT INTO `moda`.`qna` (`u_id`, `qna_title`, `qna_q`) VALUES ('test345', '문�
 INSERT INTO `moda`.`qna` (`u_id`, `qna_title`, `qna_q`) VALUES ('test6363', '꼭 봐주세요.', '환불은 안되나요?');
 INSERT INTO `moda`.`qna` (`u_id`, `qna_title`, `qna_q`, `qna_a`, `qna_stat`) VALUES ('ddd123', '환불해주세요.', '청바지 샀는데 환불 안되면 고소합니다.', '환불 해드렸습니다.', '1');
 INSERT INTO `moda`.`qna` (`u_id`, `qna_title`, `qna_q`, `qna_a`, `qna_stat`) VALUES ('aaa6234', '교환가능?', '교환해주세요. 사이즈가 안맞네요.', '교환 해드렸습니다.', '1');
+
+
+CREATE TABLE IF NOT EXISTS `tb_file` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '파일 번호 (PK)',
+    `prod_id` bigint(20) DEFAULT NULL COMMENT '상품 번호 (FK)',
+    `original_name` varchar(255) NOT NULL COMMENT '원본 파일명',
+    `save_name` varchar(40) NOT NULL COMMENT '저장 파일명',
+    `size` int(11) NOT NULL COMMENT '파일 크기',
+    `delete_yn` tinyint(1) NOT NULL COMMENT '삭제 여부',
+    `created_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '생성일시',
+    `deleted_date` datetime DEFAULT NULL COMMENT '삭제일시',
+    `event_id` bigint(20) DEFAULT NULL COMMENT '이벤트 번호',
+    `dvsn_value` varchar(10) NOT NULL COMMENT 'DIVISION_VALUE 구분 값',
+    PRIMARY KEY (`id`),
+    KEY `fk_post_file` (`prod_id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=42;
+
+    /* tb_file 테이블 데이터 삽입 */
+INSERT INTO `tb_file` (`id`, `prod_id`, `original_name`, `save_name`, `size`, `delete_yn`, `created_date`, `deleted_date`, `event_id`, `dvsn_value`) VALUES
+(21, 21, '1.jpg', 'b761cd9319cf4f4a8452464423f3c051.jpg', 652562, 0, '2023-11-16 20:29:27', NULL, NULL, 'product'),
+(22, 22, '2.jpg', 'e627943942664326bf346d59f7bb67f5.jpg', 703052, 0, '2023-11-16 20:37:29', NULL, NULL, 'product'),
+(23, 23, '3.jpg', '9aa90ae9e4394529a1bc17c4887e11bc.jpg', 679501, 0, '2023-11-16 20:38:02', NULL, NULL, 'product'),
+(24, 24, '4.jpg', 'd02e30ff490742fba73a84324406cfb5.jpg', 172807, 0, '2023-11-16 20:38:29', NULL, NULL, 'product'),
+(25, 25, '5.jpg', '0ea570fcb3b843c48245c3c480b9bdd1.jpg', 253362, 0, '2023-11-16 20:39:05', NULL, NULL, 'product'),
+(26, 26, '6.jpg', '56e37a60f8fd4fddb0c90d02f2598de8.jpg', 201821, 0, '2023-11-16 20:39:36', NULL, NULL, 'product'),
+(27, 27, '7.jpg', 'bb7cf45b6ef94163bb6252c9a0131cdf.jpg', 39460, 0, '2023-11-16 20:40:06', NULL, NULL, 'product'),
+(28, 28, '10.jpg', '4f3babab321a4a7283b44d5252734484.jpg', 178875, 0, '2023-11-16 20:40:48', NULL, NULL, 'product'),
+(29, 29, 'man_to_man_04.jpg', '0478541aaa3746cc91454735bb6eabfd.jpg', 22542, 0, '2023-11-16 20:42:17', NULL, NULL, 'product'),
+(30, 30, 'short_sleeved_shirt_10.jpg', '17ec1e08a6454f55aa478520d33d79ee.jpg', 311584, 0, '2023-11-16 20:42:40', NULL, NULL, 'product'),
+(32, NULL, 'dress_sample6.png', 'a578a4a23af6490a925958ace7aca5cb.png', 365574, 0, '2023-11-19 05:43:12', NULL, 31, 'product'),
+(33, NULL, 'dress_sample7.png', '7eb6b6781b784a14ba025fb8f915901f.png', 1253967, 0, '2023-11-19 06:05:10', NULL, 32, 'product'),
+(34, NULL, 'dress_sample11.jpg', '17521530e0f840a79c645af4b69c8755.jpg', 97436, 0, '2023-11-19 06:12:23', NULL, 33, 'product'),
+(35, NULL, 'dress_sample6.png', '5f2b7d7bea214ad4aa024f07474032c4.png', 365574, 0, '2023-11-19 06:13:20', NULL, 34, 'product'),
+(36, NULL, 'dress_sample6.png', '8031d16233634dbc88c1de5e45e45e86.png', 365574, 0, '2023-11-20 02:19:38', NULL, 35, 'product'),
+(37, NULL, 'dress_sample7.png', '22285262d22c445cb3ad50976156ba11.png', 1253967, 0, '2023-11-20 02:21:11', NULL, 36, 'product'),
+(38, 37, 'dress_sample11.jpg', '5282e2040c414a4bb0f03cd77a969b7f.jpg', 97436, 0, '2023-11-20 02:24:14', NULL, NULL, 'product'),
+(39, NULL, 'banner_01.png', 'dbbf056a64054f8da6ff1f8709972af9.png', 188912, 0, '2023-11-20 03:27:36', NULL, 10, 'event'),
+(40, NULL, 'banner_03.png', '077fc5109d10415dbd7ff4e66c9106de.png', 65092, 0, '2023-11-20 03:28:43', NULL, 11, 'event'),
+(41, NULL, 'banner2.jpg', '511c1c3f3c5042c48b7742f4512b9c83.jpg', 67401, 0, '2023-11-20 03:29:12', NULL, 12, 'event');
