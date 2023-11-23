@@ -11,12 +11,12 @@
 
 <div class="login-text">
     <div th:if="${uId}">
-        <span th:text="${uId} + '님 환영합니다.'"></span>
-        <input type="button" class="w70" id="logout_btn" th:onclick="'location.href=\'/moda/logout\''" value="로그아웃">
-        <input th:if="${uAdmin == '1'}" type="button" class="w70" id="admin_btn" onclick="openAdminPage()" value="관리">
+        <span th:text="${uId} + '님 환영합니다.'" id="hello_user"></span>
+        <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit" width="20" height="20" src="/images/icon_logout.png"/>
+        <input th:if="${uAdmin == '1'}" id="admin_btn" onclick="openAdminPage()" type="image" class="w70" alt="Submit" width="25" height="25" src="/images/icon_adm.png">
     </div>
     <div th:if="${uId == null}">
-        <input type="button" class="w70" th:onclick="'location.href=\'/moda/login.do\''" value="로그인"/>
+        <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit" width="20" height="20" src="/images/icon_login.jpg"/>
     </div>
 </div>
 
