@@ -33,6 +33,7 @@ dependencies {
 	implementation 'mysql:mysql-connector-java:8.0.27'
 	implementation 'javax.servlet:jstl:1.2' // JSTL 의존성 추가
 	implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.7.6'  /* spring-security-crypto */
+	implementation 'org.json:json:20220320' // json
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools' // 소스 코드 변경시 자동으로 페이지 리로드 해주는 라이브러리
 
