@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,17 +105,17 @@ public class EventController {
 
     @RequestMapping(value = "/adm/event/admEventListAjax.do")
     @ResponseBody
-    public JSONObject admEventListAjax() {
-        JSONObject data = new JSONObject();
-        JSONArray jArry = new JSONArray();
+    public Map<String, Object> admEventListAjax() {
+        Map<String, Object> data = new HashMap<>();
+        List<Map<String, String>> jArry = new ArrayList<>();
 
         List<EventDto> list = eventService.admEventListAjax();
 
-        for(int i=0; i<list.size(); i++) {
-            JSONObject obj = new JSONObject();
-            obj.put("imgNm", list.get(i).getImgNm());
-            obj.put("imgPath", list.get(i).getImgPath());
-            jArry.put(obj);
+        for (EventDto event : list) {
+            Map<String, String> obj = new HashMap<>();
+            obj.put("imgNm", event.getImgNm());
+            obj.put("imgPath", event.getImgPath());
+            jArry.add(obj);
         }
 
         data.put("result", "success");
@@ -122,6 +123,7 @@ public class EventController {
 
         return data;
     }
+
 
     // 사용자에게 메시지를 전달하고, 페이지를 리다이렉트 한다.
     private String showMessageAndRedirect(final MessageDto params, Model model) {

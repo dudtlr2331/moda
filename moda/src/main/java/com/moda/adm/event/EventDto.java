@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 @Getter
 public class EventDto {
-
     private Long id;                       // PK
     private String title;                  // 제목
     private String content;                // 내용
@@ -16,4 +15,6 @@ public class EventDto {
     private Boolean deleteYn;              // 삭제 여부
     private LocalDateTime createdDate;     // 생성일시
     private LocalDateTime modifiedDate;    // 최종 수정일시
+    private String imgPath;      // 이미지 패스
+    private String imgNm;        // 이미지 이름
 }

@@ -82,4 +82,9 @@ public class EventServiceImpl implements EventService {
 
     }
 
+    @Override
+    public List<EventDto> admEventListAjax() {
+        return eventDao.admEventListAjax();
+    }
+
 }

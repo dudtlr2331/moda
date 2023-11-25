@@ -8,9 +8,10 @@ import com.moda.adm.search.SearchDto;
 import java.util.List;
 
 public interface EventService {
-    public Long saveEvent(final EventSearch params);
-    public EventDto findPostById(final Long id) ;
-    public Long updateEvent(final EventSearch params);
-    public Long deleteEvent(final Long id);
-    public PagingResponse<EventDto> findAllEvent(final SearchDto params);
+    Long saveEvent(final EventSearch params);
+    EventDto findPostById(final Long id) ;
+    Long updateEvent(final EventSearch params);
+    Long deleteEvent(final Long id);
+    PagingResponse<EventDto> findAllEvent(final SearchDto params);
+    List<EventDto> admEventListAjax();
 }

@@ -47,4 +47,9 @@ public interface EventDao {
      */
     int count(SearchDto params);
 
+    /**
+     * 이벤트 Ajax
+     * @return 이벤트 리스트
+     */
+    List<EventDto> admEventListAjax();
 }

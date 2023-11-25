@@ -118,4 +118,11 @@
             delete_yn = 0
         <include refid="search" />
     </select>
+
+    <select id="admEventListAjax" resultType="com.moda.adm.event.EventDto">
+        SELECT
+               *
+        FROM
+            tb_post;
+    </select>
 </mapper>
