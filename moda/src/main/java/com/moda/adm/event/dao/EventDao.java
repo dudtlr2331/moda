@@ -3,6 +3,7 @@ package com.moda.adm.event.dao;
 import com.moda.adm.event.EventDto;
 import com.moda.adm.event.EventSearch;
 import com.moda.adm.search.SearchDto;
+import com.moda.moda.product.ProdVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -52,4 +53,10 @@ public interface EventDao {
      * @return 이벤트 리스트
      */
     List<EventDto> admEventListAjax();
+
+    /**
+     * 이벤트 이미지 경로 추가
+     * @return 이벤트 이미지 경로
+     */
+    Long addImagePath(EventSearch params);
 }

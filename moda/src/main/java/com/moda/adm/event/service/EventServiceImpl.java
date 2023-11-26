@@ -6,6 +6,7 @@ import com.moda.adm.event.dao.EventDao;
 import com.moda.adm.paging.Pagination;
 import com.moda.adm.paging.PagingResponse;
 import com.moda.adm.search.SearchDto;
+import com.moda.moda.product.ProdVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -85,6 +86,12 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventDto> admEventListAjax() {
         return eventDao.admEventListAjax();
+    }
+
+    @Override
+    public Long addImagePath(EventSearch params) {
+        eventDao.addImagePath(params);
+        return params.getId();
     }
 
 }

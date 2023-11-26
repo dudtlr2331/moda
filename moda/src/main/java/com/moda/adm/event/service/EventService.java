@@ -4,6 +4,7 @@ import com.moda.adm.event.EventDto;
 import com.moda.adm.event.EventSearch;
 import com.moda.adm.paging.PagingResponse;
 import com.moda.adm.search.SearchDto;
+import com.moda.moda.product.ProdVO;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface EventService {
     Long deleteEvent(final Long id);
     PagingResponse<EventDto> findAllEvent(final SearchDto params);
     List<EventDto> admEventListAjax();
+    Long addImagePath(EventSearch params);
+
 }

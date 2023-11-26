@@ -125,4 +125,14 @@
         FROM
             tb_post;
     </select>
+
+    <!-- 상품 이미지 경로 추가 -->
+    <update id="addImagePath" parameterType="com.moda.adm.event.EventDto">
+        UPDATE tb_post
+        SET
+            img_path = #{imgPath}
+          , img_nm = #{imgNm}
+        WHERE
+            id = #{id}
+    </update>
 </mapper>

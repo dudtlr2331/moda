@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,6 +33,27 @@ public class EventController {
         Long id = eventService.saveEvent(params);
         List<FileRequest> files = fileUtils.uploadFiles(params.getFiles());
         fileService.saveFiles(id, "event", files);
+
+        // 파일 경로 가져오기
+        String filePath = files.stream()
+                .findFirst() // 파일이 여러 개일 경우 첫 번째 파일의 경로를 가져옴
+                .map(FileRequest::getFilePath)
+                .orElse(""); ///images/part/bag/backpack/backpack_01.jpg
+
+        // File.separator를 기준으로 경로를 나누기
+        String[] pathSegments = filePath.split(Pattern.quote("images" + File.separator));
+
+        // 변수에 저장
+        String[] imgPathSegments = pathSegments[1].split(Pattern.quote(File.separator));
+        String imgPath = "/images/" + imgPathSegments[0];  // 수정
+        String imgNm = "/" + imgPathSegments[1];      // 수정
+
+        params.setImgPath(imgPath);
+        params.setImgNm(imgNm);
+
+        // 파일 경로 저장
+        eventService.addImagePath(params);
+
         MessageDto message = new MessageDto("게시글 생성이 완료되었습니다.", "/adm/event/list.do", RequestMethod.GET, null);
         return showMessageAndRedirect(message, model);
     }
