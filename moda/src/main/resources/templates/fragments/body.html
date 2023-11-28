@@ -6,7 +6,7 @@
         <div class="head">
             <h1>게시판 프로젝트</h1>
             <div class="top_menu">
-                <div class="login_user"><strong><i class="far fa-user-circle"></i>아무나</strong>님 반갑습니다.</div>
+                <div class="login_user"><strong id="output"><i class="far fa-user-circle"></i>아무나</strong>님 반갑습니다.</div>
                 <div class="logout"><button type="button"><span class="skip_info">로그아웃</span><i class="fas fa-sign-out-alt"></i></button></div>
             </div>
         </div>
@@ -43,6 +43,13 @@
 <script th:src="@{/js/common.js}"></script>
 <script src="https://kit.fontawesome.com/79613ae794.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<script>
+    window.onload = function (){
+        var uId = sessionStorage.getItem('uId');
+        var output = document.getElementById("output");
+        output.textContent = uId;
+    }
+</script>
 
 <th:block layout:fragment="script"></th:block>
 </body>

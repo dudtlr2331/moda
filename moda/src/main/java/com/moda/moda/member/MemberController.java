@@ -83,7 +83,7 @@ public class MemberController {
      * @return
      */
     @GetMapping("/moda/logout")
-    public String userLogout(HttpServletRequest req) {
+    public String memberLogout(HttpServletRequest req) {
         HttpSession session = req.getSession();
         session.invalidate();
 
@@ -96,24 +96,15 @@ public class MemberController {
      */
     @GetMapping("/moda/edit.do")
     public String editForm(Model model, HttpSession session){
-//        String uId = (String) session.getAttribute("uId");
-//        MemberVO memberInfo = memberService.findByMember(uId);
-        ////////////////////////////예시 자료///////////////////////////////
-        model.addAttribute("uId", "1");
-        model.addAttribute("uPass", "555");
-        model.addAttribute("uName", "555");
-        model.addAttribute("uEmail", "555");
-        model.addAttribute("uPost", 55555);
-        model.addAttribute("uAddr", "555");
-        model.addAttribute("uPhone", "555");
-        //////////////////////////////////////////////////////////////////
-//        model.addAttribute("uId", memberInfo.getUId());
-//        model.addAttribute("uPass", memberInfo.getUPass());
-//        model.addAttribute("uName", memberInfo.getUName());
-//        model.addAttribute("uEmail", memberInfo.getUEmail());
-//        model.addAttribute("uPost", memberInfo.getUPost());
-//        model.addAttribute("uAddr", memberInfo.getUAddr());
-//        model.addAttribute("uPhone", memberInfo.getUPhone());
+        String uId = (String) session.getAttribute("uId");
+        MemberVO memberInfo = memberService.findByMember(uId);
+        model.addAttribute("uId", memberInfo.getUId());
+        model.addAttribute("uPass", memberInfo.getUPass());
+        model.addAttribute("uName", memberInfo.getUName());
+        model.addAttribute("uEmail", memberInfo.getUEmail());
+        model.addAttribute("uPost", memberInfo.getUPost());
+        model.addAttribute("uAddr", memberInfo.getUAddr());
+        model.addAttribute("uPhone", memberInfo.getUPhone());
         return "html/moda/member/edit";
     }
 
@@ -125,7 +116,7 @@ public class MemberController {
     @PostMapping("/moda/edit")
     public String edit(@ModelAttribute MemberVO memberVO, Model model){
         memberService.editMember(memberVO);
-        MessageDto message = new MessageDto("수정 성공", "/나중에 수정", RequestMethod.GET, null);
+        MessageDto message = new MessageDto("수정 성공", "/main", RequestMethod.GET, null);
         return showMessageAndRedirect(message, model);
     }
 
@@ -135,5 +126,18 @@ public class MemberController {
     private String showMessageAndRedirect(final MessageDto params, Model model) {
         model.addAttribute("params", params);
         return "html/common/messageRedirect";
+    }
+
+    /**
+     * 로그아웃
+     * @return
+     */
+    @GetMapping("/moda/delete")
+    public String memberRemove(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        String uId = (String) session.getAttribute("uId");
+        memberService.deleteMember(uId);
+        session.invalidate();
+        return "redirect:/main";
     }
 }

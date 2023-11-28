@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>moda</title>
+    <style>
+        a {
+            color: #888888;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logo {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo img {
+            width: 300px;
+        }
+
+        .horizontal-menu {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .horizontal-menu li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        .horizontal-menu a {
+            text-decoration: none;
+        }
+
+        .login-text {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: blue;
+            cursor: pointer;
+        }
+
+        .my-page-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .menu-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            display: block; /* 블록 레벨 요소로 변경 */
+            margin-top: 10px;
+            width: 500px;
+            height: 200px;
+            margin: auto; /* 가운데 정렬을 위해 추가 */
+            text-align: center;
+        }
+
+        .menu-icon-container {
+            display: flex;
+            justify-content: center; /* 아이콘 간격을 넓히기 위해 */
+            gap: 120px; /* 아이콘 간격을 띄우기 위해 추가 */
+        }
+
+        .menu-icon {
+            width: 70px; /* 아이콘 이미지 크기 조절 */
+            height: 70px; /* 아이콘 이미지 크기 조절 */
+            cursor: pointer; /* 포인터로 마우스 오버시 클릭 가능하게 설정 */
+        }
+
+        .menu-description {
+            font-size: 16px;
+            margin-top: 0px; /* 아이콘과 텍스트 간격을 조절 */
+        }
+
+        .user-info-box {
+            width: 500px;
+            height: 100px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            display: block; /* 블록 레벨 요소로 변경 */
+            margin-top: 10px;
+            margin: auto; /* 가운데 정렬을 위해 추가 */
+            text-align: center;
+        }
+
+        .user-info-box p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="logo">
+    <img src="/images/logo.png" alt="로고 이미지">
+</div>
+
+<div class="login-text">
+    <div th:if="${uId}">
+        <span th:text="${uId} + '님 환영합니다.'" id="hello_user"></span>
+        <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit" width="20" height="20" src="/images/icon_logout.png"/>
+        <input th:if="${uAdmin == '1'}" id="admin_btn" onclick="openAdminPage()" type="image" class="w70" alt="Submit" width="25" height="25" src="/images/icon_adm.png">
+    </div>
+    <div th:if="${uId == null}">
+        <input th:onclick="'location.href=\'/moda/main/mypage.do\''" type="image" class="w70" id="login_btn" alt="Submit" width="50" height="50" src="/images/icon_login.png"/>
+    </div>
+</div>
+
+<!-- 가로 메뉴 -->
+<ul class="horizontal-menu">
+    <li><a href="#">신상</a></li>
+    <li><a href="#">베스트</a></li>
+    <li><a href="#">카테고리</a></li>
+    <li><a href="#">장바구니</a></li>
+    <li><a href="#">마이페이지</a></li>
+</ul>
+
+<div class="my-page-container">
+    <div class="page-title">
+        마이 페이지
+    </div>
+
+    <div class="menu-box">
+        <div class="menu-icon-container">
+            <div>
+                <img class="menu-icon" src="/images/icon1.png" alt="아이콘1">
+                <p class="menu-description"><a href="#">주문내역</a></p>
+            </div>
+            <div>
+                <img class="menu-icon" src="/images/icon2.png" alt="아이콘2">
+                <p class="menu-description"><a href="#">문의 작성</a></p>
+            </div>
+        </div>
+        <div class="menu-icon-container">
+            <div th:onclick="'location.href=\'/moda/edit.do\''">
+                <img class="menu-icon" src="/images/icon3.png" alt="아이콘3">
+                <p class="menu-description" ><a href="/moda/edit.do">회원 정보 변경</a></p>
+            </div>
+            <div>
+                <img class="menu-icon" src="/images/icon4.png" alt="아이콘4">
+                <p class="menu-description"><a href="#">회원 탈퇴</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-info-box">
+        <p th:text="${uName} + '님의 마이페이지 정보'"></p>
+        <p th:text="'이메일: ' + ${uEmail}"></p>
+        <p th:text="'휴대폰: ' + ${uPhone == null ? '정보가 없습니다.' : uPhone}"></p>
+        <p th:text="'주소: ' + ${uAddr == null ? '정보가 없습니다.' : uAddr}"></p>
+    </div>
+</div>
+
+<script>
+</script>
+</body>
+</html>
