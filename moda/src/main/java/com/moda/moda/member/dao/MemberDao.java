@@ -11,8 +11,10 @@ public interface MemberDao {
     int countById(String uId);
     //로그인
     int matchMember(MemberVO memberVO);
-
+    //아이디로 유저 정보 가져오기
     MemberVO findById(String uId);
-
+    //회원 정보 수정
     void modMember(MemberVO memberVO);
+    //회원 탈퇴
+    void removeMember(String uid);
 }

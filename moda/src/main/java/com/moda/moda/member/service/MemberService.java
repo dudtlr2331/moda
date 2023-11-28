@@ -64,4 +64,9 @@ public class MemberService {
         }
         memberDao.modMember(memberVO);
     }
+
+    @Transactional
+    public void deleteMember(String uId){          //회원 탈퇴 서비스
+        memberDao.removeMember(uId);
+    }
 }

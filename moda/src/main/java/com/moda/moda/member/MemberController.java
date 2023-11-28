@@ -83,7 +83,7 @@ public class MemberController {
      * @return
      */
     @GetMapping("/moda/logout")
-    public String userLogout(HttpServletRequest req) {
+    public String memberLogout(HttpServletRequest req) {
         HttpSession session = req.getSession();
         session.invalidate();
 
@@ -126,5 +126,18 @@ public class MemberController {
     private String showMessageAndRedirect(final MessageDto params, Model model) {
         model.addAttribute("params", params);
         return "html/common/messageRedirect";
+    }
+
+    /**
+     * 로그아웃
+     * @return
+     */
+    @GetMapping("/moda/delete")
+    public String memberRemove(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        String uId = (String) session.getAttribute("uId");
+        memberService.deleteMember(uId);
+        session.invalidate();
+        return "redirect:/main";
     }
 }

@@ -74,4 +74,11 @@
         WHERE
             U_ID = #{uId}
     </update>
+
+    <delete id="removeMember" parameterType="string">
+        DELETE FROM
+                   users
+        WHERE
+            U_ID = #{value}
+    </delete>
 </mapper>
