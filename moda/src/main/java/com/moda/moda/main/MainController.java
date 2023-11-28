@@ -2,6 +2,7 @@ package com.moda.moda.main;
 
 import com.moda.moda.main.service.MainService;
 import com.moda.moda.member.MemberVO;
+import com.moda.moda.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +13,12 @@ import java.util.List;
 
 @Controller
 public class MainController {
+    private final MemberService memberService;
     private final MainService mainService;
 
     @Autowired
-    public MainController(MainService mainService) {
+    public MainController(MemberService memberService, MainService mainService) {
+        this.memberService = memberService;
         this.mainService = mainService;
     }
 
@@ -34,4 +37,20 @@ public class MainController {
         return "html/moda/main/main";
     }
 
+    /**
+     * 마이페이지 폼
+     * @return
+     */
+    @GetMapping("/moda/main/mypage.do")
+    public String myPageForm(Model model, HttpSession session){
+        String uId = (String) session.getAttribute("uId");
+        MemberVO memberInfo = memberService.findByMember(uId);
+        model.addAttribute("uId", memberInfo.getUId());
+        model.addAttribute("uAdmin", memberInfo.getUAdmin());
+        model.addAttribute("uName", memberInfo.getUName());
+        model.addAttribute("uEmail", memberInfo.getUEmail());
+        model.addAttribute("uAddr", memberInfo.getUAddr());
+        model.addAttribute("uPhone", memberInfo.getUPhone());
+        return "html/moda/main/mypage";
+    }
 }
