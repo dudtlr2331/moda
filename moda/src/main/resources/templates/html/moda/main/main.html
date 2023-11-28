@@ -13,11 +13,12 @@
 <div class="login-text">
     <div th:if="${uId}">
         <span th:text="${uId} + '님 환영합니다.'" id="hello_user"></span>
-        <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit" width="20" height="20" src="/images/icon_logout.png"/>
+        <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit" width="50" height="25" src="/images/icon_logout.png"/>
         <input th:if="${uAdmin == '1'}" id="admin_btn" onclick="openAdminPage()" type="image" class="w70" alt="Submit" width="25" height="25" src="/images/icon_adm.png">
+        <input th:if="${uAdmin == '0'}" id="mypage_btn" th:onclick="'location.href=\'/moda/main/mypage.do\''" type="image" class="w70" alt="Submit" width="50" height="25" src="/images/icon_mypage.png">
     </div>
     <div th:if="${uId == null}">
-        <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit" width="20" height="20" src="/images/icon_login.jpg"/>
+        <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit" width="50" height="25" src="/images/icon_login.png"/>
     </div>
 </div>
 
@@ -64,7 +65,15 @@
 </div>
 
 <!-- JavaScript 코드 추가 -->
-<script>
+<script th:inline="javascript">
+
+    window.onload = function(){
+        var uId = /*[[${uId}]]*/;
+        var uAdmin = /*[[${uAdmin}]]*/;
+        sessionStorage.setItem('uId', uId);
+        sessionStorage.setItem('uAdmin', uAdmin);
+    }
+
     function fn_ajax(obj){
         let url = obj.url;
         let method = obj.method;
@@ -123,8 +132,6 @@
     function openAdminPage() {
         window.open('/adm/product/prodList.do', '_blank');
     }
-
-
 
     let banner = {
         rollId: null,
