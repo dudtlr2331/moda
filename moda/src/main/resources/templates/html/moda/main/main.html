@@ -49,16 +49,19 @@
 <!-- Thymeleaf 반복문을 이용하여 이미지를 동적으로 추가 -->
 <div th:if="${mainHomeList != null and #lists.size(mainHomeList) gt 0}" class="img_area">
     <div th:each="item : ${mainHomeList}">
-        <img th:src="${item.prodImg} + ${item.prodImgDtl}">
-        <div class="txt_area">
-            <div class="item_name" th:text="${item.prodName}"></div>
-            <div class="item_price">
-                <span class="color_red" th:text="${#numbers.formatInteger(item.prodPrice, 0, 'COMMA')} + '원'"></span>
+        <a th:href="@{/product/prodDetail.do(code=${item.prodCode})}" >
+            <img th:src="${item.prodImg} + ${item.prodImgDtl}">
+            <div class="txt_area">
+                <div class="item_name" th:text="${item.prodName}"></div>
+                <div class="item_price">
+                    <span class="color_red" th:text="${#numbers.formatInteger(item.prodPrice, 0, 'COMMA')} + '원'"></span>
+                </div>
             </div>
-        </div>
-        <div class="dim"></div>
+            <div class="dim"></div>
+        </a>
     </div>
 </div>
+
 <div th:if="${mainHomeList == null or #lists.size(mainHomeList) == 0}">
     <div class="img_a">데이터가 없습니다.</div>
 </div>
