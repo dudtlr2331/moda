@@ -3,6 +3,7 @@ package com.moda.moda.product;
 import com.moda.moda.product.service.ProdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -24,5 +25,10 @@ public class ProdController {
         return "html/moda/main/main";
     }
 
-
+    @GetMapping("/product/prodDetail.do")
+    public String selectProdDetail(int code, Model model) {
+        ProdVO rvo = prodService.selectProdOne(code);
+        model.addAttribute("rvo", rvo);
+        return "html/moda/product/productDetail";
+    }
 }
