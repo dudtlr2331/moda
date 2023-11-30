@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moda.adm.category.dao.CateDao">
+
+    <!--카테고리의 전체 칼럼-->
+    <sql id="categoryListCol">
+        CATGRY_CD,
+        GOODS_CD,
+        CATGRY_NM,
+        NOTE_CONT,
+        CLASS_LVL_CD,
+        UPR_CLASS_CD,
+        RGST_ID,
+        RGST_DATE,
+        USE_YN
+    </sql>
+    <!-- 카테고리 업데이트 -->
+    <update id="updateCate" parameterType="com.moda.adm.category.CateVO">
+        UPDATE category
+        SET
+            CATGRY_CD = #{catgryCd},
+            GOODS_CD = #{goodsCd},
+            CATGRY_NM = #{catgryNm},
+            NOTE_CONT = #{noteCont},
+            CLASS_LVL_CD = #{classLvlCd},
+            UPR_CLASS_CD = #{uprClassCd},
+            RGST_ID = #{rgstId},
+            RGST_DATE = #{rgstDate},
+            USE_YN = #{useYn}
+        WHERE
+            GOODS_CATA_SEQ = #{goodsCataSeq}
+    </update>
+    <!-- 카테고리 추가 -->
+    <insert id="insertCate" parameterType="com.moda.adm.category.CateVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO category (
+        <include refid="categoryListCol" />
+        ) VALUES (
+        #{catgryCd}
+        , #{goodsCd}
+        , #{catgryNm}
+        , #{noteCont}
+        , #{classLvlCd}
+        , #{uprClassCd}
+        , #{rgstId}
+        , NOW()
+        , #{useYn}
+        )
+    </insert>
+    <!-- 카테고리 삭제 -->
+    <delete id="deleteCate" parameterType="long">
+        DELETE
+        FROM
+            category
+        WHERE
+            GOODS_CATA_SEQ = #{goodsCataSeq}
+    </delete>
+    <!-- 카테고리 모두 삭제 -->
+    <delete id="deleteCateAll">
+        DELETE
+        FROM
+        category
+    </delete>
+
+    <!-- 부모 카테고리 조회 -->
+    <select id="selectCateList" parameterType="com.moda.adm.category.CateVO" resultType="com.moda.adm.category.CateVO">
+        SELECT
+        *
+        FROM
+        category
+        where
+        UPR_CLASS_CD IS NULL
+    </select>
+
+    <!-- 자식 카테고리 조회 -->
+    <select id="selectCateUnList" parameterType="com.moda.adm.category.CateVO" resultType="com.moda.adm.category.CateVO">
+        SELECT
+            *
+        FROM
+            category
+        where
+            UPR_CLASS_CD IS NOT NULL
+    </select>
+
+    <!-- 카테고리 선택 조회 -->
+    <select id="selectCateOne" parameterType="com.moda.adm.category.CateVO" resultType="com.moda.adm.category.CateVO">
+        SELECT
+            *
+        FROM
+            category
+        where
+            CATGRY_CD = #{catgryCd}
+    </select>
+
+</mapper>

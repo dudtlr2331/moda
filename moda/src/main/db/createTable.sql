@@ -23,11 +23,18 @@ CREATE TABLE IF NOT EXISTS `cart` (
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-CREATE TABLE IF NOT EXISTS `category` (
-    `cate_code` int(11) NOT NULL AUTO_INCREMENT,
-    `cate_name` varchar(30) NOT NULL,
-    PRIMARY KEY (`cate_code`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE IF NOT EXISTS CATEGORY
+( `GOODS_CATA_SEQ`   INT(20)      AUTO_INCREMENT PRIMARY KEY
+    , `CATGRY_CD`   VARCHAR(20)      NOT NULL
+    , `GOODS_CD`   INT(12)      NOT NULL
+    , `CATGRY_NM`   VARCHAR(400)      NULL
+    , `NOTE_CONT`   VARCHAR(4000)      NULL
+    , `CLASS_LVL_CD`   VARCHAR(20)      NULL
+    , `UPR_CLASS_CD`   VARCHAR(20)      NULL
+    , `RGST_ID`   VARCHAR(200)      NULL
+    , `RGST_DATE`    DATETIME       NULL
+    , `USE_YN` VARCHAR(1) NULL
+    )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE IF NOT EXISTS `event` (
@@ -170,16 +177,3 @@ INSERT INTO `tb_file` (`id`, `prod_id`, `original_name`, `save_name`, `size`, `d
 (41, NULL, 'banner2.jpg', '511c1c3f3c5042c48b7742f4512b9c83.jpg', 67401, 0, '2023-11-20 03:29:12', NULL, 12, 'event');
 
 /**/
-USE moda;
-
-CREATE TABLE IF NOT EXISTS GOODS_CATA
-( `GOODS_CATA_SEQ`   INT(20)      AUTO_INCREMENT PRIMARY KEY
-    , `CATGRY_CD`   VARCHAR(20)      NOT NULL
-    , `GOODS_CD`   INT(12)      NOT NULL
-    , `CATGRY_NM`   VARCHAR(400)      NULL
-    , `NOTE_CONT`   VARCHAR(4000)      NULL
-    , `CLASS_LVL_CD`   VARCHAR(20)      NULL
-    , `UPR_CLASS_CD`   VARCHAR(20)      NULL
-    , `RGST_ID`   VARCHAR(200)      NULL
-    , `RGST_DATE`    DATETIME       NULL
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

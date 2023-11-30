@@ -313,3 +313,79 @@ input[readonly], select[readonly], textarea[readonly], .readonly, input[disabled
 .popLayer .pop_container.scroll_cont {max-height:470px; overflow:auto;}
 .popLayer .pop_container .btn_set {margin:30px 0 0;}
 .popLayer .pop_container .btn_set > button {height:40px; line-height:38px; font-size:15px; min-width:80px;}
+
+.category-container {display: flex; justify-content: space-between; /* 각 카테고리를 좌우로 나누어 배열 */
+}
+
+.upper-category,
+.under-category {width: 45%;}
+
+.plus {font-size: 12px; border: 1px solid #000; padding: 5px; border-radius: 5px; cursor: pointer; text-align: center; margin-top: 10px;}
+
+.items:hover .item-content {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.items ul {
+    display: flex; /* Flexbox 사용 */
+    list-style: none; /* 리스트 스타일 제거 */
+    padding: 0; /* 내부 여백 제거 */
+}
+
+/* 각 입력 요소들 간 간격 조절 */
+.items ul li {
+    margin-right: 10px; /* 각 입력 요소들 간의 간격 설정 */
+}
+
+/* "plus" 버튼과 붙여 표시 */
+.items .plus {
+    margin-left: 10px; /* "plus" 버튼과의 간격 조절 */
+}
+.under-category .items {
+    margin-right: 60px; /* 왼쪽 마진을 조정하여 이동 */
+}
+
+@media screen and (max-width: 600px) {
+    .items ul {
+        flex-direction: column; /* 세로로 배치 */
+    }
+
+    /* 각 입력 요소들의 간격 조정 */
+    .items ul li {
+        margin-bottom: 10px; /* 각 입력 요소들 사이의 간격 설정 */
+    }
+
+    /* "plus" 버튼과의 간격 조정 */
+    .items .plus {
+        margin-top: 10px; /* "plus" 버튼과의 간격 설정 */
+    }
+
+    /* 자식 카테고리 영역 왼쪽 마진 조정 */
+    .under-category .items {
+        margin-left: 0; /* 왼쪽 마진 초기화 */
+    }
+}
+.save-button {
+    width: 120px; /* 버튼의 적당한 크기 지정 */
+    margin: 20px auto; /* 수평 가운데 정렬을 위한 마진 */
+    text-align: center; /* 버튼 내부 텍스트 가운데 정렬 */
+}
+
+.category-container input[type="text"],
+.category-container select {
+    width: 100px; /* 원하는 너비로 설정 */
+    /* 다른 스타일 속성들 */
+}
+
+.items_header {
+    display: flex;
+    justify-content: space-between;
+    width: 100px; /* 헤더 전체 너비를 활용 */
+}
+
+.items_header span {
+    flex: 1; /* 각 요소 동일한 너비로 설정 */
+    text-align: center; /* 가운데 정렬 또는 필요한 정렬 방식으로 수정 */
+    /* 다른 스타일 속성들 */
+}

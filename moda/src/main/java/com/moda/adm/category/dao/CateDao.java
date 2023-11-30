@@ -1,16 +1,15 @@
-package com.moda.adm.category.service;
+package com.moda.adm.category.dao;
 
 import com.moda.adm.category.CateVO;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.annotations.Mapper;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
-
-
-public interface CateService {
+@Mapper
+public interface CateDao {
+    public int insertCate(CateVO pvo);
 
     public CateVO selectCateOne(CateVO pvo);
+
     public List<CateVO> selectCateList(CateVO pvo);
 
     public List<CateVO> selectCateUnList(CateVO pvo);
@@ -18,6 +17,6 @@ public interface CateService {
     public int updateCate(CateVO pvo);
 
     public int deleteCate(final long seq);
-    public int saveCate(List<CateVO> pvo);
+
     public int deleteCateAll();
 }

@@ -1,51 +1,54 @@
 package com.moda.adm.category.service;
 
 import com.moda.adm.category.CateVO;
+import com.moda.adm.category.dao.CateDao;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 @Service
+@RequiredArgsConstructor
 public class CateServiceImpl implements CateService{
-    @Override
-    public int deleteCate(CateVO pvo) {
-        return 0;
+
+    private final CateDao catedao;
+    public CateVO selectCateOne(CateVO pvo) {
+        return catedao.selectCateOne(pvo);
     }
 
-    @Override
-    public int saveCate(CateVO pvo) {
-        return 0;
+    public List<CateVO> selectCateList(CateVO pvo){
+        return catedao.selectCateList(pvo);
     }
 
-    @Override
-    public List<CateVO> selectCateUnList(CateVO pvo) {
-        return null;
+    public List<CateVO> selectCateUnList(CateVO pvo){
+        return catedao.selectCateUnList(pvo);
     }
 
-    @Override
-    public List<CateVO> selectCateList(CateVO pvo) {
-        return null;
+    public int updateCate(CateVO pvo) {
+        return catedao.updateCate(pvo);
     }
 
-    @Override
-    public CateVO parameterSetting(HttpServletRequest req) {
-        CateVO pvo = new CateVO();
-
-        // HttpServletRequest에서 필요한 정보 추출
-        String catgryCd = req.getParameter("catgryCd");
-        String catgryNm = req.getParameter("catgryNm");
-        // 다른 필요한 정보들...
-
-        // CateVO에 값 설정
-        pvo.setCatgryCd(catgryCd);
-        pvo.setCatgryNm(catgryNm);
-        // 다른 필드들 설정...
-
-        return pvo;
+    public int deleteCate(final long seq) {
+        return catedao.deleteCate(seq);
     }
 
-    @Override
-    public void setIds(CateVO pvo, String userId) {
+    public int deleteCateAll() {
+        return catedao.deleteCateAll();
+    }
+
+    public int saveCate(List<CateVO> pvo){
+        try {
+            for (CateVO cate : pvo) {
+                if (cate.getUpCateType().equals("cateInsert")) {
+                    catedao.insertCate(cate);
+                } else {
+                    catedao.updateCate(cate);
+                }
+            }
+        } catch (Exception e) {
+            return 0;
+        }
+        return 1;
 
     }
 }
