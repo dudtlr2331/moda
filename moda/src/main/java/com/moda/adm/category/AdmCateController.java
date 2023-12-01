@@ -75,19 +75,12 @@ public class AdmCateController {
     public String admCateRegisterAct(List<CateVO> pvo,HttpSession session, Model model) {
         // 세션에서 로그인 정보 가져오기
         UserVO loginInfo = (UserVO) session.getAttribute("loginInfo");
-
-        // Null 체크 추가
-        if (loginInfo != null) {
-
             for (CateVO cate : pvo){
                 cate.setRgstId(loginInfo.getUserId());
             }
             cateService.saveCate(pvo);
             model.addAttribute("pvo", pvo);
-            return "redirect:/adm/cate/admCateList.do";
-        } else {
-            return "redirect:/login";
-        }
+        return "redirect:/adm/cate/admCateList.do";
     }
     // 카테고리 삭제 액션
     @RequestMapping("/adm/cate/admCateRemoveAct.do")
