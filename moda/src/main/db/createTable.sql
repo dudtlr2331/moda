@@ -176,4 +176,12 @@ INSERT INTO `tb_file` (`id`, `prod_id`, `original_name`, `save_name`, `size`, `d
 (40, NULL, 'banner_03.png', '077fc5109d10415dbd7ff4e66c9106de.png', 65092, 0, '2023-11-20 03:28:43', NULL, 11, 'event'),
 (41, NULL, 'banner2.jpg', '511c1c3f3c5042c48b7742f4512b9c83.jpg', 67401, 0, '2023-11-20 03:29:12', NULL, 12, 'event');
 
+
+INSERT INTO category VALUES(1,'c101','1','1','1','1',NULL,'1234',NOW(),'Y');
+INSERT INTO category VALUES(2,'c102','2','1','1','2','c101','1234',NOW(),'Y');
+INSERT INTO category VALUES(3,'c103','3','1','1','2','c101','1234',NOW(),'Y');
+INSERT INTO category VALUES(4,'c104','4','1','1','1',NULL,'1234',NOW(),'Y');
+INSERT INTO category VALUES(5,'c105','5','1','1','2','c104','1234',NOW(),'Y');
+INSERT INTO category VALUES(6,'c106','6','1','1','2','c101','1234',NOW(),'Y');
+
 /**/

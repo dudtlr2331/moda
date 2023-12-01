@@ -29,7 +29,7 @@
               </div>
               <div class="items">
                 <th:block th:each="obj, countObj : ${list}">
-                  <div th:if="${obj.classLvlCd eq '1'}" onclick="fn_a('${obj.catgryCd}')">
+                  <div th:if="${obj.classLvlCd eq '1'}" th:attr="data-catgryCd=${obj.catgryCd}" onclick="fn_a(this.getAttribute('data-catgryCd'))">
                     <ul>
                       <li><input type="text" th:name="'upCatgryCd'+${countObj.index}" th:value="${obj.catgryCd}" /></li>
                       <li><input type="text" th:name="'upCatgryNm'+${countObj.index}" th:value="${obj.catgryNm}" /></li>
@@ -96,25 +96,26 @@
             <input type="submit" value="저장"/>
           </div>
         </form>
-
       </div>
 </section>
       <script>
-        let upperTextCnt = 0 + Number('${upperListSize}');
-        let underTextCnt = 0 + Number('${underListSize}');
+        let upperTextCnt = 0 + Number([[${upperListSize}]]);
+        let underTextCnt = 0 + Number([[${underListSize}]]);
         let btnCnt = 0;
+        let nmAdd = '';
         let classCd = '';
         let underCnt = 0;
 
         document.addEventListener("DOMContentLoaded", () => {
           let upper_btn_add = document.querySelector('#upper_btn_add');
           let under_btn_add = document.querySelector('#under_btn_add');
-          let upper_items_area = document.querySelector('.upper-category .items');
-          let under_items_area = document.querySelector('.under-category .items');
+          let upper_items_area = document.querySelector('.upper-category .items'); // 수정된 부분
+          let under_items_area = document.querySelector('.under-category .items'); // 수정된 부분
           let htmlInput = fn_getHtmlInput();
 
           upper_btn_add.addEventListener('click', ()=>{
             btnCnt = upperTextCnt;
+            nmAdd = 'up';
             classCd = '1';
             upper_items_area.innerHTML += fn_getHtmlInput();
             upperTextCnt++;
@@ -122,44 +123,83 @@
 
           under_btn_add.addEventListener('click', ()=>{
             btnCnt = underTextCnt;
+            nmAdd = 'un';
             classCd = '2';
             under_items_area.innerHTML += fn_getHtmlInput();
             underTextCnt++;
           });
         });
+
+
+        /*function sendDataToServer() {
+          let dataArray = [];
+
+          // Upper category items
+          $('.upper-category .items > div').each(function (index) {
+            let obj = {};
+            obj.catgryCd = $(this).find('[name^="upCatgryCd"]').val();
+            obj.catgryNm = $(this).find('[name^="upCatgryNm"]').val();
+            obj.noteCont = $(this).find('[name^="upNoteCont"]').val();
+            obj.cateType = $(this).find('[name^="upCateType"]').val();
+            obj.goodsCataSeq = $(this).find('[name^="upGoodsCataSeq"]').val();
+            obj.useYn = $(this).find('[name^="upUseYn"]').val();
+            console.log(obj.catgryCd + obj.catgryNm);
+            dataArray.push(obj);
+          });
+
+          // Under category items
+          $('.under-category .items > div').each(function (index) {
+            let obj = {};
+            obj.catgryCd = $(this).find('[name^="unCatgryCd"]').val();
+            obj.catgryNm = $(this).find('[name^="unCatgryNm"]').val();
+            obj.noteCont = $(this).find('[name^="unNoteCont"]').val();
+            obj.cateType = $(this).find('[name^="unCateType"]').val();
+            obj.goodsCataSeq = $(this).find('[name^="unGoodsCataSeq"]').val();
+            obj.useYn = $(this).find('[name^="unUseYn"]').val();
+            dataArray.push(obj);
+          });
+
+          // Json 데이터로 변환
+          let pvo = JSON.stringify(dataArray);
+
+          // 서버로 데이터 보내기
+          $.ajax({
+                      type: "POST",
+                      url: "/adm/cate/admCateRegisterAct.do",
+                      contentType: 'application/json; charset=UTF-8',
+                      data: pvo,
+                      success: function () {
+                        console.log("Data sent successfully!");
+                      },
+                      error: function () {
+                        console.error("Failed to send data");
+                      }
+                    });
+        }*/
+
         function fn_getHtmlInput(){
           let html = ''
                   +'<div><ul>'
-                  +   '<li><input type="text" id="CatgryCd'+btnCnt+'" name="CatgryCd'+btnCnt+'" placeholder="분류코드"/></li>'
-                  +   '<li><input type="text" name="CatgryNm'+btnCnt+'" placeholder="분류명"/></li>'
-                  +   '<li><input type="text" name="NoteCont'+btnCnt+'" placeholder="비고내용"/></li>'
-                  +   '<input type="hidden" name="ClassLvlCd'+btnCnt+'" value="'+classCd+'"/>'
-                  +   '<input type="hidden" name="CateType'+btnCnt+'" value="cateInsert"/>'
+                  +   '<li><input type="text" id="'+nmAdd+'CatgryCd'+btnCnt+'" name="'+nmAdd+'CatgryCd'+btnCnt+'" placeholder="분류코드"/></li>'
+                  +   '<li><input type="text" name="'+nmAdd+'CatgryNm'+btnCnt+'" placeholder="분류명"/></li>'
+                  +   '<li><input type="text" name="'+nmAdd+'NoteCont'+btnCnt+'" placeholder="비고내용"/></li>'
+                  +   '<input type="hidden" name="'+nmAdd+'ClassLvlCd'+btnCnt+'" value="'+classCd+'"/>'
+                  +   '<input type="hidden" name="'+nmAdd+'CateType'+btnCnt+'" value="cateInsert"/>'
                   +   '<li>'
-                  +      '<select name="UseYn'+btnCnt+'">'
+                  +      '<select name="'+nmAdd+'UseYn'+btnCnt+'">'
                   +         '<option value="Y">사용</option>'
                   +         '<option value="N">사용안함</option>'
                   +      '</select>'
                   +   '</li>'
-                  +   '<li><input type="button" class="btn_del" value="삭제하기" onclick="fnDel(this);" /></li>'
+                  +   '<li><input type="button" class="btn_del" value="취소" onclick="fnDel(this);" /></li>'
                   +'</ul></div>'
           ;
           return html;
         }
-
-
         function fn_a(catgryCd){
-          fetch('/adm/cate/admCateListAjax.do?catgryCd=' + catgryCd)
-                  .then(response => response.json())
-                  .then(data => {
-                    // 여기서 data 변수에는 서버에서 받은 JSON 데이터가 있음
-                    // 이 데이터를 사용하여 원하는 동적인 화면 구성을 JavaScript로 수행해야 함
-                    // 예를 들어, 받은 데이터를 이용하여 동적으로 HTML을 생성하여 화면에 추가하는 등의 작업을 수행해야 함
-                  })
-                  .catch(error => {
-                    console.error('Error:', error);
-                  });
+          location.href = '/adm/cate/admCateList.do?catgryCd='+catgryCd;
         }
+
         function fnDel(_this, goodsCataSeq , classLvlCd){
           if(goodsCataSeq == null){
             _this.parentNode.parentNode.parentNode.remove();

@@ -79,7 +79,7 @@
         FROM
             category
         where
-            UPR_CLASS_CD IS NOT NULL
+            UPR_CLASS_CD = #{catgryCd}
     </select>
 
     <!-- 카테고리 선택 조회 -->
