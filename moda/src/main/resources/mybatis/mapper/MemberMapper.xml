@@ -62,6 +62,7 @@
             U_ID = #{value}
     </select>
 
+    <!--    회원 UPDATE    -->
     <update id="modMember" parameterType="com.moda.moda.member.MemberVO">
         UPDATE users
         SET
@@ -75,6 +76,7 @@
             U_ID = #{uId}
     </update>
 
+    <!--    회원 DELETE   -->
     <delete id="removeMember" parameterType="string">
         DELETE FROM
                    users

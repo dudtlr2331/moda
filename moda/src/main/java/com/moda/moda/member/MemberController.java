@@ -129,7 +129,7 @@ public class MemberController {
     }
 
     /**
-     * 로그아웃
+     * 회원 탈퇴
      * @return
      */
     @GetMapping("/moda/delete")

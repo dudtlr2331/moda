@@ -42,6 +42,30 @@
         LIMIT #{offset}, #{recordSize}
     </select>
 
+    <select id="findById" parameterType="string" resultType="com.moda.adm.qna.QnaDto">
+        SELECT
+            <include refid="qnaColumns" />
+        FROM
+            qna
+        WHERE
+            u_id = #{value}
+        ORDER BY
+            qna_num ASC
+    </select>
+
+    <insert id="insert" parameterType="com.moda.adm.qna.QnaSearch">
+        INSERT INTO qna
+        (U_ID,
+         QNA_TITLE,
+         QNA_Q,
+         QNA_STAT)
+        VALUES
+            (#{uId},
+             #{qnaTitle},
+             #{qnaQ},
+             0);
+    </insert>
+
     <select id="count" parameterType="com.moda.adm.search.SearchDto" resultType="int">
         SELECT
             COUNT(*)
