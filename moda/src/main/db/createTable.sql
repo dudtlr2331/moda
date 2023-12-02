@@ -36,6 +36,14 @@ CREATE TABLE IF NOT EXISTS CATEGORY
     , `USE_YN` VARCHAR(1) NULL
     )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+/* 카테고리 예시 데이터 */
+INSERT INTO category VALUES(1,'c101','1','1','1','1',NULL,'1234',NOW(),'Y');
+INSERT INTO category VALUES(2,'c102','2','1','1','2','c101','1234',NOW(),'Y');
+INSERT INTO category VALUES(3,'c103','3','1','1','2','c101','1234',NOW(),'Y');
+INSERT INTO category VALUES(4,'c104','4','1','1','1',NULL,'1234',NOW(),'Y');
+INSERT INTO category VALUES(5,'c105','5','1','1','2','c104','1234',NOW(),'Y');
+INSERT INTO category VALUES(6,'c106','6','1','1','2','c101','1234',NOW(),'Y');
+
 
 CREATE TABLE IF NOT EXISTS `event` (
     `no_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -207,3 +215,4 @@ CREATE TABLE ORD_DTL (
     GOODS_CD	INT(12)	NULL,
     GOODS_QTY	INT	NULL
 );
+
