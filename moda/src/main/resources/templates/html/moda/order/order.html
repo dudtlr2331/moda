@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .btn_area button {
+            padding: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .item_list_area {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            width: 60%;
+        }
+
+        input[type=text], input[type=number], select {
+            width: 100%;
+            height: 30px;
+        }
+
+        textarea {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<section class="title_area">
+    <h3 class="title">주문 내역 입니다.</h3>
+</section>
+<section class="item_list_area">
+    <form th:action="@{/order/orderRegister.do}" method="post" th:object="${detail}">
+        <input type="hidden" name="saleBoardSeq" th:value="${detail.prodCode}">
+        <input type="hidden" name="goodsNm" th:value="${detail.prodName}">
+        <!-- 상품명 -->
+        <input type="hidden" name="goodsCd" th:value="${detail.prodCode}">
+        <!-- 상품 코드 -->
+        <input type="hidden" name="payMny" th:value="${detail.prodPrice}">
+        <h2>배송 정보</h2>
+        <table>
+            <colgroup>
+                <col width="20%"/>
+                <col width="30%"/>
+                <col width="20%"/>
+                <col width="30%"/>
+            </colgroup>
+            <tr>
+                <th>주문자 이름</th>
+                <td><input type="text" name="ordrNm" th:value="${loginInfo?.uName}"></td>
+                <th>주문자 전화번호</th>
+                <td><input type="text" name="ordrPhon" th:value="${loginInfo?.uPhone}"></td>
+            </tr>
+            <tr>
+                <th>주문자 이메일</th>
+                <td><input type="text" name="ordrEmail" th:value="${loginInfo?.uAddr}"></td>
+                <th>수취자 이름</th>
+                <td><input type="text" name="acqrNm" th:value="${loginInfo?.uName}"></td>
+            </tr>
+            <tr>
+                <th>수취자 전화번호</th>
+                <td><input type="text" name="acqrPhon" th:value="${loginInfo?.uPhone}"></td>
+                <th>수취자 이메일</th>
+                <td><input type="text" name="acqrEmail" th:value="${loginInfo?.uEmail}"></td>
+            </tr>
+            <tr>
+                <th>수취자 주소</th>
+                <td><input type="text" name="acqrAddr" th:value="${loginInfo?.uAddr}"></td>
+                <th>수취자 상세 주소</th>
+<!--                <td><input type="text" name="acqrAddrDtl" th:value=""></td>-->
+            </tr>
+            <tr>
+                <th>요청 사항</th>
+                <td colspan="3">
+                    <textarea rows="10" cols="50" name="reqMemo"></textarea>
+                </td>
+            </tr>
+        </table>
+
+        <h2>상품 정보</h2>
+        <table>
+            <colgroup>
+                <col width="20%"/>
+                <col width="30%"/>
+                <col width="20%"/>
+                <col width="30%"/>
+            </colgroup>
+            <tr>
+                <th>상품 명</th>
+                <td th:text="${detail.prodName}"></td>
+                <th>옵션 정보</th>
+                <td th:text="${optionInfo[0] + ', ' + optionInfo[1]} + ' 사이즈'"></td>
+            </tr>
+            <tr>
+                <th>수량</th>
+                <td><input type="number" name="goodsQty" value="1"></td>
+                <!-- 상품 코드 -->
+                <th>상품 가격</th>
+                <td th:text="${#numbers.formatInteger(detail.prodPrice, 0, 'COMMA')} + '원'"></td>
+            </tr>
+            <tr>
+                <th>배송비</th>
+                <td th:text="무료"></td>
+                <th>총 결제 금액</th>
+                <td th:text="${#numbers.formatInteger(detail.prodPrice, 0, 'COMMA')} + '원'"></td>
+            </tr>
+            <tr>
+                <th>배송지</th>
+                <td th:text="${loginInfo?.uAddr}"></td>
+                <th>결제 수단</th>
+                <td>
+                    <select name="payWay">
+                        <option value="card">신용/체크카드</option>
+                        <option value="mobilePay">휴대폰결제</option>
+                        <option value="kakaoPay">카카오페이</option>
+                        <option value="naverPay">네이버페이</option>
+                        <option value="toss">토스</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="btn_area">
+            <input type="submit" value="주문하기">
+        </div>
+    </form>
+</section>
+</body>
+</html>
