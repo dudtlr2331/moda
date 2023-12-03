@@ -28,5 +28,17 @@ public interface QnaDao {
      */
     List<QnaDto> findAll(SearchDto params);
 
+    /**
+     *  id로 문의 리스트 조회
+     * @return 문의 리스트
+     */
+    List<QnaDto> findById(String uId);
+
+    /**
+     *  문의 작성
+     * @param params - 문의 정보
+     */
+    void insert(QnaSearch params);
+
     int count(SearchDto params);
 }

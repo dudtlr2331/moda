@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -39,6 +41,43 @@ public class QnaController {
     public String updateQna(final QnaSearch params, Model model){
         qnaService.updateQna(params);
         MessageDto message = new MessageDto("문의 답변 완료.", "/adm/qna.do", RequestMethod.GET, null);
+        return showMessageAndRedirect(message, model);
+    }
+
+    //문의 페이지(유저)
+    @GetMapping("/moda/qnapage.do")
+    public String openQnaPage(HttpServletRequest req, Model model){
+        HttpSession session = req.getSession();
+        String uId = (String) session.getAttribute("uId");
+        String uAdmin = (String) session.getAttribute("uAdmin");
+        List<QnaDto> qnas = qnaService.findQnaById(uId);
+        model.addAttribute("qnas", qnas);
+        model.addAttribute("uId", uId);
+        model.addAttribute("uAdmin", uAdmin);
+        return "html/moda/main/mypage-qna";
+    }
+
+    //문의 답변 보기(유저)
+    @GetMapping("/moda/qnaview.do")
+    public String openQnaViewPage(@RequestParam final Long num, Model model, HttpServletRequest req){
+        HttpSession session = req.getSession();
+        String uId = (String) session.getAttribute("uId");
+        String uAdmin = (String) session.getAttribute("uAdmin");
+        QnaDto qna = qnaService.findQnaByNum(num);
+        model.addAttribute("qna", qna);
+        model.addAttribute("uId", uId);
+        model.addAttribute("uAdmin", uAdmin);
+        return "html/moda/main/qna_view";
+    }
+
+    //문의 작성(유저)
+    @GetMapping("/moda/qnawrite")
+    public String insertQna(final QnaSearch params, HttpServletRequest req, Model model){
+        HttpSession session = req.getSession();
+        String uId = (String) session.getAttribute("uId");
+        params.setUId(uId);
+        qnaService.insertQna(params);
+        MessageDto message = new MessageDto("문의 작성 완료.", "/moda/qnapage.do", RequestMethod.GET, null);
         return showMessageAndRedirect(message, model);
     }
 

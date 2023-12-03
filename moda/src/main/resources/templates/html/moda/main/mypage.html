@@ -47,6 +47,7 @@
         }
 
         .page-title {
+            margin-bottom: 20px;
             font-size: 20px;
             font-weight: bold;
         }
@@ -91,23 +92,71 @@
         }
 
         .user-info-box p {
+            font-size: 15px;
+            font-weight: bold;
             margin: 5px 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-buttons {
+            text-align: center;
+        }
+
+        .modal-buttons button {
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 <div class="logo">
-    <img src="/images/logo.png" alt="로고 이미지">
+    <img th:onclick="'location.href=\'/main\''" src="/images/logo.png" alt="로고 이미지" style="cursor: pointer">
 </div>
 
 <div class="login-text">
     <div th:if="${uId}">
         <span th:text="${uId} + '님 환영합니다.'" id="hello_user"></span>
-        <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit" width="20" height="20" src="/images/icon_logout.png"/>
+        <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit" width="50" height="25" src="/images/icon_logout.png"/>
         <input th:if="${uAdmin == '1'}" id="admin_btn" onclick="openAdminPage()" type="image" class="w70" alt="Submit" width="25" height="25" src="/images/icon_adm.png">
     </div>
     <div th:if="${uId == null}">
-        <input th:onclick="'location.href=\'/moda/main/mypage.do\''" type="image" class="w70" id="login_btn" alt="Submit" width="50" height="50" src="/images/icon_login.png"/>
+        <input th:onclick="'location.href=\'/moda/main/mypage.do\''" type="image" class="w70" id="login_btn" alt="Submit" width="50" height="25" src="/images/icon_login.png"/>
     </div>
 </div>
 
@@ -131,19 +180,30 @@
                 <img class="menu-icon" src="/images/icon1.png" alt="아이콘1">
                 <p class="menu-description"><a href="#">주문내역</a></p>
             </div>
-            <div>
+            <div th:onclick="'location.href=\'/moda/qnapage.do\''">
                 <img class="menu-icon" src="/images/icon2.png" alt="아이콘2">
-                <p class="menu-description"><a href="#">문의 작성</a></p>
+                <p class="menu-description"><a href="/moda/qnapage.do">문의 작성</a></p>
             </div>
         </div>
         <div class="menu-icon-container">
             <div th:onclick="'location.href=\'/moda/edit.do\''">
                 <img class="menu-icon" src="/images/icon3.png" alt="아이콘3">
-                <p class="menu-description" ><a href="/moda/edit.do">회원 정보 변경</a></p>
+                <p class="menu-description" ><a href="/moda/edit.do">회원 수정</a></p>
             </div>
-            <div>
+            <div onclick="openWithdrawalModal()">
                 <img class="menu-icon" src="/images/icon4.png" alt="아이콘4">
-                <p class="menu-description"><a href="#">회원 탈퇴</a></p>
+                <p class="menu-description"><a href="#" onclick="openWithdrawalModal()">회원 탈퇴</a></p>
+            </div>
+
+            <div id="withdrawalModal" class="modal">       <!--모달창-->
+                <div class="modal-content">
+                    <span class="close" onclick="closeWithdrawalModal()">&times;</span>
+                    <p>회원 탈퇴를 진행하시겠습니까?</p>
+                    <div class="modal-buttons">
+                        <button onclick="confirmWithdrawal()">예</button>
+                        <button onclick="cancelWithdrawal()">아니오</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -157,6 +217,24 @@
 </div>
 
 <script>
+    function openWithdrawalModal() {
+        var modal = document.getElementById("withdrawalModal");
+        modal.style.display = "block";
+    }
+
+    function closeWithdrawalModal() {
+        var modal = document.getElementById("withdrawalModal");
+        modal.style.display = "none";
+    }
+
+    function confirmWithdrawal() {
+        alert("회원 탈퇴가 완료되었습니다.");
+        window.location.href = "/moda/delete";
+    }
+
+    function cancelWithdrawal() {
+        closeWithdrawalModal();
+    }
 </script>
 </body>
 </html>

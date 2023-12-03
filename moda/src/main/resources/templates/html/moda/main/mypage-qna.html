@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>moda</title>
+    <style>
+        a {
+            color: #888888;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logo {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo img {
+            width: 300px;
+        }
+
+        .horizontal-menu {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .horizontal-menu li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        .horizontal-menu a {
+            text-decoration: none;
+        }
+
+        .login-text {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: blue;
+            cursor: pointer;
+        }
+
+        .page-title {
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .qna-page-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .content {
+            text-align: center;
+        }
+
+        .tb {
+            margin: 0 auto; /* 테이블을 가운데 정렬하는 속성 추가 */
+        }
+
+        .write_button {
+            margin-top: 20px;
+            margin-bottom: 5px;
+            background-color: #F6F7F9;
+            color: #6A6E71;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .tb_button {
+            margin-top: 20px;
+            margin-bottom: 5px;
+            background-color: #F6F7F9;
+            color: #6A6E71;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .dis_button {
+            margin-top: 20px;
+            margin-bottom: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-buttons {
+            text-align: center;
+        }
+
+        .modal-buttons button {
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="logo">
+    <img th:onclick="'location.href=\'/main\''" src="/images/logo.png" alt="로고 이미지" style="cursor: pointer">
+</div>
+
+<div class="login-text">
+    <div th:if="${uId}">
+        <span th:text="${uId} + '님 환영합니다.'" id="hello_user"></span>
+        <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit" width="50" height="25" src="/images/icon_logout.png"/>
+        <input th:if="${uAdmin == '1'}" id="admin_btn" onclick="openAdminPage()" type="image" class="w70" alt="Submit" width="25" height="25" src="/images/icon_adm.png">
+        <input th:if="${uAdmin == '0'}" id="mypage_btn" th:onclick="'location.href=\'/moda/main/mypage.do\''" type="image" class="w70" alt="Submit" width="50" height="25" src="/images/icon_mypage.png">
+    </div>
+    <div th:if="${uId == null}">
+        <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit" width="50" height="25" src="/images/icon_login.png"/>
+    </div>
+</div>
+
+<!-- 가로 메뉴 -->
+<ul class="horizontal-menu">
+    <li><a href="#">신상</a></li>
+    <li><a href="#">베스트</a></li>
+    <li><a href="#">카테고리</a></li>
+    <li><a href="#">장바구니</a></li>
+    <li><a href="#">마이페이지</a></li>
+</ul>
+
+<div class="qna-page-container">
+    <div class="page-title">
+        문의 목록
+    </div>
+
+    <div class="content">
+        <!--/* 리스트 */-->
+        <table class="tb tb_col">
+            <colgroup>
+                <col style="width:75%;"/><col style="width:10%;"/><col style="width:15%;"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col">제목</th>
+                <th scope="col">등록일</th>
+                <th scope="col">답변</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${not #lists.isEmpty(qnas)}" th:each="row, status : ${qnas}">
+                <td th:text="${row.qnaTitle}"></td>
+                <td th:text="${#temporals.format(row.qnaDate, 'yyyy-MM-dd')}"></td>
+                <td><button class="tb_button" th:if="${row.qnaStat == 1}" th:onclick="|location.href='@{/moda/qnaview.do(num=${row.qnaNum})}'|">답변 보기</button>
+                    <button class="dis_button" th:if="${row.qnaStat == 0}" style="cursor: default;" disabled>답변 대기</button></td>
+            </tr>
+            <tr th:unless="${not #lists.isEmpty(qnas)}">
+                <td colspan="5">
+                    <div class="no_data_msg">검색된 결과가 없습니다.</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="write_button"  onclick="openWithdrawalModal()">문의 작성</button>
+        <div id="withdrawalModal" class="modal">       <!--모달창-->
+            <div class="modal-content">
+                <span class="close" onclick="closeWithdrawalModal()">&times;</span>
+                <p>회원 탈퇴를 진행하시겠습니까?</p>
+                <form id="insertForm" method="get" autocomplete="off">
+                    <table>
+                        <tr><textarea id="qnaTitle" name="qnaTitle" cols="100" placeholder="제목을 입력해 주세요."></textarea></tr>
+                        <tr><textarea id="qnaQ" name="qnaQ" cols="100" rows="30" placeholder="내용을 입력해 주세요."></textarea></tr>
+                    </table>
+                </form>
+                <div class="modal-buttons">
+                    <button onclick="confirmWithdrawal()">작성완료</button>
+                    <button onclick="cancelWithdrawal()">돌아가기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openWithdrawalModal() {
+        var modal = document.getElementById("withdrawalModal");
+        modal.style.display = "block";
+    }
+
+    function closeWithdrawalModal() {
+        var form = document.getElementById('qnaQ');
+        var modal = document.getElementById("withdrawalModal");
+        form.value = '';
+        modal.style.display = "none";
+    }
+
+    function confirmWithdrawal() {
+        const form = document.getElementById('insertForm');
+        const titleContent = form.qnaTitle.value.trim();
+        const qContent = form.qnaQ.value.trim();
+
+        console.log(qContent);
+
+        if (qContent !== '' && titleContent !== '') {
+            form.action = '/moda/qnawrite';
+            form.submit();
+        } else {
+            alert("전부 작성해주세요.");
+        }
+    }
+
+    function cancelWithdrawal() {
+        closeWithdrawalModal();
+    }
+</script>
+</body>
+</html>

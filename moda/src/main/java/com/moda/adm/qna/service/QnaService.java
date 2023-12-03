@@ -43,4 +43,23 @@ public class QnaService {
     public List<QnaDto> findAllQna(final SearchDto params){
         return qnaDao.findAll(params);
     }
+
+    /**
+     *  문의 상세 정보 조회
+     *  @param uId - 문의 일련번호(PK)
+     * @return 문의 상세 정보
+     */
+    @Transactional
+    public List<QnaDto> findQnaById(final String uId){
+        return qnaDao.findById(uId);
+    }
+
+    /**
+     *  문의 작성
+     * @param params - 문의 정보
+     */
+    @Transactional
+    public void insertQna(QnaSearch params){
+        qnaDao.insert(params);
+    }
 }
