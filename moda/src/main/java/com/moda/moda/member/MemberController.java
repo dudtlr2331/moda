@@ -71,6 +71,7 @@ public class MemberController {
             MemberVO loginInfo = memberService.findByMember(memberVO.getUId());
             session.setAttribute("uId", loginInfo.getUId());
             session.setAttribute("uAdmin", loginInfo.getUAdmin());
+            session.setAttribute("loginInfo", loginInfo);
             return "redirect:/main";
         }else{
             MessageDto message = new MessageDto("아이디 또는 비밀번호가 틀렸습니다.", "/moda/login.do", RequestMethod.GET, null);
