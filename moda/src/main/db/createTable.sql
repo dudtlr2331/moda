@@ -40,7 +40,6 @@ CREATE TABLE IF NOT EXISTS `tb_post` (
 CREATE TABLE IF NOT EXISTS CATEGORY
 ( `GOODS_CATA_SEQ`   INT(20)      AUTO_INCREMENT PRIMARY KEY
     , `CATGRY_CD`   VARCHAR(20)      NOT NULL
-    , `GOODS_CD`   INT(12)      NOT NULL
     , `CATGRY_NM`   VARCHAR(400)      NULL
     , `NOTE_CONT`   VARCHAR(4000)      NULL
     , `CLASS_LVL_CD`   VARCHAR(20)      NULL
@@ -57,7 +56,6 @@ INSERT INTO category VALUES(3,'a103','코트','따뜻해요','2','a101','test123
 INSERT INTO category VALUES(4,'b104','하의','모든하의','1',NULL,'test1234',NOW(),'N');
 INSERT INTO category VALUES(5,'b105','셔츠','셔츠','2','a101','test1234',NOW(),'Y');
 INSERT INTO category VALUES(6,'c106','청바지','청바지','2','b104','test1234',NOW(),'Y');
-
 
 CREATE TABLE IF NOT EXISTS `event` (
     `no_id` int(11) NOT NULL AUTO_INCREMENT,
