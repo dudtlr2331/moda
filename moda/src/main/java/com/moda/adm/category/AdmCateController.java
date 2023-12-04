@@ -3,6 +3,7 @@ package com.moda.adm.category;
 import com.moda.adm.category.service.CateService;
 import com.moda.adm.event.EventDto;
 import com.moda.cmm.MessageDto;
+import com.moda.moda.member.MemberVO;
 import com.moda.moda.user.UserVO;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
@@ -72,14 +73,21 @@ public class AdmCateController {
     // 카테고리 생성 액션
 
     @RequestMapping("/adm/cate/admCateRegisterAct.do")
-    public String admCateRegisterAct(List<CateVO> pvo,HttpSession session, Model model) {
+    public String admCateRegisterAct(HttpServletRequest req, HttpSession session, Model model) {
         // 세션에서 로그인 정보 가져오기
-        UserVO loginInfo = (UserVO) session.getAttribute("loginInfo");
-            for (CateVO cate : pvo){
-                cate.setRgstId(loginInfo.getUserId());
-            }
-            cateService.saveCate(pvo);
-            model.addAttribute("pvo", pvo);
+        MemberVO loginInfo = (MemberVO) session.getAttribute("loginInfo");
+        System.out.println(req.getParameter("unUprClassCd"+ 1));
+        System.out.println(req.getParameter("unUprClassCd"+ 2));
+
+        List<CateVO> pvo = cateService.datainput(req , loginInfo.getUId(), "c101");
+
+
+        for (CateVO cate : pvo) {
+            cateService.saveCate(cate);
+        }
+
+        model.addAttribute("pvo", pvo);
+
         return "redirect:/adm/cate/admCateList.do";
     }
     // 카테고리 삭제 액션
@@ -87,6 +95,6 @@ public class AdmCateController {
     public String admCateRemoveAct(@RequestParam("goodsCataSeq") final long seq) {
         cateService.deleteCate(seq);
 
-        return "redirect:/adm/cate/admCateList";
+        return "redirect:/adm/cate/admCateList.do";
     }
 }

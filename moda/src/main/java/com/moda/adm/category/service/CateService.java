@@ -18,6 +18,7 @@ public interface CateService {
     public int updateCate(CateVO pvo);
 
     public int deleteCate(final long seq);
-    public int saveCate(List<CateVO> pvo);
+    public int saveCate(CateVO pvo);
     public int deleteCateAll();
+    public List<CateVO> datainput(HttpServletRequest req , String user  , String parent);
 }

@@ -51,12 +51,12 @@ CREATE TABLE IF NOT EXISTS CATEGORY
     )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /* 카테고리 예시 데이터 */
-INSERT INTO category VALUES(1,'c101','1','1','1','1',NULL,'1234',NOW(),'Y');
-INSERT INTO category VALUES(2,'c102','2','1','1','2','c101','1234',NOW(),'Y');
-INSERT INTO category VALUES(3,'c103','3','1','1','2','c101','1234',NOW(),'Y');
-INSERT INTO category VALUES(4,'c104','4','1','1','1',NULL,'1234',NOW(),'Y');
-INSERT INTO category VALUES(5,'c105','5','1','1','2','c104','1234',NOW(),'Y');
-INSERT INTO category VALUES(6,'c106','6','1','1','2','c101','1234',NOW(),'Y');
+INSERT INTO category VALUES(1,'a101','상의','모든상의','1',NULL,'test1234',NOW(),'Y');
+INSERT INTO category VALUES(2,'a102','아우터','겉옷','2','a101','test1234',NOW(),'Y');
+INSERT INTO category VALUES(3,'a103','코트','따뜻해요','2','a101','test1234',NOW(),'Y');
+INSERT INTO category VALUES(4,'b104','하의','모든하의','1',NULL,'test1234',NOW(),'N');
+INSERT INTO category VALUES(5,'b105','셔츠','셔츠','2','a101','test1234',NOW(),'Y');
+INSERT INTO category VALUES(6,'c106','청바지','청바지','2','b104','test1234',NOW(),'Y');
 
 
 CREATE TABLE IF NOT EXISTS `event` (
