@@ -120,10 +120,9 @@
     </select>
 
     <select id="admEventListAjax" resultType="com.moda.adm.event.EventDto">
-        SELECT
-               *
-        FROM
-            tb_post;
+        SELECT *
+        FROM tb_post
+        WHERE delete_yn = 0
     </select>
 
     <!-- 상품 이미지 경로 추가 -->
