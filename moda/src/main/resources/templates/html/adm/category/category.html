@@ -36,6 +36,7 @@
                       <li><input type="text" th:name="'upNoteCont'+${countObj.index}" th:value="${obj.noteCont}" /></li>
                       <input type="hidden" th:name="'upCateType'+${countObj.index}" th:value="'cateUpdate'"/>
                       <input type="hidden" th:name="'upGoodsCataSeq'+${countObj.index}" th:value="${obj.goodsCataSeq}"/>
+                      <input type="hidden" th:name="'upUprClassCd'+${countObj.index}" th:value="'upperclass'"/>
                       <li>
                         <select th:name="'upUseYn'+${countObj.index}">
                           <option th:selected="${obj.useYn eq 'Y'}" value="Y">사용</option>
@@ -72,6 +73,7 @@
                       <li><input type="text" th:name="'unNoteCont'+${countObj.index}" th:value="${obj.noteCont}" /></li>
                       <input type="hidden" th:name="'unCateType'+${countObj.index}" th:value="'cateUpdate'"/>
                       <input type="hidden" th:name="'unGoodsCataSeq'+${countObj.index}" th:value="${obj.goodsCataSeq}"/>
+                      <input type="hidden" th:name="'unUprClassCd'+${countObj.index}" th:value="${obj.uprClassCd}"/>
                       <li>
                         <select th:name="'unUseYn'+${countObj.index}">
                           <option th:selected="${obj.useYn eq 'Y'}" value="Y">사용</option>
@@ -105,6 +107,7 @@
         let nmAdd = '';
         let classCd = '';
         let underCnt = 0;
+        let uppercode = ''
 
         document.addEventListener("DOMContentLoaded", () => {
           let upper_btn_add = document.querySelector('#upper_btn_add');
@@ -117,6 +120,7 @@
             btnCnt = upperTextCnt;
             nmAdd = 'up';
             classCd = '1';
+            uppercode ='upperclass'
             upper_items_area.innerHTML += fn_getHtmlInput();
             upperTextCnt++;
           });
@@ -125,6 +129,9 @@
             btnCnt = underTextCnt;
             nmAdd = 'un';
             classCd = '2';
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            uppercode = urlParams.get('catgryCd');
             under_items_area.innerHTML += fn_getHtmlInput();
             underTextCnt++;
           });
@@ -185,6 +192,7 @@
                   +   '<li><input type="text" name="'+nmAdd+'NoteCont'+btnCnt+'" placeholder="비고내용"/></li>'
                   +   '<input type="hidden" name="'+nmAdd+'ClassLvlCd'+btnCnt+'" value="'+classCd+'"/>'
                   +   '<input type="hidden" name="'+nmAdd+'CateType'+btnCnt+'" value="cateInsert"/>'
+                  +   '<input type="hidden" name="'+nmAdd+'UprClassCd'+btnCnt+'" value="'+uppercode+'"/>'
                   +   '<li>'
                   +      '<select name="'+nmAdd+'UseYn'+btnCnt+'">'
                   +         '<option value="Y">사용</option>'

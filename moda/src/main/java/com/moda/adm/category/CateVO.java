@@ -4,20 +4,20 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 public class CateVO {
 
-    private long goodsCataSeq;
+    private String goodsCataSeq;
     private String catgryCd;
-    private int goodsCd;
     private String catgryNm;
     private String noteCont;
     private String classLvlCd;
     private String uprClassCd;
     private String rgstId;
-    private String rgstDate;
+    private LocalDateTime rgstDate;
     private String useYn;
-    private String upCateType;
+    private String cateType;
 }
