@@ -1,2 +1,73 @@
-package com.moda.moda.order.service;public class OrderServiceImp {
+package com.moda.moda.order.service;
+
+import com.moda.moda.order.OrderVO;
+import com.moda.moda.order.dao.OrderDao;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class OrderServiceImp implements OrderService{
+    @Autowired OrderDao orderDao;
+
+    //주문 기본
+    @Override
+    public int insertOrd(OrderVO pvo) {
+        orderDao.insertOrd(pvo);
+        return 0;
+    }
+
+    @Override
+    public OrderVO selectOrdOne(OrderVO pvo) {
+        return orderDao.selectOrdOne(pvo);
+    }
+
+    @Override
+    public List<OrderVO> selectOrdList(OrderVO pvo) {
+        return orderDao.selectOrdList(pvo);
+    }
+
+    @Override
+    public int updateOrd(OrderVO pvo) {
+        orderDao.updateOrd(pvo);
+        return 0;
+    }
+
+    @Override
+    public int deleteOrd(OrderVO pvo) {
+        orderDao.deleteOrd(pvo);
+        return 0;
+    }
+
+    //주문 상세
+    @Override
+    public int insertOrdDtl(OrderVO pvo) {
+        orderDao.insertOrdDtl(pvo);
+        return 0;
+    }
+
+    @Override
+    public OrderVO selectOrdDtlOne(OrderVO pvo) {
+        return orderDao.selectOrdDtlOne(pvo);
+    }
+
+    @Override
+    public List<OrderVO> selectOrdDtlList(OrderVO pvo) {
+        return orderDao.selectOrdDtlList(pvo);
+    }
+
+    @Override
+    public int updateOrdDtl(OrderVO pvo) {
+        orderDao.updateOrdDtl(pvo);
+        return 0;
+    }
+
+    @Override
+    public int deleteOrdDtl(OrderVO pvo) {
+        orderDao.deleteOrdDtl(pvo);
+        return 0;
+    }
 }
