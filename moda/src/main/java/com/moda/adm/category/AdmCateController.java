@@ -79,7 +79,7 @@ public class AdmCateController {
         System.out.println(req.getParameter("unUprClassCd"+ 1));
         System.out.println(req.getParameter("unUprClassCd"+ 2));
 
-        List<CateVO> pvo = cateService.datainput(req , loginInfo.getUId(), "c101");
+        List<CateVO> pvo = cateService.datainput(req , loginInfo.getUId());
 
 
         for (CateVO cate : pvo) {
@@ -92,9 +92,10 @@ public class AdmCateController {
     }
     // 카테고리 삭제 액션
     @RequestMapping("/adm/cate/admCateRemoveAct.do")
-    public String admCateRemoveAct(@RequestParam("goodsCataSeq") final long seq) {
+    public String admCateRemoveAct(@RequestParam("goodsCataSeq") final long seq
+    ,@RequestParam("catgry") final String req) {
         cateService.deleteCate(seq);
 
-        return "redirect:/adm/cate/admCateList.do";
+        return "redirect:/adm/cate/admCateList.do?catgryCd="+req;
     }
 }
