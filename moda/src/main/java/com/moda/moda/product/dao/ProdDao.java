@@ -1,5 +1,6 @@
 package com.moda.moda.product.dao;
 
+import com.moda.adm.category.CateVO;
 import com.moda.moda.product.ProdVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,4 +14,6 @@ public interface ProdDao {
     int updateProd(ProdVO params);
     int deleteProd(int code);
     int addImagePath(ProdVO params);
+
+    List<CateVO> cateList();
 }

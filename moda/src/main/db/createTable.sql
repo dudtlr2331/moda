@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `order_dtl` (
 
 CREATE TABLE IF NOT EXISTS `product` (
     `prod_code` int(11) NOT NULL AUTO_INCREMENT,
-    `cate_code` int(11) NOT NULL,
+    `cate_code` varchar(40) NOT NULL,
     `prod_name` varchar(100) NOT NULL,
     `prod_stock` int(11) NOT NULL,
     `prod_desc` varchar(3000) NOT NULL,

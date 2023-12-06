@@ -45,7 +45,7 @@
 
                     <tr>
                         <th>prod_desc <span class="es">필수 입력</span></th>
-                        <td colspan="3"><input type="text" id="prodDesc" name="prodDesc" maxlength="50" placeholder="prod_desc를 입력해 주세요." /></td>
+                        <td colspan="3"><textarea id="prodDesc" name="prodDesc" placeholder="prod_desc를 입력해 주세요." rows="7" cols="50"></textarea>
                     </tr>
 
                     <tr>
@@ -55,7 +55,12 @@
 
                     <tr>
                         <th>카테고리 <span class="es">필수 입력</span></th>
-                        <td colspan="3"><input type="text" id="cateCode" name="cateCode" maxlength="50" placeholder="카테고리를 입력해 주세요." /></td>
+                        <td>
+                            <select id="cateCode" name="cateCode">
+                                <option value="" selected disabled>카테고리를 선택하세요</option>
+                                <option th:each="cvo : ${cvo}" th:value="${cvo.catgryNm}" th:text="${cvo.catgryNm}"></option>
+                            </select>
+                        </td>
                     </tr>
 
                     <tr>

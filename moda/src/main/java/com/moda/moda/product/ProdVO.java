@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class ProdVO {
     private int prodCode;
-    private int cateCode;
+    private String cateCode;
     private String prodName;
     private int prodStock;
     private String prodDesc;
