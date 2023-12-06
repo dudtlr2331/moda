@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<link href="/css/product.css" rel="stylesheet">
-<th:block layout:fragment="title">
+<head>
+    <link href="/css/product.css" rel="stylesheet">
     <title>상세 페이지</title>
-</th:block>
-
+</head>
+<body>
 <!-- 상품 메인 -->
 <section id="product_main">
     <div class="product_image">
@@ -31,8 +31,26 @@
             <option value="L">L</option>
             <option value="XL">XL</option>
         </select>
-<!--        <h3 th:text="'총 상품 금액 ' + ({#numbers.formatInteger(rvo.prodPrice, 0, 'COMMA')}) + '원'"></h3>-->
-        <button class="product_main_detail_button_mid" onclick="fn_order()">바로구매</button>
+        <button class="product_main_detail_button_mid" th:onclick="'fn_order()'">바로구매</button>
     </div>
 </section>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // 바로 구매 버튼 클릭 시
+    function fn_order() {
+        var selectColorOption = document.querySelector("#colorOption");
+        var selectSizeOption = document.querySelector("#sizeOption");
+
+        if (selectColorOption.value !== "" && selectSizeOption.value !== "") {
+            var prodCode = /*[[${rvo.prodCode}]]*/ '';
+            location.href = '/order/order.do?prodCode=' + prodCode + '&colorOption=' + selectColorOption.value + '&sizeOption=' + selectSizeOption.value;
+            // location.href='/order/order.do?prodCode=' + ('/*[[${rvo.prodCode}]]*/' || '') + '&colorOption=' + selectColorOption.value + '&sizeOption=' + selectSizeOption.value;
+        } else {
+            alert("옵션을 선택해주세요.");
+        }
+    }
+    /*]]>*/
+</script>
+</body>
 </html>
