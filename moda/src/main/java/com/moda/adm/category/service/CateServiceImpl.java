@@ -39,7 +39,7 @@ public class CateServiceImpl implements CateService{
     }
 
     @Override
-    public List<CateVO> datainput(HttpServletRequest req  , String user , String parent) {
+    public List<CateVO> datainput(HttpServletRequest req  , String user) {
         List<CateVO> pvo = new ArrayList<>();
         int upperTxtCnt = req.getParameter("upperTxtCnt") == null? 0 : Integer.parseInt(req.getParameter("upperTxtCnt"));
         int underTxtCnt = req.getParameter("underTxtCnt") == null? 0 : Integer.parseInt(req.getParameter("underTxtCnt"));

@@ -11,7 +11,7 @@
     <p class="path"><strong>현재 위치 :</strong> <span>카테고리 관리</span>
   </div>
 
-  <div class="content">
+  <div class="content" style="width: 1250px; height: 1200px;">
     <section>
       <!--/* 검색 */-->
       <div class="search_box">
@@ -110,6 +110,9 @@
         let uppercode = ''
 
         document.addEventListener("DOMContentLoaded", () => {
+          const queryString = window.location.search;
+          const urlParams = new URLSearchParams(queryString);
+          uppercode = urlParams.get('catgryCd');
           let upper_btn_add = document.querySelector('#upper_btn_add');
           let under_btn_add = document.querySelector('#under_btn_add');
           let upper_items_area = document.querySelector('.upper-category .items'); // 수정된 부분
@@ -199,13 +202,15 @@
                   +         '<option value="N">사용안함</option>'
                   +      '</select>'
                   +   '</li>'
-                  +   '<li><input type="button" class="btn_del" value="취소" onclick="fnDel(this);" /></li>'
+                  +   '<li><input type="button" class="btn_del" value="삭제하기" onclick="fnDel(this);" /></li>'
                   +'</ul></div>'
           ;
           return html;
         }
         function fn_a(catgryCd){
-          location.href = '/adm/cate/admCateList.do?catgryCd='+catgryCd;
+          if(catgryCd !== uppercode){location.href = '/adm/cate/admCateList.do?catgryCd='+catgryCd;}
+
+
         }
 
         function fnDel(_this, goodsCataSeq , classLvlCd){
@@ -216,7 +221,7 @@
               alert("하위 카테고리가 있습니다.");
             }else if(confirm('상품을 정말 삭제 하시겠습니까?')){
               _this.parentNode.parentNode.parentNode.remove();
-              location.href = '/adm/cate/admCateRemoveAct.do?goodsCataSeq='+goodsCataSeq;
+              location.href = '/adm/cate/admCateRemoveAct.do?goodsCataSeq='+goodsCataSeq + '&catgry=' + uppercode;
             }
           }
         }
