@@ -200,7 +200,7 @@ INSERT INTO `users` (`u_num`, `u_id`, `u_pass`, `u_name`, `u_email`, `u_post`, `
 (2, 'test', '1234', 'test', 'test@naver.com', 10111, 'asd', 'asd', '2023-11-28 20:00:24', '0');
 
 
-/******************************************* 테이블 **********************************************/
+/******************************************* 낡은 테이블 **********************************************/
 CREATE TABLE IF NOT EXISTS `cart` (
     `cart_num` int(11) NOT NULL AUTO_INCREMENT,
     `u_id` varchar(50) NOT NULL,
