@@ -64,9 +64,9 @@ public class AdmProdController {
         if (code != 0) {
             ProdVO pvo = prodService.selectProdOne(code);
             model.addAttribute("pvo", pvo);
-            List<CateVO> cvo = prodService.findAllCate();
-            model.addAttribute("cvo", cvo);
         }
+        List<CateVO> cvo = prodService.findAllCate();
+        model.addAttribute("cvo", cvo);
         return "html/adm/product/prodWrite";
     }
 

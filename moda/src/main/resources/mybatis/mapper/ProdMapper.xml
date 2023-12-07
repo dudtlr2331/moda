@@ -83,7 +83,7 @@
 
     <select id="cateList" resultType="com.moda.adm.category.CateVO">
         select CATGRY_NM from category
-                         where CLASS_LVL_CD = '2';
+                         where CLASS_LVL_CD = '2' AND USE_YN = 'Y';
     </select>
 </mapper>
 
