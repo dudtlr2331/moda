@@ -2,7 +2,6 @@
 CREATE TABLE IF NOT EXISTS `category` (
     `GOODS_CATA_SEQ` int(20) NOT NULL AUTO_INCREMENT,
     `CATGRY_CD` varchar(20) NOT NULL,
-    `GOODS_CD` int(12) NOT NULL,
     `CATGRY_NM` varchar(400) DEFAULT NULL,
     `NOTE_CONT` varchar(4000) DEFAULT NULL,
     `CLASS_LVL_CD` varchar(20) DEFAULT NULL,
@@ -14,10 +13,15 @@ CREATE TABLE IF NOT EXISTS `category` (
     ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 테이블 데이터 moda.category:~2 rows (대략적) 내보내기
-INSERT INTO `category` (`GOODS_CATA_SEQ`, `CATGRY_CD`, `GOODS_CD`, `CATGRY_NM`, `NOTE_CONT`, `CLASS_LVL_CD`, `UPR_CLASS_CD`, `RGST_ID`, `RGST_DATE`, `USE_YN`) VALUES
-                                                                                                                                                                   (1, 'CT1', 1, 'your_catgry_nm_value', 'your_note_cont_value', 'lvl_cd_value', 'class_cd_value', '_id_value', NULL, '1'),
-                                                                                                                                                                   (2, 'CT1', 1, 'your_catgry_nm_value', 'your_note_cont_value', 'lvl_cd_value', 'class_cd_value', '_id_value', NULL, '1'),
-                                                                                                                                                                   (3, 'CT1', 1, 'your_catgry_nm_value', 'your_note_cont_value', 'lvl_cd_value', 'class_cd_value', '_id_value', NULL, '1');
+INSERT INTO `category` (`GOODS_CATA_SEQ`, `CATGRY_CD`, `CATGRY_NM`, `NOTE_CONT`, `CLASS_LVL_CD`, `UPR_CLASS_CD`, `RGST_ID`, `RGST_DATE`, `USE_YN`) VALUES
+                                                                                                                                                       (1,'A100' , '상의' , '모든상의' , '1' , NULL , 'test1' , NOW() , 'Y'),
+                                                                                                                                                       (2,'B100' , '하의' , '모든하의' , '1' , NULL , 'test1' , NOW() , 'Y'),
+                                                                                                                                                       (3,'A101' , '아우터' , '아우터' , '2' , 'A100' , 'test1' , NOW() , 'Y'),
+                                                                                                                                                       (4,'A102' , '니트' , '니트' , '2' , 'A100' , 'test1' , NOW() , 'Y'),
+                                                                                                                                                       (5,'A103' , '기타상의' , '상의분류' , '2' , 'A100' , 'test1' , NOW() , 'Y'),
+                                                                                                                                                       (6,'B101' , '청바지' , '청바지' , '2' , 'B100' , 'test1' , NOW() , 'N'),
+                                                                                                                                                       (7,'B102' , '기타하의' , '하의분류' , '2' , 'B100' , 'test1' , NOW() , 'Y');
+
 
 -- 테이블 moda.ord_base 구조 내보내기
 CREATE TABLE IF NOT EXISTS `ord_base` (
@@ -64,7 +68,7 @@ INSERT INTO `ord_dtl` (`ORD_DTL_NO`, `USR_ID`, `ORD_NO`, `PROD_NAME`, `PROD_CODE
 -- 테이블 moda.product 구조 내보내기
 CREATE TABLE IF NOT EXISTS `product` (
     `prod_code` int(11) NOT NULL AUTO_INCREMENT,
-    `cate_code` int(11) NOT NULL,
+    `cate_code` varchar(50) NOT NULL,
     `prod_name` varchar(100) NOT NULL,
     `prod_stock` int(11) NOT NULL,
     `prod_desc` varchar(3000) NOT NULL,
@@ -78,17 +82,17 @@ CREATE TABLE IF NOT EXISTS `product` (
 
 -- 테이블 데이터 moda.product:~12 rows (대략적) 내보내기
 INSERT INTO `product` (`prod_code`, `cate_code`, `prod_name`, `prod_stock`, `prod_desc`, `prod_dete`, `prod_price`, `prod_img`, `prod_img_dtl`, `prod_dcnt`) VALUES
-(21, 1, '흰바지', 10, '1', '2023-11-16 20:29:27', 40000, '/images/231116', '/b761cd9319cf4f4a8452464423f3c051.jpg', 0),
-(22, 1, '검정바지', 10, '10', '2023-11-16 20:37:28', 40000, '/images/231116', '/e627943942664326bf346d59f7bb67f5.jpg', 0),
-(23, 1, '청바지', 10, '10', '2023-11-16 20:38:02', 50000, '/images/231116', '/9aa90ae9e4394529a1bc17c4887e11bc.jpg', 0),
-(24, 10, '회색바지', 10, '1', '2023-11-16 20:38:29', 40000, '/images/231116', '/d02e30ff490742fba73a84324406cfb5.jpg', 0),
-(25, 1, '회색 조끼', 10, '10', '2023-11-16 20:39:05', 38000, '/images/231116', '/0ea570fcb3b843c48245c3c480b9bdd1.jpg', 0),
-(26, 1, '트레이닝복 세트', 10, '10', '2023-11-16 20:39:36', 59000, '/images/231116', '/56e37a60f8fd4fddb0c90d02f2598de8.jpg', 0),
-(27, 1, '검정색 니트', 10, '10', '2023-11-16 20:40:06', 49000, '/images/231116', '/bb7cf45b6ef94163bb6252c9a0131cdf.jpg', 0),
-(28, 1, '파란색 맨투맨', 10, '10', '2023-11-16 20:40:48', 69000, '/images/231116', '/4f3babab321a4a7283b44d5252734484.jpg', 0),
-(29, 1, '나이키 회색 맨투맨', 10, '10', '2023-11-16 20:42:17', 69000, '/images/231116', '/0478541aaa3746cc91454735bb6eabfd.jpg', 0),
-(30, 1, '흰색 반팔', 10, '10', '2023-11-16 20:42:40', 29000, '/images/231116', '/17ec1e08a6454f55aa478520d33d79ee.jpg', 0),
-(31, 10, '테스트 상품', 12, '12', '2023-11-19 05:43:12', 124003, '/images/231119', '/a578a4a23af6490a925958ace7aca5cb.png', 0);
+(21, '기타하의', '흰바지', 10, '1', '2023-11-16 20:29:27', 40000, '/images/231116', '/b761cd9319cf4f4a8452464423f3c051.jpg', 0),
+(22, '기타하의', '검정바지', 10, '10', '2023-11-16 20:37:28', 40000, '/images/231116', '/e627943942664326bf346d59f7bb67f5.jpg', 0),
+(23, '기타하의', '청바지', 10, '10', '2023-11-16 20:38:02', 50000, '/images/231116', '/9aa90ae9e4394529a1bc17c4887e11bc.jpg', 0),
+(24, '기타하의', '회색바지', 10, '1', '2023-11-16 20:38:29', 40000, '/images/231116', '/d02e30ff490742fba73a84324406cfb5.jpg', 0),
+(25, '기타상의', '회색 조끼', 10, '10', '2023-11-16 20:39:05', 38000, '/images/231116', '/0ea570fcb3b843c48245c3c480b9bdd1.jpg', 0),
+(26, '기타한벌옷', '트레이닝복 세트', 10, '10', '2023-11-16 20:39:36', 59000, '/images/231116', '/56e37a60f8fd4fddb0c90d02f2598de8.jpg', 0),
+(27, '기타상의', '검정색 니트', 10, '10', '2023-11-16 20:40:06', 49000, '/images/231116', '/bb7cf45b6ef94163bb6252c9a0131cdf.jpg', 0),
+(28, '기타상의', '파란색 맨투맨', 10, '10', '2023-11-16 20:40:48', 69000, '/images/231116', '/4f3babab321a4a7283b44d5252734484.jpg', 0),
+(29, '기타상의', '나이키 회색 맨투맨', 10, '10', '2023-11-16 20:42:17', 69000, '/images/231116', '/0478541aaa3746cc91454735bb6eabfd.jpg', 0),
+(30, '기타상의', '흰색 반팔', 10, '10', '2023-11-16 20:42:40', 29000, '/images/231116', '/17ec1e08a6454f55aa478520d33d79ee.jpg', 0),
+(31, '', '테스트 상품', 12, '12', '2023-11-19 05:43:12', 124003, '/images/231119', '/a578a4a23af6490a925958ace7aca5cb.png', 0);
 
 -- 테이블 moda.qna 구조 내보내기
 CREATE TABLE IF NOT EXISTS `qna` (
