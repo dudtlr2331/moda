@@ -1,5 +1,8 @@
 package com.moda.moda.product.service;
 
+import com.moda.adm.category.CateVO;
+import com.moda.adm.search.SearchDto;
+import com.moda.adm.user.AdmUserDto;
 import com.moda.moda.product.ProdVO;
 
 import java.util.List;
@@ -11,4 +14,6 @@ public interface ProdService {
     int updateProd(final ProdVO params);
     int deleteProd(final int code);
     int addImagePath(ProdVO params);
+
+    List<CateVO> findAllCate();
 }

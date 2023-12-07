@@ -1,5 +1,6 @@
 package com.moda.adm.product;
 
+import com.moda.adm.category.CateVO;
 import com.moda.cmm.*;
 import com.moda.moda.product.ProdVO;
 import com.moda.moda.product.service.ProdService;
@@ -63,6 +64,8 @@ public class AdmProdController {
         if (code != 0) {
             ProdVO pvo = prodService.selectProdOne(code);
             model.addAttribute("pvo", pvo);
+            List<CateVO> cvo = prodService.findAllCate();
+            model.addAttribute("cvo", cvo);
         }
         return "html/adm/product/prodWrite";
     }

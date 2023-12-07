@@ -80,5 +80,10 @@
         WHERE
             prod_code = #{prodCode}
     </update>
+
+    <select id="cateList" resultType="com.moda.adm.category.CateVO">
+        select CATGRY_NM from category
+                         where CLASS_LVL_CD = '2';
+    </select>
 </mapper>
 

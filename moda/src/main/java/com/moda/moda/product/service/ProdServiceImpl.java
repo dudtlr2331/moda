@@ -1,5 +1,6 @@
 package com.moda.moda.product.service;
 
+import com.moda.adm.category.CateVO;
 import com.moda.moda.product.ProdVO;
 import com.moda.moda.product.dao.ProdDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +53,10 @@ public class ProdServiceImpl implements ProdService{
         prodDao.addImagePath(params);
         return params.getProdCode();
     }
+
+    @Override
+    public List<CateVO> findAllCate() {
+        return prodDao.cateList();
+    }
+
 }
