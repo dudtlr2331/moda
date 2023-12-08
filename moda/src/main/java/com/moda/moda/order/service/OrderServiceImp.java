@@ -17,7 +17,7 @@ public class OrderServiceImp implements OrderService{
     @Override
     public int insertOrd(OrderVO pvo) {
         orderDao.insertOrd(pvo);
-        return 0;
+        return 1;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class OrderServiceImp implements OrderService{
     @Override
     public int insertOrdDtl(OrderVO pvo) {
         orderDao.insertOrdDtl(pvo);
-        return 0;
+        return 1;
     }
 
     @Override
@@ -68,6 +68,43 @@ public class OrderServiceImp implements OrderService{
     @Override
     public int deleteOrdDtl(OrderVO pvo) {
         orderDao.deleteOrdDtl(pvo);
+        return 0;
+    }
+
+    //장바구니
+
+    @Override
+    public int insertBasket(OrderVO pvo) {
+        return 0;
+    }
+
+    @Override
+    public int deleteBasket(OrderVO pvo) {
+        return 0;
+    }
+
+    @Override
+    public int updateBasket(OrderVO pvo) {
+        return 0;
+    }
+
+    @Override
+    public List<OrderVO> selectBasketList(OrderVO pvo) {
+        return null;
+    }
+
+    @Override
+    public OrderVO ordBasketSelect(OrderVO pvo) {
+        return null;
+    }
+
+    @Override
+    public List<OrderVO> selectCartOrdDtlList(OrderVO pvo) {
+        return null;
+    }
+
+    @Override
+    public int insertCartOrdDtl(OrderVO pvo) {
         return 0;
     }
 }

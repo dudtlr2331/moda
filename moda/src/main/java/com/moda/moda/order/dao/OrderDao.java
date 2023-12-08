@@ -20,4 +20,13 @@ public interface OrderDao {
     List<OrderVO> selectOrdDtlList(OrderVO pvo);
     int updateOrdDtl(OrderVO pvo);
     int deleteOrdDtl(OrderVO pvo);
+
+
+    //장바구니
+    int insertBasket(OrderVO pvo);
+    int deleteBasket(OrderVO pvo);
+    int updateBasket(OrderVO pvo);
+    List<OrderVO> selectBasketList(OrderVO pvo);
+    OrderVO ordBasketSelect(OrderVO pvo);
+    List<OrderVO> selectCartOrdDtlList(OrderVO pvo);
 }

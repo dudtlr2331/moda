@@ -18,4 +18,12 @@ public interface OrderService {
     List<OrderVO> selectOrdDtlList(OrderVO pvo); // 주문 리스트 가져오기
     int updateOrdDtl(OrderVO pvo); // 주문 업데이트
     int deleteOrdDtl(OrderVO pvo); // 주문 삭제
+
+    int insertBasket(OrderVO pvo);
+    int deleteBasket(OrderVO pvo);
+    int updateBasket(OrderVO pvo);
+    List<OrderVO> selectBasketList(OrderVO pvo);
+    OrderVO ordBasketSelect(OrderVO pvo);
+    List<OrderVO> selectCartOrdDtlList(OrderVO pvo);
+    int insertCartOrdDtl(OrderVO pvo);
 }

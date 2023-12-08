@@ -25,7 +25,7 @@ public class OrderVO {
     private int prodCode;//
 
     //주문 상세
-    private Long ordDtlNo;
+    private int ordDtlNo;
     private String prodName;
     private int prodQty;
 
