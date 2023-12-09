@@ -3,6 +3,66 @@
 <head>
     <title>moda</title>
     <style>
+        html, body {
+            margin: 0; padding: 0;
+            height: 100%;
+        }
+
+        #wrapper {
+            height: auto;
+            min-height: 100%;
+            padding-bottom: 50px;
+        }
+
+        footer {
+            height: 50px;
+            position : relative;
+            transform : translateY(-100%);
+        }
+
+        .footer-main {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-bottom: 10px;
+        }
+
+        .right-aligned-links {
+            text-align: right;
+        }
+
+        .right-aligned-links a{
+            color: #888888;
+            text-decoration: none;
+            display: inline;
+            margin: 0 10px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .footer-info {
+            display: flex;
+            align-content: center;
+            text-align: left;
+        }
+
+        .company-info {
+            margin-left: 70px;
+            margin-right: 130px;
+        }
+
+        .sub {
+            font-size: 13px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 4px;
+        }
+
+        .decs {
+            font-size: 12px;
+            color: #888888;
+        }
+
         .horizontal-menu a {
             color: #888888;
             font-size: 18px;
@@ -56,62 +116,97 @@
 </head>
 <body>
 <!--default menu start-->
-<div class="logo">
-    <img th:onclick="'location.href=\'/main\''" src="/images/logo.png" alt="로고 이미지" style="cursor: pointer">
+<div id="wrapper">
+    <div class="logo">
+        <img th:onclick="'location.href=\'/main\''" src="/images/logo.png" alt="로고 이미지" style="cursor: pointer">
+    </div>
+
+    <div class="login-text">
+        <div th:if="${uId}">
+            <span th:text="${uId} + '님 환영합니다.'" id="hello_user" style="cursor:default;"></span>
+            <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit"
+                   width="50" height="25" src="/images/icon_logout.png"/>
+        </div>
+        <div th:if="${uId == null}">
+            <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit"
+                   width="50" height="25" src="/images/icon_login.png"/>
+        </div>
+    </div>
+
+    <!-- 가로 메뉴 -->
+    <ul class="horizontal-menu">
+        <li><a href="#">모든 상품</a></li>
+        <li><a href="#">카테고리</a></li>
+        <li><a href="#">장바구니</a></li>
+        <li>
+            <a th:if="${uAdmin == '0'}" th:onclick="'location.href=\'/moda/main/mypage.do\''" style="cursor: pointer">마이페이지</a>
+            <a th:if="${uAdmin == '1'}" onclick="openAdminPage()">관리자페이지</a>
+        </li>
+    </ul>
+    <!--default menu end-->
+
+    <!-- 상품 메인 -->
+    <section id="product_main">
+        <div class="product_image">
+            <img alt="메인이미지" th:src="${rvo.prodImg} + ${rvo.prodImgDtl}" width="348" height="349">
+        </div>
+        <div class="product_main_detail">
+            <h3 th:text="${rvo.prodName}"></h3>
+            <h2>
+                <span th:text="${#numbers.formatInteger(rvo.prodPrice, 0, 'COMMA')} + '원'"></span>
+            </h2>
+            <h5>배송비 <span th:text="2000"></span>원</h5>
+            <!-- <h5>리뷰정보 718개 <a href="#">리뷰 보기</a></h5> -->
+            <select name="colorOption" id="colorOption">
+                <option value="">[컬러] 옵션을 선택하세요.</option>
+                <option value="흰색">흰색</option>
+                <option value="검정색">검정색</option>
+                <option value="회색">회색</option>
+                <option value="파란색">파란색</option>
+            </select>
+            <select name="sizeOption" id="sizeOption">
+                <option value="">[사이즈] 옵션을 선택하세요.</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+            </select>
+            <button class="product_main_detail_button_mid" th:onclick="'fn_order()'">바로구매</button>
+        </div>
+    </section>
 </div>
-
-<div class="login-text">
-    <div th:if="${uId}">
-        <span th:text="${uId} + '님 환영합니다.'" id="hello_user" style="cursor:default;"></span>
-        <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit" width="50" height="25" src="/images/icon_logout.png"/>
+<footer>
+    <div class="footer-main">
+        <hr>
+        <div class="footer-links">
+            <div class="right-aligned-links">
+                <a href="#">개인정보처리방침</a>
+                <a href="#">서비스이용약관</a>
+                <a href="#">청소년 보호정책</a>
+                <a href="#">사업자정보확인</a>
+                <a href="#">구매안전서비스 가입사실확인</a>
+            </div>
+        </div>
+        <div class="footer-info">
+            <div class="company-info">
+                <p class="sub">주식회사 MODA</p>
+                <p class="decs">대표이사 : 000<br>
+                    00도 00시 00구 000 000 0동 00호<br>
+                    (00동, 0000000)<br>
+                    사업자등록번호 : 000-00-00000<br>
+                    통신판매업 신고번호 : 제0000-00000-0000호<br>
+                    개인정보관리책임자 : 000</p>
+            </div>
+            <div class="customer-center">
+                <p class="sub">고객센터</p>
+                <p class="decs">대표전화 : 0000-0000<br>
+                    운영시간 : AM 00:00 ~ PM 00:00 (0-0)<br>
+                    점심시간 : PM 00:00 ~ PM 00:00 (주말 및 공유일 휴무)<br>
+                    이메일 : 0000000@000000.000</p>
+            </div>
+        </div>
     </div>
-    <div th:if="${uId == null}">
-        <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit" width="50" height="25" src="/images/icon_login.png"/>
-    </div>
-</div>
-
-<!-- 가로 메뉴 -->
-<ul class="horizontal-menu">
-    <li><a href="#">모든 상품</a></li>
-    <li><a href="#">카테고리</a></li>
-    <li><a href="#">장바구니</a></li>
-    <li>
-        <a th:if="${uAdmin == '0'}" th:onclick="'location.href=\'/moda/main/mypage.do\''" style="cursor: pointer">마이페이지</a>
-        <a th:if="${uAdmin == '1'}" onclick="openAdminPage()">관리자페이지</a>
-    </li>
-</ul>
-<!--default menu end-->
-
-<!-- 상품 메인 -->
-<section id="product_main">
-    <div class="product_image">
-        <img alt="메인이미지" th:src="${rvo.prodImg} + ${rvo.prodImgDtl}" width="348" height="349">
-    </div>
-    <div class="product_main_detail">
-        <h3 th:text="${rvo.prodName}"></h3>
-        <h2>
-            <span th:text="${#numbers.formatInteger(rvo.prodPrice, 0, 'COMMA')} + '원'"></span>
-        </h2>
-        <h5>배송비 <span th:text="2000"></span>원</h5>
-        <!-- <h5>리뷰정보 718개 <a href="#">리뷰 보기</a></h5> -->
-        <select name="colorOption" id="colorOption">
-            <option value="">[컬러] 옵션을 선택하세요.</option>
-            <option value="흰색">흰색</option>
-            <option value="검정색">검정색</option>
-            <option value="회색">회색</option>
-            <option value="파란색">파란색</option>
-        </select>
-        <select name="sizeOption" id="sizeOption">
-            <option value="">[사이즈] 옵션을 선택하세요.</option>
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-        </select>
-        <button class="product_main_detail_button_mid" th:onclick="'fn_order()'">바로구매</button>
-    </div>
-</section>
-
+</footer>
 <script th:inline="javascript">
     /*<![CDATA[*/
     // 바로 구매 버튼 클릭 시
@@ -127,6 +222,7 @@
             alert("옵션을 선택해주세요.");
         }
     }
+
     /*]]>*/
 </script>
 </body>
