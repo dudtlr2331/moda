@@ -31,14 +31,16 @@ public class OrderVO {
 
 
     //장바구니
+    private int cartNum;
+    private int cartAmount;
     private Long ordBasketSeq;
     private String useYn;
     private Long saleBoardSeq;
-    private String imgPath;
-    private String imgNm;
+    private String prodImg;
+    private String prodImgDtl;
     private String bulTitNm;
-    private int goodsPrc;/*상품가격*/
-    private int goodsSalePrc;
+    private int prodPrice;
+    private int prodDesc;
     private int saleCnt;
     private String saleStatCd;
     private String description;

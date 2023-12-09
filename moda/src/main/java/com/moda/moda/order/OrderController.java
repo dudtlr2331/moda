@@ -4,16 +4,19 @@ import com.moda.moda.member.MemberVO;
 import com.moda.moda.order.service.OrderService;
 import com.moda.moda.product.ProdVO;
 import com.moda.moda.product.service.ProdService;
-import com.moda.moda.user.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.moda.cmm.OrderNumberGenerator.generateOrderNumber;
 
@@ -74,13 +77,8 @@ public class OrderController {
 
     //카트 리스트
     @RequestMapping("/order/orderCartList.do")
-    public String orderCartList(HttpServletRequest req, HttpServletResponse res) {
-        //공통 코드 가져오기
-        CateVO cateVO = new CateVO();
-        List<CateVO> oneDepthCateList = cateService.selectCateList(cateVO);
-        req.setAttribute("oneDepthCateList", oneDepthCateList);
-
-        return "shp/order/order_cart";
+    public String orderCartList() {
+        return "html/moda/order/order_cart";
     }
 
     //장바구니 구매
@@ -164,44 +162,41 @@ public class OrderController {
 //
 //        return "shp/order/order_basket_confirm";
 //    }
-//
-//    //장바구니 리스트
-//    @RequestMapping("/order/orderCartListAjax.do")
-//    @ResponseBody
-//    public JSONObject orderCartListAjax(HttpServletRequest req, HttpServletResponse res, OrderVO pvo) {
-//        JSONObject data = new JSONObject();
-//        JSONArray jArry = new JSONArray();
-//
-//        HttpSession session = req.getSession();
-//        UserVO loginVo = (UserVO) session.getAttribute("loginInfo");
-//        pvo.setUsrId(loginVo.getUsrId());
-//        List<OrderVO> basketList = orderService.selectBasketList(pvo);
-//
-//        for(int i=0; i<basketList.size(); i++) {
-//            JSONObject obj = new JSONObject();
-//            obj.put("ordBasketSeq", basketList.get(i).getOrdBasketSeq());
-//            obj.put("usrId", basketList.get(i).getUsrId());
-//            obj.put("goodsQty", basketList.get(i).getGoodsQty());
-//            obj.put("saleBoardSeq", basketList.get(i).getSaleBoardSeq());
-//            obj.put("imgPath", basketList.get(i).getImgPath());
-//            obj.put("imgNm", basketList.get(i).getImgNm());
-//            obj.put("bulTitNm", basketList.get(i).getBulTitNm());
-//            obj.put("goodsCd", basketList.get(i).getGoodsCd());
-//            obj.put("entrNo", basketList.get(i).getEntrNo());
-//            obj.put("goodsPrc", basketList.get(i).getGoodsPrc());
-//            obj.put("goodsSalePrc", basketList.get(i).getGoodsSalePrc());
-//            obj.put("saleCnt", basketList.get(i).getSaleCnt());
-//            obj.put("saleStatCd", basketList.get(i).getSaleStatCd());
-//            obj.put("description", basketList.get(i).getDescription());
-//            jArry.add(obj);
-//        }
-//
-//        data.put("result", "success");
-//        data.put("dataList", jArry);
-//
-//        return data;
-//    }
-//
+
+    //장바구니 리스트
+    @RequestMapping("/order/orderCartListAjax.do")
+    @ResponseBody
+    public Map<String, Object> orderCartListAjax(HttpServletRequest req, HttpServletResponse res, OrderVO pvo) {
+        Map<String, Object> data = new HashMap<>();
+        List<Map<String, Object>> jArry = new ArrayList<>();
+
+        // 세션에서 로그인 정보 가져오기
+        HttpSession session = req.getSession();
+        MemberVO loginInfo = (MemberVO) session.getAttribute("loginInfo");
+        pvo.setUsrId(loginInfo.getUId());
+
+        List<OrderVO> cartList = orderService.selectCartList(pvo);
+
+        for (OrderVO order : cartList) {
+            Map<String, Object> obj = new HashMap<>();
+            obj.put("cartNum", order.getCartNum());
+            obj.put("usrId", order.getUsrId());
+            obj.put("prodQty", order.getProdQty());
+            obj.put("prodImg", order.getProdImg());
+            obj.put("prodImgDtl", order.getProdImgDtl());
+            obj.put("cartAmount", order.getCartAmount());
+            obj.put("prodCode", order.getProdCode());
+            obj.put("prodPrice", order.getProdPrice());
+            obj.put("prodDesc", order.getProdDesc());
+            jArry.add(obj);
+        }
+
+        data.put("result", "success");
+        data.put("data", jArry);
+
+        return data;
+    }
+
 //    //장바구니 담기
 //    @RequestMapping("/order/orderCartInsertAjax.do")
 //    @ResponseBody

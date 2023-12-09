@@ -74,27 +74,27 @@ public class OrderServiceImp implements OrderService{
     //장바구니
 
     @Override
-    public int insertBasket(OrderVO pvo) {
+    public int insertCart(OrderVO pvo) {
         return 0;
     }
 
     @Override
-    public int deleteBasket(OrderVO pvo) {
+    public int deleteCart(OrderVO pvo) {
         return 0;
     }
 
     @Override
-    public int updateBasket(OrderVO pvo) {
+    public int updateCart(OrderVO pvo) {
         return 0;
     }
 
     @Override
-    public List<OrderVO> selectBasketList(OrderVO pvo) {
-        return null;
+    public List<OrderVO> selectCartList(OrderVO pvo) {
+        return orderDao.selectCartList(pvo);
     }
 
     @Override
-    public OrderVO ordBasketSelect(OrderVO pvo) {
+    public OrderVO ordCartSelect(OrderVO pvo) {
         return null;
     }
 
