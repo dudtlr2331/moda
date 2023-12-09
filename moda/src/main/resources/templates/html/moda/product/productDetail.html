@@ -1,10 +1,87 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <link href="/css/product.css" rel="stylesheet">
-    <title>상세 페이지</title>
+    <title>moda</title>
+    <style>
+        .horizontal-menu a {
+            color: #888888;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .horizontal-menu a:hover {
+            color: #000000;
+        }
+
+        .logo {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo img {
+            width: 300px;
+        }
+
+        #hello_user {
+            color: black;
+            font-size: 17px;
+            font-weight: bold; /* 글자를 굵게 설정 */
+        }
+
+        .horizontal-menu {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .horizontal-menu li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        .horizontal-menu a {
+            text-decoration: none;
+        }
+
+        .login-text {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: blue;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+<!--default menu start-->
+<div class="logo">
+    <img th:onclick="'location.href=\'/main\''" src="/images/logo.png" alt="로고 이미지" style="cursor: pointer">
+</div>
+
+<div class="login-text">
+    <div th:if="${uId}">
+        <span th:text="${uId} + '님 환영합니다.'" id="hello_user" style="cursor:default;"></span>
+        <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit" width="50" height="25" src="/images/icon_logout.png"/>
+    </div>
+    <div th:if="${uId == null}">
+        <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit" width="50" height="25" src="/images/icon_login.png"/>
+    </div>
+</div>
+
+<!-- 가로 메뉴 -->
+<ul class="horizontal-menu">
+    <li><a href="#">모든 상품</a></li>
+    <li><a href="#">카테고리</a></li>
+    <li><a href="#">장바구니</a></li>
+    <li>
+        <a th:if="${uAdmin == '0'}" th:onclick="'location.href=\'/moda/main/mypage.do\''" style="cursor: pointer">마이페이지</a>
+        <a th:if="${uAdmin == '1'}" onclick="openAdminPage()">관리자페이지</a>
+    </li>
+</ul>
+<!--default menu end-->
+
 <!-- 상품 메인 -->
 <section id="product_main">
     <div class="product_image">

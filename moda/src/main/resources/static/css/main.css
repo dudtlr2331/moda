@@ -1,7 +1,13 @@
-a {
+.horizontal-menu a {
   color: #888888;
+  font-size: 18px;
   text-decoration: none;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.horizontal-menu a:hover {
+  color: #000000;
 }
 
 .logo {
@@ -32,6 +38,14 @@ a {
 
 .horizontal-menu a {
   text-decoration: none;
+}
+
+.login-text {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: blue;
+  cursor: pointer;
 }
 
 .slider-container {
@@ -78,7 +92,7 @@ a {
 
 .recommendation-text {
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
   margin: 20px 0;
   font-weight: bold;
 }
@@ -92,14 +106,6 @@ a {
 .image-grid img {
   width: 20%;
   margin: 5px;
-}
-
-.login-text {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: blue;
-  cursor: pointer;
 }
 
 .img_area {

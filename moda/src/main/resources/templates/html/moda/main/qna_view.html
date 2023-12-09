@@ -3,10 +3,16 @@
 <head>
   <title>moda</title>
   <style>
-    a {
+    .horizontal-menu a {
       color: #888888;
+      font-size: 18px;
       text-decoration: none;
       font-weight: bold;
+      cursor: pointer;
+    }
+
+    .horizontal-menu a:hover {
+      color: #000000;
     }
 
     .logo {
@@ -16,6 +22,12 @@
 
     .logo img {
       width: 300px;
+    }
+
+    #hello_user {
+      color: black;
+      font-size: 17px;
+      font-weight: bold; /* 글자를 굵게 설정 */
     }
 
     .horizontal-menu {
@@ -45,19 +57,25 @@
       text-align: center;
     }
 
-    table {
-      margin: 0 auto;
+    .tb {
+      margin: 0 auto; /* 테이블을 가운데 정렬하는 속성 추가 */
+      width: 60%; /* 테이블의 너비 조정 */
+      border-collapse: collapse;
+    }
+
+    .tb th {
+      border: 1px solid #ddd;
+      border-left: none;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .tb td {
+      border: 1px solid #ddd;
+      border-left: none;
+      border-right: none;
+      padding: 8px;
       text-align: left;
-      width: 70%; /* 테이블의 너비 조정 */
-      border-collapse: collapse; /* 셀 경계를 합치기 */
-    }
-
-    table, th, td {
-      border: 1px solid #888; /* 테이블 선 추가 */
-    }
-
-    th, td {
-      padding: 10px; /* 셀 안에 여백 추가 */
     }
 
     .page-title {
@@ -88,16 +106,15 @@
   </style>
 </head>
 <body>
+<!--default menu start-->
 <div class="logo">
   <img th:onclick="'location.href=\'/main\''" src="/images/logo.png" alt="로고 이미지" style="cursor: pointer">
 </div>
 
 <div class="login-text">
   <div th:if="${uId}">
-    <span th:text="${uId} + '님 환영합니다.'" id="hello_user"></span>
+    <span th:text="${uId} + '님 환영합니다.'" id="hello_user" style="cursor:default;"></span>
     <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit" width="50" height="25" src="/images/icon_logout.png"/>
-    <input th:if="${uAdmin == '1'}" id="admin_btn" onclick="openAdminPage()" type="image" class="w70" alt="Submit" width="25" height="25" src="/images/icon_adm.png">
-    <input th:if="${uAdmin == '0'}" id="mypage_btn" th:onclick="'location.href=\'/moda/main/mypage.do\''" type="image" class="w70" alt="Submit" width="50" height="25" src="/images/icon_mypage.png">
   </div>
   <div th:if="${uId == null}">
     <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit" width="50" height="25" src="/images/icon_login.png"/>
@@ -106,12 +123,15 @@
 
 <!-- 가로 메뉴 -->
 <ul class="horizontal-menu">
-  <li><a href="#">신상</a></li>
-  <li><a href="#">베스트</a></li>
+  <li><a href="#">모든 상품</a></li>
   <li><a href="#">카테고리</a></li>
   <li><a href="#">장바구니</a></li>
-  <li><a href="#">마이페이지</a></li>
+  <li>
+    <a th:if="${uAdmin == '0'}" th:onclick="'location.href=\'/moda/main/mypage.do\''" style="cursor: pointer">마이페이지</a>
+    <a th:if="${uAdmin == '1'}" onclick="openAdminPage()">관리자페이지</a>
+  </li>
 </ul>
+<!--default menu end-->
 
 <div class="qna-page-container">
   <div class="page-title">
