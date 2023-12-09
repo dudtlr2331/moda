@@ -1,7 +1,73 @@
-a {
+html, body {
+  margin: 0; padding: 0;
+  height: 100%;
+}
+
+#wrapper {
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 50px;
+}
+
+footer {
+  height: 50px;
+  position : relative;
+  transform : translateY(-100%);
+}
+
+.footer-main {
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 10px;
+}
+
+.right-aligned-links {
+  text-align: right;
+}
+
+.right-aligned-links a{
   color: #888888;
   text-decoration: none;
+  display: inline;
+  margin: 0 10px;
   font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.footer-info {
+  display: flex;
+  align-content: center;
+  text-align: left;
+}
+
+.company-info {
+  margin-left: 70px;
+  margin-right: 130px;
+}
+
+.sub {
+  font-size: 13px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 4px;
+}
+
+.decs {
+  font-size: 12px;
+  color: #888888;
+}
+
+.horizontal-menu a {
+  color: #888888;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.horizontal-menu a:hover {
+  color: #000000;
 }
 
 .logo {
@@ -16,7 +82,7 @@ a {
 #hello_user {
   color: black;
   font-size: 17px;
-  font-weight: bold; /* 글자를 굵게 설정 */
+  font-weight: bold;
 }
 
 .horizontal-menu {
@@ -32,6 +98,14 @@ a {
 
 .horizontal-menu a {
   text-decoration: none;
+}
+
+.login-text {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: blue;
+  cursor: pointer;
 }
 
 .slider-container {
@@ -78,7 +152,7 @@ a {
 
 .recommendation-text {
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
   margin: 20px 0;
   font-weight: bold;
 }
@@ -92,14 +166,6 @@ a {
 .image-grid img {
   width: 20%;
   margin: 5px;
-}
-
-.login-text {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: blue;
-  cursor: pointer;
 }
 
 .img_area {

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -26,7 +27,11 @@ public class ProdController {
     }
 
     @GetMapping("/product/prodDetail.do")
-    public String selectProdDetail(int code, Model model) {
+    public String selectProdDetail(int code, Model model, HttpSession session) {
+        String uId = (String) session.getAttribute("uId");
+        String uAdmin = (String) session.getAttribute("uAdmin");
+        model.addAttribute("uId", uId);
+        model.addAttribute("uAdmin", uAdmin);
         ProdVO rvo = prodService.selectProdOne(code);
         model.addAttribute("rvo", rvo);
         return "html/moda/product/productDetail";

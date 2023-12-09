@@ -22,7 +22,9 @@
     <select id="selectListMainHome" resultType="com.moda.moda.main.MainVO">
         SELECT
         <include refid="prodColumns" />
-        FROM product;
+        FROM product
+        ORDER BY
+        prod_code DESC
     </select>
 </mapper>
 

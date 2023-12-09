@@ -2,13 +2,13 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/basic">
 <th:block layout:fragment="title">
-  <title>카테고리 리스트</title>
+  <title>moda</title>
 </th:block>
 
 <th:block layout:fragment="content">
   <div class="page_tits">
     <h3>카테고리 관리</h3>
-    <p class="path"><strong>현재 위치 :</strong> <span>카테고리 관리</span>
+    <p class="path"><strong>현재 위치 :</strong><span>관리</span><span>카테고리</span></p>
   </div>
 
   <div class="content" style="width: 1250px; height: 1200px;">
@@ -44,7 +44,7 @@
                         </select>
                       </li>
                       <li>
-                        <input type="button" class="btn_del"
+                        <input type="button" class="btns btn_st3 btn_mid"
                                value="삭제하기"
                                th:attr="onclick='fnDel(this, \'' + ${obj.goodsCataSeq} + '\', \'' + ${obj.classLvlCd} + '\');'"/>
                       </li>
@@ -81,7 +81,7 @@
                         </select>
                       </li>
                       <li>
-                        <input type="button" class="btn_del"
+                        <input type="button" class="btns btn_st3 btn_mid"
                                value="삭제하기"
                                th:attr="onclick='fnDel(this, \'' + ${obj.goodsCataSeq} + '\', \'' + ${obj.classLvlCd} + '\');'"/>
                       </li>
@@ -95,7 +95,7 @@
             </div>
           </div>
           <div class="save-button">
-            <input type="submit" value="저장"/>
+            <input class="btns btn_st3 btn_mid" type="submit" value="저장"/>
           </div>
         </form>
       </div>
@@ -202,7 +202,7 @@
                   +         '<option value="N">사용안함</option>'
                   +      '</select>'
                   +   '</li>'
-                  +   '<li><input type="button" class="btn_del" value="삭제하기" onclick="fnDel(this);" /></li>'
+                  +   '<li><input type="button" class="btns btn_st3 btn_mid" value="삭제하기" onclick="fnDel(this);" /></li>'
                   +'</ul></div>'
           ;
           return html;
