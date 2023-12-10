@@ -99,11 +99,11 @@
         }());
 
 
-        window.onload = () => {
+        document.addEventListener('DOMContentLoaded', function () {
             renderPostInfo();
 
             findAllFile();
-        }
+        });
 
 
         // 전체 파일 조회
