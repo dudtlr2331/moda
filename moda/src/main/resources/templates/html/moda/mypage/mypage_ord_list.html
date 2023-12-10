@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>마이 페이지</title>
+    <!-- Add Font Awesome CDN link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <style>
+        .item_list_area {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header_data {
+            margin-bottom: 40px;
+        }
+
+        .header_data .icon {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .header_data .icon span {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .header_data .icon i {
+            font-size: 80px;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .data_list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .data_list img {
+            width: 120px;
+        }
+
+        .center-align {
+            text-align: center;
+        }
+
+        .logo {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo img {
+            width: 300px;
+        }
+
+        .login-text {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: blue;
+            cursor: pointer;
+        }
+
+        .horizontal-menu {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .horizontal-menu li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        .horizontal-menu a {
+            text-decoration: none;
+        }
+
+        .title_area {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="logo">
+    <img th:onclick="'location.href=\'/main\''" src="/images/logo.png" alt="로고 이미지" style="cursor: pointer">
+</div>
+
+<div class="login-text">
+    <div th:if="${uId}">
+        <span th:text="${uId} + '님 환영합니다.'" id="hello_user" style="cursor:default;"></span>
+        <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit"
+               width="50" height="25" src="/images/icon_logout.png"/>
+    </div>
+    <div th:if="${uId == null}">
+        <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit"
+               width="50" height="25" src="/images/icon_login.png"/>
+    </div>
+</div>
+
+<!-- 가로 메뉴 -->
+<ul class="horizontal-menu">
+    <li><a href="#">모든 상품</a></li>
+    <li><a href="#">카테고리</a></li>
+    <li><a href="#">장바구니</a></li>
+    <li>
+        <a th:if="${uAdmin == '0'}" th:onclick="'location.href=\'/moda/main/mypage.do\''" style="cursor: pointer">마이페이지</a>
+        <a th:if="${uAdmin == '1'}" onclick="openAdminPage()">관리자페이지</a>
+    </li>
+</ul>
+
+<section class="title_area">
+    <h3 class="title">주문 내역</h3>
+</section>
+
+<section class="item_list_area">
+    <div class="data_list">
+        <table>
+            <colgroup>
+                <col width="10%"/>
+                <col width="20%"/>
+                <col width="20%"/>
+                <col width="20%"/>
+                <col width="20%"/>
+                <col width="10%"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th style="text-align: center;">주문번호</th>
+                <th style="text-align: center;">상품사진</th>
+                <th style="text-align: center;">상품명</th>
+                <th style="text-align: center;">주문금액</th>
+                <th style="text-align: center;">주문상태</th>
+                <th style="text-align: center;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(mypgList)}">
+                <td colspan="6" style="text-align: center;"><div class="nodata">주문내역이 없습니다.</div></td>
+            </tr>
+            <tr th:each="obj : ${mypgList}">
+                <td th:text="${obj.ordNo}" style="text-align: center;"></td>
+                <td style="text-align: center;"><img th:src="${obj.prodImg} + ${obj.prodImgDtl}"></td>
+                <td style="text-align: center;"><a th:href="@{/mypage/mypageDetail.do(ordNo=${obj.ordNo})}" th:text="${obj.prodName}"></a></td>
+                <td th:text="${obj.payMny} + '원'" style="text-align: center;"></td>
+                <td th:text="${obj.ordStat}" style="text-align: center;"></td>
+                <td style="text-align: center;">
+                    <input type="button" onclick="location.href='/dress/dressRegister.do?ordNo=${obj.ordNo}'" value="리뷰 작성"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>
