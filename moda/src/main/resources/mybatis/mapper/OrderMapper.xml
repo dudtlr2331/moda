@@ -136,65 +136,65 @@
     </insert>
 
     <!-- 장바구니 -->
-    <select id="ordCartSelect" resultType="orderVo">
-        SELECT ORD.SALE_BOARD_SEQ AS saleBoardSeq
-             , SALE.GOODS_PRC AS prodPrice
-             , GOODS.GOODS_NM AS prodName
-             , GOODS.GOODS_CD AS prodCode
-        FROM ORD_BASKET ORD
-           , SALE_BOARD SALE
-           , GOODS_INFO GOODS
-        WHERE 1=1
-          AND ORD.SALE_BOARD_SEQ = SALE.SALE_BOARD_SEQ
-          AND ORD.GOODS_CD = GOODS.GOODS_CD
-          AND ORD.ORD_BASKET_SEQ = ${ordBasketSeq}
-    </select>
+<!--    <select id="ordCartSelect" resultType="orderVo">-->
+<!--        SELECT ORD.SALE_BOARD_SEQ AS saleBoardSeq-->
+<!--             , SALE.GOODS_PRC AS prodPrice-->
+<!--             , GOODS.GOODS_NM AS prodName-->
+<!--             , GOODS.GOODS_CD AS prodCode-->
+<!--        FROM ORD_BASKET ORD-->
+<!--           , SALE_BOARD SALE-->
+<!--           , GOODS_INFO GOODS-->
+<!--        WHERE 1=1-->
+<!--          AND ORD.SALE_BOARD_SEQ = SALE.SALE_BOARD_SEQ-->
+<!--          AND ORD.GOODS_CD = GOODS.GOODS_CD-->
+<!--          AND ORD.ORD_BASKET_SEQ = ${ordBasketSeq}-->
+<!--    </select>-->
 
-    <select id="selectCartList" resultType="com.moda.moda.order.OrderVO">
-        SELECT CART.CART_NUM AS cartNum
-        , CART.USR_ID AS usrId
-        , CART.CART_AMOUNT AS cartAmount
-        , PROD.PROD_IMG AS prodImg
-        , PROD.PROD_IMG_DTL AS prodImgDtl
-        , PROD.PROD_CODE AS prodCode
-        , PROD.PROD_PRICE AS prodPrice
-        , PROD.PROD_DESC AS prodDesc
-        FROM CART CART
-        , PRODUCT PROD
-        WHERE 1=1
-        AND CART.PROD_CODE = PROD.PROD_CODE
-        AND CART.USR_ID = #{usrId}
-    </select>
+<!--    <select id="selectCartList" resultType="com.moda.moda.order.OrderVO">-->
+<!--        SELECT CART.CART_NUM AS cartNum-->
+<!--        , CART.USR_ID AS usrId-->
+<!--        , CART.CART_AMOUNT AS cartAmount-->
+<!--        , PROD.PROD_IMG AS prodImg-->
+<!--        , PROD.PROD_IMG_DTL AS prodImgDtl-->
+<!--        , PROD.PROD_CODE AS prodCode-->
+<!--        , PROD.PROD_PRICE AS prodPrice-->
+<!--        , PROD.PROD_DESC AS prodDesc-->
+<!--        FROM CART CART-->
+<!--        , PRODUCT PROD-->
+<!--        WHERE 1=1-->
+<!--        AND CART.PROD_CODE = PROD.PROD_CODE-->
+<!--        AND CART.USR_ID = #{usrId}-->
+<!--    </select>-->
 
-    <insert id="insertCart">
-        INSERT INTO ORD_BASKET
-        ( USR_ID
-        , GOODS_QTY
-        , GOODS_CD
-        , ENTR_NO
-        , RGST_DATE
-        , USE_YN
-        , SALE_BOARD_SEQ
-        ) VALUES
-            ( #{usrId}
-            , #{goodsQty}
-            , #{goodsCd}
-            , #{entrNo}
-            , NOW()
-            , 'Y'
-            , #{saleBoardSeq})
-    </insert>
+<!--    <insert id="insertCart">-->
+<!--        INSERT INTO ORD_BASKET-->
+<!--        ( USR_ID-->
+<!--        , GOODS_QTY-->
+<!--        , GOODS_CD-->
+<!--        , ENTR_NO-->
+<!--        , RGST_DATE-->
+<!--        , USE_YN-->
+<!--        , SALE_BOARD_SEQ-->
+<!--        ) VALUES-->
+<!--            ( #{usrId}-->
+<!--            , #{goodsQty}-->
+<!--            , #{goodsCd}-->
+<!--            , #{entrNo}-->
+<!--            , NOW()-->
+<!--            , 'Y'-->
+<!--            , #{saleBoardSeq})-->
+<!--    </insert>-->
 
-    <update id="updateCart">
-        UPDATE ORD_BASKET
-        SET USE_YN  = 'N'
-        WHERE 1=1
-          AND ORD_BASKET_SEQ = #{ordBasketSeq}
-    </update>
+<!--    <update id="updateCart">-->
+<!--        UPDATE ORD_BASKET-->
+<!--        SET USE_YN  = 'N'-->
+<!--        WHERE 1=1-->
+<!--          AND ORD_BASKET_SEQ = #{ordBasketSeq}-->
+<!--    </update>-->
 
-    <delete id="deleteCart">
-        DELETE FROM ORD_BASKET
-        WHERE ORD_BASKET_SEQ = #{ordBasketSeq}
-    </delete>
+<!--    <delete id="deleteCart">-->
+<!--        DELETE FROM ORD_BASKET-->
+<!--        WHERE ORD_BASKET_SEQ = #{ordBasketSeq}-->
+<!--    </delete>-->
 </mapper>
 
