@@ -136,7 +136,7 @@
     </insert>
 
     <!-- 장바구니 -->
-    <select id="ordCartSelect" resultType="orderVo">
+    <select id="ordCartSelect" resultType="com.moda.moda.order.OrderVO">
         SELECT ORD.SALE_BOARD_SEQ AS saleBoardSeq
              , SALE.GOODS_PRC AS prodPrice
              , GOODS.GOODS_NM AS prodName
