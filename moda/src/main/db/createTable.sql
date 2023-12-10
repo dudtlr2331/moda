@@ -1,4 +1,13 @@
 -- 테이블 moda.category 구조 내보내기
+CREATE TABLE IF NOT EXISTS `cart` (
+    `cart_num` int(11) NOT NULL AUTO_INCREMENT,
+    `usr_id` varchar(200) NOT NULL,
+    `prod_code` int(11) NOT NULL,
+    `cart_amount` int(11) NOT NULL,
+    PRIMARY KEY (`cart_num`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 CREATE TABLE IF NOT EXISTS `category` (
     `GOODS_CATA_SEQ` int(20) NOT NULL AUTO_INCREMENT,
     `CATGRY_CD` varchar(20) NOT NULL,

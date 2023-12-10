@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moda.moda.mypage.dao.MypgDao">
+
+    <!-- 마이페이지 주문 내역 -->
+    <select id="selectMypgList" resultType="com.moda.moda.mypage.MypgVO">
+        SELECT ORDB.ORD_NO AS ordNo /*주문번호*/
+        , ORDB.ORDR_ID AS ordrId /*주문자 아이디*/
+        , ORDB.ORDR_NM AS ordrNm /*주문자 이름*/
+        , ORDB.ORDR_PHON AS ordrPhon /*주문자 폰번호*/
+        , ORDB.PAY_MNY AS payMny /*결제금액*/
+        , ORDB.ORD_STAT AS ordStat /*주문상태코드*/
+        , ORDB.PAY_WAY AS payWay /*결제수단*/
+        , ORDB.ACQR_NM AS acqrNm /*수령자 이름*/
+        , ORDB.ACQR_PHON AS acqrPhon /*수령자 휴대폰*/
+        , ORDB.ACQR_ADDR AS acqrAddr /*수령지 주소*/
+        , ORDB.ACQR_ADDR_DTL AS acqrAddrDtl /*수령지 상세 주소*/
+        , ORDB.REQ_MEMO AS reqMemo /*배송메모*/
+        , ORDT.PROD_QTY AS prodQty /*수량*/
+        , ORDB.ORD_DATE AS ordDate
+        , PROD.PROD_IMG AS prodImg /*이미지 경로*/
+        , PROD.PROD_IMG_DTL AS prodImgDtl /*이미지 이름*/
+        , PROD.PROD_PRICE AS prodPrice /*상품금액*/
+        , PROD.PROD_NAME AS prodName /*상품이름*/
+        FROM ORD_BASE ORDB
+        INNER JOIN ORD_DTL ORDT ON ORDB.ORD_NO = ORDT.ORD_NO
+        INNER JOIN PRODUCT PROD ON ORDT.PROD_CODE = PROD.PROD_CODE
+        WHERE 1=1
+        AND ORDB.USR_ID = #{usrId}
+        ORDER BY ORDB.ORD_NO DESC;
+    </select>
+
+    <select id="selectMypgDetail" resultType="com.moda.moda.mypage.MypgVO">
+        SELECT ORDB.ORD_NO AS ordNo /*주문번호*/
+             , ORDB.ORDR_ID AS ordrId /*주문자 아이디*/
+             , ORDB.ORDR_NM AS ordrNm /*주문자 이름*/
+             , ORDB.ORDR_PHON AS ordrPhon /*주문자 폰번호*/
+             , ORDB.PAY_MNY AS payMny /*결제금액*/
+             , ORDB.ORD_STAT AS ordStat /*주문상태코드*/
+             , ORDB.PAY_WAY AS payWay /*결제수단*/
+             , ORDB.ACQR_NM AS acqrNm /*수령자 이름*/
+             , ORDB.ACQR_PHON AS acqrPhon /*수령자 휴대폰*/
+             , ORDB.ACQR_ADDR AS acqrAddr /*수령지 주소*/
+             , ORDB.ACQR_ADDR_DTL AS acqrAddrDtl /*수령지 상세 주소*/
+             , ORDB.REQ_MEMO AS reqMemo /*배송메모*/
+             , ORDT.PROD_QTY AS prodQty /*수량*/
+             , ORDB.ORD_DATE AS ordDate
+             , PROD.PROD_IMG AS prodImg /*이미지 경로*/
+             , PROD.PROD_IMG_DTL AS prodImgDtl /*이미지 이름*/
+             , PROD.PROD_PRICE AS prodPrice /*상품금액*/
+             , PROD.PROD_NAME AS prodName /*상품이름*/
+        FROM ORD_BASE ORDB
+        INNER JOIN ORD_DTL ORDT ON ORDB.ORD_NO = ORDT.ORD_NO
+        INNER JOIN PRODUCT PROD ON ORDT.PROD_CODE = PROD.PROD_CODE
+        WHERE 1=1
+        AND ORDB.ORD_NO = #{ordNo}
+    </select>
+</mapper>
+
