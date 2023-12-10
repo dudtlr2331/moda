@@ -54,7 +54,7 @@ public class AdmCateController {
     // 카테고리 리스트
     @RequestMapping("/adm/cate/admCateList.do")
     public String admCateList(HttpServletRequest req, HttpServletResponse res, CateVO pvo) {
-        List<CateVO> list = cateService.selectCateList(pvo);
+        List<CateVO> list = cateService.selectCateList();
         req.setAttribute("list", list);
 
         pvo.setUprClassCd(req.getParameter("catgryCd"));

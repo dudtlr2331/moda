@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>moda</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<!--default menu start-->
+<div id="wrapper">
+    <div class="logo">
+        <img th:onclick="'location.href=\'/main\''" src="/images/logo.png" alt="로고 이미지" style="cursor: pointer">
+    </div>
+
+    <div class="login-text">
+        <div th:if="${uId}">
+            <span th:text="${uId} + '님 환영합니다.'" id="hello_user" style="cursor:default;"></span>
+            <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit"
+                   width="50" height="25" src="/images/icon_logout.png"/>
+        </div>
+        <div th:if="${uId == null}">
+            <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit"
+                   width="50" height="25" src="/images/icon_login.png"/>
+        </div>
+    </div>
+
+    <!-- 가로 메뉴 -->
+    <ul class="horizontal-menu">
+        <li><a href="/product/itemlist">모든 상품</a></li>
+        <li><div class="dropdown">
+            <a class="dropbtn">
+                <span class="dropbtn_icon">카테고리</span>
+            </a>
+            <div class="dropdown-content">
+                <ul>
+                    <li th:each="category : ${categoryList}">
+                        <a th:text="${category.catgryNm}"></a>
+                        <ul th:if="${category.subCate != null and not #lists.isEmpty(category.subCate)}">
+                            <li th:each="subcategory : ${category.subCate}">
+                                <a th:href="@{/product/itemlist( category=${subcategory.catgryNm} )}"
+                                   th:text="${subcategory.catgryNm}"></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div></li>
+        <li><a href="#">장바구니</a></li>
+        <li>
+            <a th:if="${uAdmin == '0'}" th:onclick="'location.href=\'/moda/main/mypage.do\''" style="cursor: pointer">마이페이지</a>
+            <a th:if="${uAdmin == '1'}" onclick="openAdminPage()">관리자페이지</a>
+        </li>
+    </ul>
+    <!--default menu end-->
+    <form id="reviewForm" action="/review/write" method="POST">
+    <div class="review-content">
+    <h2>리뷰 작성 하기</h2>
+    <input type="hidden" name="uId" th:value="@{uId}"/>
+    <input type="hidden" name="star" id="starInput" value="1" />
+    <div class ="star_rating">
+        <span class="star on" value="1"> </span>
+        <span class="star" value="2"> </span>
+        <span class="star" value="3"> </span>
+        <span class="star" value="4"> </span>
+        <span class="star" value="5"> </span>
+    </div>
+
+    <textarea name="content" class="content" placeholder="리뷰 내용을 작성해주세요." ></textarea>
+
+    <input type="submit" class="btn02" value="리뷰 등록"/>
+    </div></form>
+
+</div>
+<footer>
+    <div class="footer-main">
+        <hr>
+        <div class="footer-links">
+            <div class="right-aligned-links">
+                <a href="#">개인정보처리방침</a>
+                <a href="#">서비스이용약관</a>
+                <a href="#">청소년 보호정책</a>
+                <a href="#">사업자정보확인</a>
+                <a href="#">구매안전서비스 가입사실확인</a>
+            </div>
+        </div>
+        <div class="footer-info">
+            <div class="company-info">
+                <p class="sub">주식회사 MODA</p>
+                <p class="decs">대표이사 : 000<br>
+                    00도 00시 00구 000 000 0동 00호<br>
+                    (00동, 0000000)<br>
+                    사업자등록번호 : 000-00-00000<br>
+                    통신판매업 신고번호 : 제0000-00000-0000호<br>
+                    개인정보관리책임자 : 000</p>
+            </div>
+            <div class="customer-center">
+                <p class="sub">고객센터</p>
+                <p class="decs">대표전화 : 0000-0000<br>
+                운영시간 : AM 00:00 ~ PM 00:00 (0-0)<br>
+                점심시간 : PM 00:00 ~ PM 00:00 (주말 및 공유일 휴무)<br>
+                이메일 : 0000000@000000.000</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- JavaScript 코드 추가 -->
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script th:inline="javascript">
+
+    var starInput = document.getElementById("starInput");
+    var stars = document.querySelectorAll(".star");
+
+    stars.forEach(function (star) {
+        star.addEventListener("click", function () {
+            var value = this.getAttribute("value"); // 클릭한 별의 값을 가져옵니다.
+            starInput.value = value; // input 필드에 클릭한 별의 값을 설정합니다.
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // URL에서 ordNo 값을 가져오기
+        var urlParams = new URLSearchParams(window.location.search);
+        var ordNo = urlParams.get("ordNo");
+
+        // hidden input 필드에 ordNo 값을 설정하기
+        var hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.name = "ordNo"; // hidden input 필드의 이름 설정
+        hiddenInput.value = ordNo; // ordNo 값을 설정
+
+        // 리뷰 폼에 hidden input 필드 추가
+        var reviewForm = document.getElementById("reviewForm");
+        reviewForm.appendChild(hiddenInput);
+    });
+
+    window.onload = function () {
+        var uId = /*[[${uId}]]*/;
+        var uAdmin = /*[[${uAdmin}]]*/;
+        sessionStorage.setItem('uId', uId);
+        sessionStorage.setItem('uAdmin', uAdmin);
+    }
+
+    $('.star_rating > .star').click(function() {
+        $(this).parent().children('span').removeClass('on');
+        $(this).addClass('on').prevAll('span').addClass('on');
+    })
+    //뒤로가기 못하게 하는 로직
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+        window.history.pushState(null, "", window.location.href);
+    };
+
+</script>
+</body>
+</html>

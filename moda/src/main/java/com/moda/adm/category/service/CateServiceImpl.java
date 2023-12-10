@@ -18,8 +18,8 @@ public class CateServiceImpl implements CateService{
         return catedao.selectCateOne(pvo);
     }
 
-    public List<CateVO> selectCateList(CateVO pvo){
-        return catedao.selectCateList(pvo);
+    public List<CateVO> selectCateList(){
+        return catedao.selectCateList();
     }
 
     public List<CateVO> selectCateUnList(CateVO pvo){

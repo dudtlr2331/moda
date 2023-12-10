@@ -151,7 +151,7 @@
                 <td th:text="${obj.payMny} + '원'" style="text-align: center;"></td>
                 <td th:text="${obj.ordStat}" style="text-align: center;"></td>
                 <td style="text-align: center;">
-                    <input type="button" onclick="location.href='/dress/dressRegister.do?ordNo=${obj.ordNo}'" value="리뷰 작성"/>
+                    <a th:href="@{'/dress/dressRegister.do?ordNo=' + ${obj.ordNo}}" class="btn btn-primary">리뷰 작성</a>
                 </td>
             </tr>
             </tbody>
