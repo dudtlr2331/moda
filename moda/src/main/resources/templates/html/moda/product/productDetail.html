@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <title>moda</title>
     <style>
         html, body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             height: 100%;
         }
 
@@ -16,8 +16,8 @@
 
         footer {
             height: 50px;
-            position : relative;
-            transform : translateY(-100%);
+            position: relative;
+            transform: translateY(-100%);
         }
 
         .footer-main {
@@ -30,7 +30,7 @@
             text-align: right;
         }
 
-        .right-aligned-links a{
+        .right-aligned-links a {
             color: #888888;
             text-decoration: none;
             display: inline;
@@ -112,6 +112,69 @@
             color: blue;
             cursor: pointer;
         }
+
+        .product {
+            text-align: center;
+            margin-top: 50px;
+            margin-right: 30px;
+            margin-left: 30px;
+        }
+
+        .product hr {
+            margin-bottom: 30px;
+        }
+
+        #product_main {
+            display: flex;
+        }
+
+        .product-image {
+            flex: 2;
+        }
+
+        .product-info {
+            flex: 1;
+            text-align: left;
+            margin-top: 90px;
+        }
+
+        .product-info h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .color-selector, .size-selector, .quantity-selector {
+            margin-bottom: 15px;
+        }
+
+        .total-price {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .product_main_detail_button_mid {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .product-description {
+            margin-top: 30px;
+        }
+
+        .reviews {
+            margin-top: 30px;
+        }
+
     </style>
 </head>
 <body>
@@ -144,36 +207,67 @@
         </li>
     </ul>
     <!--default menu end-->
-
     <!-- 상품 메인 -->
-    <section id="product_main">
-        <div class="product_image">
-            <img alt="메인이미지" th:src="${rvo.prodImg} + ${rvo.prodImgDtl}" width="348" height="349">
+    <div class="product">
+        <hr>
+        <section id="product_main">
+            <div class="product-image">
+                <img alt="메인이미지" th:src="${rvo.prodImg} + ${rvo.prodImgDtl}" width="600" height="600">
+            </div>
+            <div class="product-info">
+                <h2 th:text="${rvo.prodName}"></h2>
+                <h2>
+                    <span id="product-price" th:text="${#numbers.formatInteger(rvo.prodPrice, 0, 'COMMA')} + '원'"></span>
+                </h2>
+                <h5>배송비 <span th:text="2000"></span>원</h5>
+
+                <div class="color-selector">
+                    <label for="colorOption">색상 선택 : </label>
+                    <select name="colorOption" id="colorOption">
+                        <option value="">[컬러] 옵션을 선택하세요.</option>
+                        <option value="흰색">흰색</option>
+                        <option value="검정색">검정색</option>
+                        <option value="회색">회색</option>
+                        <option value="파란색">파란색</option>
+                    </select>
+                </div>
+
+                <div class="size-selector">
+                    <label for="sizeOption">사이즈 선택 : </label>
+                    <select name="sizeOption" id="sizeOption">
+                        <option value="">[사이즈] 옵션을 선택하세요.</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+
+                <div class="quantity-selector">
+                    <label for="quantity">수량 :</label>
+                    <input type="number" id="quantity" value="1" min="1">
+                </div>
+
+                <div class="total-price" id="total-price">
+                    총 가격 : $XX.XX
+                </div>
+
+                <button class="product_main_detail_button_mid" th:onclick="'fn_order()'">바로구매</button>
+            </div>
+        </section>
+        <div class="product-description">
+            <img alt="상의 사이즈 설명" src="/images/top_size.JPG" width="800" height="800">
+            <img alt="하의 사이즈 설명" src="/images/pants_size.JPG" width="800" height="800">
+            <img alt="신발 사이즈 설명" src="/images/shoes_size.JPG" width="800" height="800">
         </div>
-        <div class="product_main_detail">
-            <h3 th:text="${rvo.prodName}"></h3>
-            <h2>
-                <span th:text="${#numbers.formatInteger(rvo.prodPrice, 0, 'COMMA')} + '원'"></span>
-            </h2>
-            <h5>배송비 <span th:text="2000"></span>원</h5>
-            <!-- <h5>리뷰정보 718개 <a href="#">리뷰 보기</a></h5> -->
-            <select name="colorOption" id="colorOption">
-                <option value="">[컬러] 옵션을 선택하세요.</option>
-                <option value="흰색">흰색</option>
-                <option value="검정색">검정색</option>
-                <option value="회색">회색</option>
-                <option value="파란색">파란색</option>
-            </select>
-            <select name="sizeOption" id="sizeOption">
-                <option value="">[사이즈] 옵션을 선택하세요.</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-            </select>
-            <button class="product_main_detail_button_mid" th:onclick="'fn_order()'">바로구매</button>
+        <hr>
+        <div class="reviews">
+            <ul id="review-list">
+                <!-- 리뷰 아이템이 동적으로 추가될 공간 -->
+                <li>안녕하세요 : 정말 좋아요.</li>
+            </ul>
         </div>
-    </section>
+    </div>
 </div>
 <footer>
     <div class="footer-main">
@@ -211,6 +305,11 @@
     /*<![CDATA[*/
     // 바로 구매 버튼 클릭 시
     function fn_order() {
+        if((/*[[${uId}]]*/ '') === null){
+            alert("먼저 로그인해주세요.");
+            return;
+        }
+
         var selectColorOption = document.querySelector("#colorOption");
         var selectSizeOption = document.querySelector("#sizeOption");
 
@@ -222,6 +321,20 @@
             alert("옵션을 선택해주세요.");
         }
     }
+
+    // 수량이 변경될 때마다 총 가격을 계산하고 업데이트합니다.
+    document.getElementById('quantity').addEventListener('input', updateTotalPrice);
+
+    function updateTotalPrice() {
+        const quantity = parseInt(document.getElementById('quantity').value);
+        const productPrice = parseFloat(document.getElementById('product-price').innerText.replace(',', ''));
+        console.log(productPrice)
+        const totalPrice = quantity * productPrice;
+        document.getElementById('total-price').innerText = `총 가격 : ${totalPrice}원`;
+    }
+
+    // 페이지 로드시 초기화
+    updateTotalPrice();
 
     /*]]>*/
 </script>
