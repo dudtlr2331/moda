@@ -32,6 +32,12 @@
         WHERE prod_code = #{prodCode};
     </select>
 
+    <!-- 특정 카테고리 상품 검색 -->
+    <select id="selectProdCate" parameterType="String" resultType="com.moda.moda.product.ProdVO">
+        SELECT *
+        FROM product
+        WHERE cate_code = #{cateCode};
+    </select>
     <!-- 상품 등록 -->
     <insert id="addProduct" parameterType="com.moda.moda.product.ProdVO" useGeneratedKeys="true" keyProperty="prodCode">
         INSERT INTO product(
@@ -48,7 +54,6 @@
         , #{prodImgDtl}
         , #{prodDcnt} )
     </insert>
-
     <!-- 상품 수정 -->
     <update id="updateProd" parameterType="com.moda.moda.product.ProdVO">
         UPDATE product

@@ -14,6 +14,6 @@ public interface ProdDao {
     int updateProd(ProdVO params);
     int deleteProd(int code);
     int addImagePath(ProdVO params);
-
+    List<ProdVO> selectProdCate(String cateCode);
     List<CateVO> cateList();
 }

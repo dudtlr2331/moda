@@ -14,6 +14,6 @@ public interface ProdService {
     int updateProd(final ProdVO params);
     int deleteProd(final int code);
     int addImagePath(ProdVO params);
-
+    List<ProdVO> selectCateProd(String cateCode);
     List<CateVO> findAllCate();
 }

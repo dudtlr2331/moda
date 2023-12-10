@@ -55,6 +55,11 @@ public class ProdServiceImpl implements ProdService{
     }
 
     @Override
+    public List<ProdVO> selectCateProd(String cateCode) {
+        return prodDao.selectProdCate(cateCode);
+    }
+
+    @Override
     public List<CateVO> findAllCate() {
         return prodDao.cateList();
     }
