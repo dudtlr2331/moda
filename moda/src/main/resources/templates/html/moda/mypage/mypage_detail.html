@@ -133,11 +133,11 @@
     <div>
       <img th:src="${ordList.prodImg} + ${ordList.prodImgDtl}" alt="상품 이미지"/>
     </div>
-<!--    <div>-->
-<!--      <div th:text="${searchGoods.bulTitNm}"></div>-->
-<!--    </div>-->
-<!--    <div th:text="${searchGoods.goodsPrc} + '원'"></div>-->
-<!--    <div th:text="${ordList.codeNm}"></div>-->
+    <div>
+      <div th:text="${ordList.prodName}"></div>
+    </div>
+    <div th:text="${ordList.payMny} + '원'"></div>
+    <div th:text="${ordList.ordStat}"></div>
   </div>
 
   <h2>주문정보</h2>
