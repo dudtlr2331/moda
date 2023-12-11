@@ -23,6 +23,7 @@ public class OrderVO {
     private String ordDate;//
     private Long billNum;
     private int prodCode;//
+    private String reviewYn;
 
     //주문 상세
     private int ordDtlNo;

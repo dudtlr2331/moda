@@ -55,7 +55,7 @@
     <form id="reviewForm" action="/review/write" method="POST">
     <div class="review-content">
     <h2>리뷰 작성 하기</h2>
-    <input type="hidden" name="uId" th:value="@{uId}"/>
+        <input type="hidden" name="uId" th:value="${uId}"/>
     <input type="hidden" name="star" id="starInput" value="1" />
     <div class ="star_rating">
         <span class="star on" value="1"> </span>

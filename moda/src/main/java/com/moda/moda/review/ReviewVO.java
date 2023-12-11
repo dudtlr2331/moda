@@ -12,4 +12,5 @@ public class ReviewVO {
     private String content;
     private String star;
     private String ordNo;
+    private String reviewType;
 }

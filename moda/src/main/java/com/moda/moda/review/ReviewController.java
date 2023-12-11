@@ -28,8 +28,11 @@ public class ReviewController {
     }
 
     @PostMapping("/review/write")
-    public String reviewSave(@ModelAttribute ReviewVO reviewVO){
-    System.out.println(reviewVO);
-    return "redirect:/dress/dressRegister.do";
+    public String reviewSave(@ModelAttribute ReviewVO reviewVO, HttpSession session , Model model){
+        String uId = (String) session.getAttribute("uId");
+        model.addAttribute("uId", uId);
+        reviewService.createReview(reviewVO);
+
+    return "redirect:/mypage/mypaOrdList.do";
     }
 }

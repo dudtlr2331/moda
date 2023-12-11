@@ -33,6 +33,7 @@ public class MypgController {
         String usrId = loginInfo.getUId();
 
         List<MypgVO> mypgList = mypgService.selectMypgList(usrId);
+
         model.addAttribute("mypgList", mypgList);
         return "html/moda/mypage/mypage_ord_list";
     }

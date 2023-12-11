@@ -392,13 +392,20 @@ footer {
   text-align: center;
   background:bisque;
 }
-.star_box, .btn02 {
-  display: block; /* block 레벨 요소로 변경 */
-  width: 400px; /* 필요하다면 더 넓게 설정 가능 */
-  margin: 15px auto; /* 수평 중앙 정렬 */
-  /* 나머지 스타일은 그대로 유지 */
+.star_box,
+.btn02{
+  display: block;
+  width: 400px; /* 버튼과 같은 너비로 설정 */
+  margin: 15px auto;
+  /* 기타 스타일은 그대로 유지 */
 }
-
+textarea.content {
+  display: block;
+  width: 400px; /* 버튼과 같은 너비로 설정 */
+  height: 300px;
+  margin: 15px auto;
+  /* 기타 스타일은 그대로 유지 */
+}
 
 #wrapper {
   width: 80%; /* 원하는 너비를 설정하세요 */
