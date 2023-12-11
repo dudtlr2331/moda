@@ -232,9 +232,25 @@
 
     <!-- 가로 메뉴 -->
     <ul class="horizontal-menu">
-        <li><a href="#">모든 상품</a></li>
-        <li><a href="#">카테고리</a></li>
-        <li><a href="#">리뷰</a></li>
+        <li><a href="/product/itemlist">모든 상품</a></li>
+        <li><div class="dropdown">
+            <a class="dropbtn">
+                <span class="dropbtn_icon">카테고리</span>
+            </a>
+            <div class="dropdown-content">
+                <ul>
+                    <li th:each="category : ${categoryList}">
+                        <a th:text="${category.catgryNm}"></a>
+                        <ul th:if="${category.subCate != null and not #lists.isEmpty(category.subCate)}">
+                            <li th:each="subcategory : ${category.subCate}">
+                                <a th:href="@{/product/itemlist( category=${subcategory.catgryNm} )}"
+                                   th:text="${subcategory.catgryNm}"></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div></li>
         <li>
             <a th:if="${uAdmin == '0'}" th:onclick="'location.href=\'/moda/main/mypage.do\''" style="cursor: pointer">마이페이지</a>
             <a th:if="${uAdmin == '1'}" onclick="openAdminPage()">관리자페이지</a>
