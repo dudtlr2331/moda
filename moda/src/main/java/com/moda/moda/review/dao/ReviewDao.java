@@ -11,5 +11,6 @@ public interface ReviewDao {
     void createReview(ReviewVO rvo);
 
     ProdVO searchProdCode(String ordNo);
-    List<ReviewVO> findAll();
+    List<ReviewVO> findAll(String prodCode);
+    void deleteReview(int reNum);
 }

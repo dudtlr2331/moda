@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `review` (
     `content` varchar(50) DEFAULT NULL,
     `star` varchar(50) DEFAULT NULL,
     `ord_no` varchar(50) DEFAULT NULL,
-    `rgs_time` date DEFAULT NULL,
+    `rgs_time` datetime DEFAULT NULL,
     PRIMARY KEY (`re_num`)
     ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

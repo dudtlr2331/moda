@@ -31,4 +31,14 @@
         FROM ord_base
         WHERE ord_no = #{ordNo}
     </select>
+
+    <select id="findAll" parameterType="String" resultType="com.moda.moda.review.ReviewVO">
+        SELECT *
+        FROM review
+        WHERE prod_code = #{prodCode}
+    </select>
+
+    <delete id="deleteReview" parameterType="int">
+    DELETE FROM review where re_num = #{reNum}
+    </delete>
 </mapper>

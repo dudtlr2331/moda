@@ -15,8 +15,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewDao reviewDao;
     @Override
-    public List<ReviewVO> findAllReview() {
-        return reviewDao.findAll();
+    public List<ReviewVO> findAllReview(String prodCode) {
+        return reviewDao.findAll(prodCode);
     }
 
     @Override
@@ -35,5 +35,11 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public ProdVO searchProdCode(String ordNo) {
         return reviewDao.searchProdCode(ordNo);
+    }
+
+    @Override
+    public boolean deleteReview(int reNum) {
+        reviewDao.deleteReview(reNum);
+        return true;
     }
 }

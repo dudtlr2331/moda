@@ -175,6 +175,40 @@
             margin-top: 30px;
         }
 
+        /* 테이블 스타일 */
+        #review-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        #review-table th, #review-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #review-table th {
+            background-color: #f2f2f2;
+        }
+
+        /* 리뷰 아이템 스타일 */
+        .review-item {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+
+        /* 작성자 스타일 */
+        .review-author {
+            font-weight: bold;
+        }
+
+        /* '리뷰를 작성해보세요.' 메시지 스타일 */
+        .no-data {
+            text-align: center;
+            font-weight: bold;
+            color: #888;}
+
     </style>
 </head>
 <body>
@@ -262,10 +296,34 @@
         </div>
         <hr>
         <div class="reviews">
-            <ul id="review-list">
-                <!-- 리뷰 아이템이 동적으로 추가될 공간 -->
-                <li>안녕하세요 : 정말 좋아요.</li>
-            </ul>
+            <table id="review-table">
+                <thead>
+                <tr>
+                    <th>내용</th>
+                    <th>작성자</th>
+                    <th>별점</th>
+                    <th>작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(reviewList)}">
+                    <td colspan="3" class="no-data">리뷰를 작성해보세요.</td>
+                </tr>
+                <tr th:each="obj : ${reviewList}">
+                    <input type="hidden" th:value="${obj.reNum}" />
+                    <td th:text="${obj.content}" style="text-align: center;"></td>
+                    <td th:text="${obj.uId}" style="text-align: center;"></td>
+                    <td th:text="${obj.star}" style="text-align: center;"></td>
+                    <td style="text-align: center;">
+                        <span th:text="${#temporals.format(obj.rgsTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                    </td>
+                    <td style="text-align: center;" th:if="${obj.uId == uId}">
+                        <!--<a th:href="@{'/editReview/' + ${obj.reNum}}" class="edit-link">수정</a>-->
+                        <a href="#" class="delete-link" th:data-reNum="${obj.reNum}" onclick="confirmDelete(this)">삭제</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -302,6 +360,43 @@
     </div>
 </footer>
 <script th:inline="javascript">
+
+    function confirmDelete(element) {
+        if (confirm("정말로 이 리뷰를 삭제하시겠습니까?")) {
+            var reviewId = element.getAttribute('data-reNum');
+            var data = {
+                reviewId: reviewId
+            };
+
+            // JSON 데이터를 문자열로 변환
+            var jsonData = JSON.stringify(data);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/review/delete", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8"); // JSON 형식으로 데이터 전송
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            alert("리뷰가 삭제되었습니다.");
+                            window.scrollTo(0,document.body.scrollHeight);
+                            // 페이지 새로고침 또는 다른 작업 수행
+                            window.location.reload();
+                        } else {
+                            alert("리뷰 삭제 중 오류가 발생했습니다.");
+                        }
+                    } else {
+                        alert("서버와의 통신 중 오류가 발생했습니다.");
+                    }
+                }
+            };
+            xhr.send(jsonData);
+        } else {
+            // 사용자가 취소를 누른 경우, 아무 작업도 수행하지 않습니다.
+        }
+    }
+
     /*<![CDATA[*/
     // 바로 구매 버튼 클릭 시
     function fn_order() {
