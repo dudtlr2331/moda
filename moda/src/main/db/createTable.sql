@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `ord_base` (
     `ORD_DATE` datetime DEFAULT NULL,
     `BILL_NUM` int(12) DEFAULT NULL,
     `PROD_CODE` int(12) NOT NULL,
+    `REVIEW_YN` varchar(1) DEFAULT 'N',
     PRIMARY KEY (`ORD_NO`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -73,6 +74,19 @@ CREATE TABLE IF NOT EXISTS `ord_dtl` (
 -- 테이블 데이터 moda.ord_dtl:~0 rows (대략적) 내보내기
 INSERT INTO `ord_dtl` (`ORD_DTL_NO`, `USR_ID`, `ORD_NO`, `PROD_NAME`, `PROD_CODE`, `PROD_QTY`) VALUES
 (2, 'test1', 'ORD_20231207042347', '검정바지', 22, 1);
+
+-- 테이블 moda.review 구조 내보내기
+CREATE TABLE IF NOT EXISTS `review` (
+    `re_num` int(10) NOT NULL AUTO_INCREMENT,
+    `prod_code` int(10) DEFAULT NULL,
+    `u_id` varchar(50) DEFAULT NULL,
+    `content` varchar(50) DEFAULT NULL,
+    `star` varchar(50) DEFAULT NULL,
+    `ord_no` varchar(50) DEFAULT NULL,
+    `rgs_time` date DEFAULT NULL,
+    PRIMARY KEY (`re_num`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- 테이블 moda.product 구조 내보내기
 CREATE TABLE IF NOT EXISTS `product` (
