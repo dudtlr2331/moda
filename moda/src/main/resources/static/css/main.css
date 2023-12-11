@@ -238,6 +238,10 @@ footer {
   position: absolute;
   overflow: hidden;
 }
+.container,
+.img_wrap {
+  position: relative;
+}
 
 /* 롤링 이미지 UL */
 .rollimgs {
