@@ -3,13 +3,14 @@ package com.moda.moda.review;
 import com.moda.moda.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,5 +35,21 @@ public class ReviewController {
         reviewService.createReview(reviewVO);
 
     return "redirect:/mypage/mypaOrdList.do";
+    }
+
+    @PostMapping(value = "/review/delete", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, Object> deleteReview(@RequestBody Map<String, Object> request) {
+        Map<String, Object> response = new HashMap<>();
+
+
+        // JSON 데이터에서 reviewId 추출하고 Integer로 변환
+        Integer reviewIdObj = Integer.parseInt((String) request.get("reviewId"));
+        System.out.println(reviewIdObj);
+        // reviewId를 사용하여 리뷰 삭제 작업 수행
+        boolean success = reviewService.deleteReview(reviewIdObj);
+        response.put("success", success);
+        System.out.println(response);
+        return response;
     }
 }
