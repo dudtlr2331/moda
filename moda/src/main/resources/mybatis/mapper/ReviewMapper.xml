@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.moda.moda.review.dao.ReviewDao">
+
+    <update id="orderUpdate" parameterType="String">
+        UPDATE ord_base
+        SET review_yn = 'Y'
+        WHERE ORD_NO = #{ordNo}
+    </update>
+
+    <insert id="createReview" parameterType="com.moda.moda.review.ReviewVO">
+        INSERT INTO review
+        ( prod_code
+        , u_id
+        , content
+        , star
+        , ord_no
+        , rgs_time
+        ) VALUES
+            ( #{prodCode}
+            , #{uId}
+            , #{content}
+            , #{star}
+            , #{ordNo}
+            , NOW())
+    </insert>
+
+    <select id="searchProdCode" parameterType="String" resultType="com.moda.moda.product.ProdVO">
+        SELECT PROD_CODE
+        FROM ord_base
+        WHERE ord_no = #{ordNo}
+    </select>
+</mapper>

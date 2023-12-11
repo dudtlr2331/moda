@@ -30,7 +30,7 @@ public class ProdController {
         return "html/moda/main/main";
     }
 @GetMapping("/product/itemlist")
-    public String allProdList(@RequestParam(name = "category", required = false) String category , Model model,ProdVO pvo , CateVO cvo1 ,HttpSession session) {
+    public String allProdList(@RequestParam(name = "category", required = false) String category , Model model,ProdVO pvo ,HttpSession session) {
     if (category == null) {
         List<ProdVO> prodList = prodService.selectProdList(pvo);
         model.addAttribute("mainHomeList",prodList);
@@ -43,7 +43,7 @@ public class ProdController {
     String uAdmin = (String) session.getAttribute("uAdmin");
     model.addAttribute("uId", uId);
     model.addAttribute("uAdmin", uAdmin);
-    List<CateVO> cvo = cateService.selectCateList(cvo1);
+    List<CateVO> cvo = cateService.selectCateList();
     for (CateVO cateVO : cvo) {
         cateVO.setSubCate(cateService.selectCateUnList(cateVO));
     }

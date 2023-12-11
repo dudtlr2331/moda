@@ -45,35 +45,31 @@
                 </ul>
             </div>
         </div></li>
+        <li><a href="#">장바구니</a></li>
         <li>
             <a th:if="${uAdmin == '0'}" th:onclick="'location.href=\'/moda/main/mypage.do\''" style="cursor: pointer">마이페이지</a>
             <a th:if="${uAdmin == '1'}" onclick="openAdminPage()">관리자페이지</a>
         </li>
     </ul>
     <!--default menu end-->
-
-    <p class="recommendation-text">카테고리 상품</p>
-
-    <!-- Thymeleaf 반복문을 이용하여 이미지를 동적으로 추가 -->
-    <div th:if="${mainHomeList != null and #lists.size(mainHomeList) gt 0}" class="img_area">
-        <div th:each="item, iterStat : ${mainHomeList}" th:if="${iterStat.index lt 10}">
-            <a th:href="@{/product/prodDetail.do(code=${item.prodCode})}">
-                <img th:src="${item.prodImg} + ${item.prodImgDtl}">
-                <div class="txt_area">
-                    <div class="item_name" th:text="${item.prodName}"></div>
-                    <div class="item_price">
-                        <span class="color_red"
-                              th:text="${#numbers.formatInteger(item.prodPrice, 0, 'COMMA')} + '원'"></span>
-                    </div>
-                </div>
-                <div class="dim"></div>
-            </a>
-        </div>
+    <form id="reviewForm" action="/review/write" method="POST">
+    <div class="review-content">
+    <h2>리뷰 작성 하기</h2>
+        <input type="hidden" name="uId" th:value="${uId}"/>
+    <input type="hidden" name="star" id="starInput" value="1" />
+    <div class ="star_rating">
+        <span class="star on" value="1"> </span>
+        <span class="star" value="2"> </span>
+        <span class="star" value="3"> </span>
+        <span class="star" value="4"> </span>
+        <span class="star" value="5"> </span>
     </div>
 
-    <div th:if="${mainHomeList == null or #lists.size(mainHomeList) == 0}">
-        <div class="img_a">데이터가 없습니다.</div>
-    </div>
+    <textarea name="content" class="content" placeholder="리뷰 내용을 작성해주세요." ></textarea>
+
+    <input type="submit" class="btn02" value="리뷰 등록"/>
+    </div></form>
+
 </div>
 <footer>
     <div class="footer-main">
@@ -100,15 +96,42 @@
             <div class="customer-center">
                 <p class="sub">고객센터</p>
                 <p class="decs">대표전화 : 0000-0000<br>
-                    운영시간 : AM 00:00 ~ PM 00:00 (0-0)<br>
-                    점심시간 : PM 00:00 ~ PM 00:00 (주말 및 공유일 휴무)<br>
-                    이메일 : 0000000@000000.000</p>
+                운영시간 : AM 00:00 ~ PM 00:00 (0-0)<br>
+                점심시간 : PM 00:00 ~ PM 00:00 (주말 및 공유일 휴무)<br>
+                이메일 : 0000000@000000.000</p>
             </div>
         </div>
     </div>
 </footer>
 <!-- JavaScript 코드 추가 -->
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
 <script th:inline="javascript">
+
+    var starInput = document.getElementById("starInput");
+    var stars = document.querySelectorAll(".star");
+
+    stars.forEach(function (star) {
+        star.addEventListener("click", function () {
+            var value = this.getAttribute("value"); // 클릭한 별의 값을 가져옵니다.
+            starInput.value = value; // input 필드에 클릭한 별의 값을 설정합니다.
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // URL에서 ordNo 값을 가져오기
+        var urlParams = new URLSearchParams(window.location.search);
+        var ordNo = urlParams.get("ordNo");
+
+        // hidden input 필드에 ordNo 값을 설정하기
+        var hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.name = "ordNo"; // hidden input 필드의 이름 설정
+        hiddenInput.value = ordNo; // ordNo 값을 설정
+
+        // 리뷰 폼에 hidden input 필드 추가
+        var reviewForm = document.getElementById("reviewForm");
+        reviewForm.appendChild(hiddenInput);
+    });
 
     window.onload = function () {
         var uId = /*[[${uId}]]*/;
@@ -117,50 +140,15 @@
         sessionStorage.setItem('uAdmin', uAdmin);
     }
 
-    function fn_ajax(obj) {
-        let url = obj.url;
-        let method = obj.method;
-        let params = obj.params;
-        let fn_success = obj.success;
-
-        let httpRequest = new XMLHttpRequest();
-        if (!httpRequest) {
-            alert('XMLHTTP 인스턴스를 만들 수가 없어요 ㅠㅠ');
-            return false;
-        }
-        httpRequest.onreadystatechange = () => {
-            if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                if (httpRequest.status === 200) {
-                    let res = httpRequest.responseText;
-                    fn_success(JSON.parse(res));
-                } else {
-                    console.log(`code: ${httpRequest.status}`);
-                    console.log(`message: ${httpRequest.responseText}`);
-                    alert('request에 뭔가 문제가 있어요.');
-                }
-            }
-        };
-        httpRequest.open(method, url);
-        /* httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); */
-        if (method == 'get' || method == 'GET') {
-            httpRequest.send();
-        } else {
-            httpRequest.setRequestHeader('Content-Type', 'application/json');
-            httpRequest.send(params);
-        }
-    }
-
+    $('.star_rating > .star').click(function() {
+        $(this).parent().children('span').removeClass('on');
+        $(this).addClass('on').prevAll('span').addClass('on');
+    })
     //뒤로가기 못하게 하는 로직
     window.history.pushState(null, "", window.location.href);
     window.onpopstate = function () {
         window.history.pushState(null, "", window.location.href);
     };
-
-    //관리자 페이지를 새탭에서 열기
-    function openAdminPage() {
-        window.open('/adm/product/prodList.do', '_blank');
-    }
-
 
 </script>
 </body>

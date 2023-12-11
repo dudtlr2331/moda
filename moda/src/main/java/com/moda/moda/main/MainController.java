@@ -1,5 +1,7 @@
 package com.moda.moda.main;
 
+import com.moda.adm.category.CateVO;
+import com.moda.adm.category.service.CateService;
 import com.moda.moda.main.service.MainService;
 import com.moda.moda.member.MemberVO;
 import com.moda.moda.member.service.MemberService;
@@ -15,11 +17,12 @@ import java.util.List;
 public class MainController {
     private final MemberService memberService;
     private final MainService mainService;
-
+private final CateService cateService;
     @Autowired
-    public MainController(MemberService memberService, MainService mainService) {
+    public MainController(MemberService memberService, MainService mainService , CateService cateService) {
         this.memberService = memberService;
         this.mainService = mainService;
+        this.cateService = cateService;
     }
 
     @GetMapping("/main")
@@ -33,7 +36,11 @@ public class MainController {
         // 상품 리스트 가져와서 모델에 추가
         List<MainVO> mainHomeList = mainService.selectListMainHome();
         model.addAttribute("mainHomeList", mainHomeList);
-
+        List<CateVO> cvo = cateService.selectCateList();
+        for (CateVO cateVO : cvo) {
+            cateVO.setSubCate(cateService.selectCateUnList(cateVO));
+        }
+        model.addAttribute("categoryList", cvo);
         return "html/moda/main/main";
     }
 

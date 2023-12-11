@@ -23,4 +23,5 @@ public class MypgVO {
     private String prodName;
     private String usrId;
     private String ordDate;
+    private String reviewYn;
 }

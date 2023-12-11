@@ -60,7 +60,7 @@
     </delete>
 
     <!-- 부모 카테고리 조회 -->
-    <select id="selectCateList" parameterType="com.moda.adm.category.CateVO" resultType="com.moda.adm.category.CateVO">
+    <select id="selectCateList" resultType="com.moda.adm.category.CateVO">
         SELECT
         *
         FROM

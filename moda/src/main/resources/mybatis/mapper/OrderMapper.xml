@@ -5,7 +5,7 @@
 <mapper namespace="com.moda.moda.order.dao.OrderDao">
 
     <select id="selectOrdList" resultType="com.moda.moda.order.OrderVO">
-        /* orderDao.selectOrdList - 주문 리스트 */
+        <!-- orderDao.selectOrdList - 주문 리스트 -->
         SELECT BASE.ORD_NO AS ordNo
             , BASE.USR_ID AS usrId
             , BASE.ORD_STAT AS ordStat
@@ -23,6 +23,7 @@
             , BASE.REQ_MEMO AS reqMemo
             , BASE.ORD_DATE AS ordDate
             , BASE.BILL_NUM AS billNum
+            , BASE.REVIEW_YN AS reviewYn
             , DTL.ORD_DTL_NO AS ordDtlNo
             , DTL.PROD_NAME AS prodName
             , DTL.PROD_CODE AS prodCode
@@ -62,6 +63,7 @@
         , ORD_DATE
         , BILL_NUM
         , PROD_CODE
+        , REVIEW_YN
         ) VALUES
             ( #{ordNo}
             , #{usrId}
@@ -80,7 +82,8 @@
             , #{reqMemo}
             , NOW()
             , #{billNum}
-            , #{prodCode})
+            , #{prodCode}
+            , 'N')
     </insert>
 
     <update id="updateOrd">
@@ -148,7 +151,7 @@
 <!--          AND ORD.SALE_BOARD_SEQ = SALE.SALE_BOARD_SEQ-->
 <!--          AND ORD.GOODS_CD = GOODS.GOODS_CD-->
 <!--          AND ORD.ORD_BASKET_SEQ = ${ordBasketSeq}-->
-<!--    </select>-->
+
 <!--    <select id="ordCartSelect" resultType="com.moda.moda.order.OrderVO">-->
 <!--        SELECT ORD.SALE_BOARD_SEQ AS saleBoardSeq-->
 <!--             , SALE.GOODS_PRC AS prodPrice-->
@@ -162,6 +165,7 @@
 <!--          AND ORD.GOODS_CD = GOODS.GOODS_CD-->
 <!--          AND ORD.ORD_BASKET_SEQ = ${ordBasketSeq}-->
 <!--    </select>-->
+
 
 <!--    <select id="selectCartList" resultType="com.moda.moda.order.OrderVO">-->
 <!--        SELECT CART.CART_NUM AS cartNum-->
@@ -210,4 +214,3 @@
 <!--        WHERE ORD_BASKET_SEQ = #{ordBasketSeq}-->
 <!--    </delete>-->
 </mapper>
-

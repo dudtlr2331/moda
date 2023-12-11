@@ -24,6 +24,7 @@
         , PROD.PROD_IMG_DTL AS prodImgDtl /*이미지 이름*/
         , PROD.PROD_PRICE AS prodPrice /*상품금액*/
         , PROD.PROD_NAME AS prodName /*상품이름*/
+        , ORDB.REVIEW_YN AS reviewYn
         FROM ORD_BASE ORDB
         INNER JOIN ORD_DTL ORDT ON ORDB.ORD_NO = ORDT.ORD_NO
         INNER JOIN PRODUCT PROD ON ORDT.PROD_CODE = PROD.PROD_CODE
@@ -45,6 +46,7 @@
              , ORDB.ACQR_ADDR AS acqrAddr /*수령지 주소*/
              , ORDB.ACQR_ADDR_DTL AS acqrAddrDtl /*수령지 상세 주소*/
              , ORDB.REQ_MEMO AS reqMemo /*배송메모*/
+             , ORDB.REVIEW_YN AS reviewYn/*리뷰 작성여부*/
              , ORDT.PROD_QTY AS prodQty /*수량*/
              , ORDB.ORD_DATE AS ordDate
              , PROD.PROD_IMG AS prodImg /*이미지 경로*/

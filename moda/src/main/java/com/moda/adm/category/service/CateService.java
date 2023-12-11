@@ -11,7 +11,7 @@ import java.util.List;
 public interface CateService {
 
     public CateVO selectCateOne(CateVO pvo);
-    public List<CateVO> selectCateList(CateVO pvo);
+    public List<CateVO> selectCateList();
 
     public List<CateVO> selectCateUnList(CateVO pvo);
 
