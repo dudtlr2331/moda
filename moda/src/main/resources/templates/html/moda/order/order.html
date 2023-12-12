@@ -3,10 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        .btn_area button {
-            padding: 20px;
+        .btn_area {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn_area .order_btn {
+            /* 버튼 스타일 추가 */
+            background-color: #333333; /* 조금 더 어두운 회색 배경색 */
+            color: white; /* 흰 글자색 */
+            border: none; /* 테두리 없음 */
+            padding: 10px 20px; /* 내부 여백 */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
             font-size: 16px;
-            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px; /* 테두리 둥글게 만듦 */
+        }
+
+        .btn_area .order_btn:hover {
+            background-color: #555555; /* 호버 시 조금 더 어두운 회색으로 변경 */
         }
 
         table {
@@ -35,9 +52,6 @@
     </style>
 </head>
 <body>
-<section class="title_area">
-    <h3 class="title">주문 내역 입니다.</h3>
-</section>
 <section class="item_list_area">
     <form th:action="@{/order/orderRegister.do}" method="post" th:object="${detail}">
         <input type="hidden" name="prodCode" th:value="${detail.prodCode}">
@@ -57,13 +71,13 @@
             </colgroup>
             <tr>
                 <th>주문자 이름</th>
-                <td><input type="text" name="ordrNm" th:value="${loginInfo?.uName}"></td>
+                <td><input type="text" name="ordrNm" th:value="${loginInfo?.uName}" disabled></td>
                 <th>주문자 전화번호</th>
-                <td><input type="text" name="ordrPhon" th:value="${loginInfo?.uPhone}"></td>
+                <td><input type="text" name="ordrPhon" th:value="${loginInfo?.uPhone}" disabled></td>
             </tr>
             <tr>
                 <th>주문자 이메일</th>
-                <td><input type="text" name="ordrEmail" th:value="${loginInfo?.uAddr}"></td>
+                <td><input type="text" name="ordrEmail" th:value="${loginInfo?.uAddr}" disabled></td>
                 <th>수취자 이름</th>
                 <td><input type="text" name="acqrNm" th:value="${loginInfo?.uName}"></td>
             </tr>
@@ -77,7 +91,7 @@
                 <th>수취자 주소</th>
                 <td><input type="text" name="acqrAddr" th:value="${loginInfo?.uAddr}"></td>
                 <th>수취자 상세 주소</th>
-                <td><input type="text" name="acqrAddrDtl" th:value="입력"></td>
+                <td><input type="text" name="acqrAddrDtl" placeholder="상세주소 기입"></td>
             </tr>
             <tr>
                 <th>요청 사항</th>
@@ -103,7 +117,7 @@
             </tr>
             <tr>
                 <th>수량</th>
-                <td><input type="number" name="prodQty" value="1"></td>
+                <td name="prodqty" id="qty"></td>
                 <!-- 상품 코드 -->
                 <th>상품 가격</th>
                 <td th:text="${#numbers.formatInteger(detail.prodPrice, 0, 'COMMA')} + '원'"></td>
@@ -130,9 +144,17 @@
             </tr>
         </table>
         <div class="btn_area">
-            <input type="submit" value="주문하기">
+            <input class="order_btn" type="submit" value="주문하기">
         </div>
     </form>
 </section>
+<script>
+    // 현재 URL 가져오기
+    var currentUrl = window.location.href;
+    var urlParams = new URLSearchParams(currentUrl);
+    var qtyOptionValue = urlParams.get('qtyOption');
+    var qtyElement = document.getElementById('qty');
+    qtyElement.innerText = qtyOptionValue;
+</script>
 </body>
 </html>

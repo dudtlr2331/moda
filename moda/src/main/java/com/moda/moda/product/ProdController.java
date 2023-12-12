@@ -6,7 +6,6 @@ import com.moda.moda.product.service.ProdService;
 import com.moda.moda.review.ReviewVO;
 import com.moda.moda.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +58,11 @@ public class ProdController {
         model.addAttribute("rvo", rvo);
         List<ReviewVO> reviewList = reviewService.findAllReview(cod);
         model.addAttribute("reviewList",reviewList);
+        List<CateVO> cvo = cateService.selectCateList();
+        for (CateVO cateVO : cvo) {
+            cateVO.setSubCate(cateService.selectCateUnList(cateVO));
+        }
+        model.addAttribute("categoryList", cvo);
         return "html/moda/product/productDetail";
     }
 }

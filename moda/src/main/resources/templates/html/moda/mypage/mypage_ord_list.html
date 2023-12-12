@@ -38,9 +38,21 @@
         .data_list {
             width: 100%;
             display: flex;
+            padding: 5px;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+        }
+
+        .data_list table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+
+        .data_list table td,.data_list table th{
+            border: 1px solid #ddd;
+            border-left: none;
+            border-right: none;
         }
 
         .data_list img {
@@ -89,96 +101,138 @@
     </style>
 </head>
 <body>
-<div class="logo">
-    <img th:onclick="'location.href=\'/main\''" src="/images/logo.png" alt="로고 이미지" style="cursor: pointer">
-</div>
-
-<div class="login-text">
-    <div th:if="${uId}">
-        <span th:text="${uId} + '님 환영합니다.'" id="hello_user" style="cursor:default;"></span>
-        <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit"
-               width="50" height="25" src="/images/icon_logout.png"/>
+<!--default menu start-->
+<div id="wrapper">
+    <div class="logo">
+        <img th:onclick="'location.href=\'/main\''" src="/images/logo.png" alt="로고 이미지" style="cursor: pointer">
     </div>
-    <div th:if="${uId == null}">
-        <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit"
-               width="50" height="25" src="/images/icon_login.png"/>
-    </div>
-</div>
 
-<!-- 가로 메뉴 -->
-<ul class="horizontal-menu">
-    <li><a href="/product/itemlist">모든 상품</a></li>
-    <li><div class="dropdown">
-        <a class="dropbtn">
-            <span class="dropbtn_icon">카테고리</span>
-        </a>
-        <div class="dropdown-content">
-            <ul>
-                <li th:each="category : ${categoryList}">
-                    <a th:text="${category.catgryNm}"></a>
-                    <ul th:if="${category.subCate != null and not #lists.isEmpty(category.subCate)}">
-                        <li th:each="subcategory : ${category.subCate}">
-                            <a th:href="@{/product/itemlist( category=${subcategory.catgryNm} )}"
-                               th:text="${subcategory.catgryNm}"></a>
+    <div class="login-text">
+        <div th:if="${uId}">
+            <span th:text="${uId} + '님 환영합니다.'" id="hello_user" style="cursor:default;"></span>
+            <input th:onclick="'location.href=\'/moda/logout\''" id="logout_btn" type="image" class="w70" alt="Submit"
+                   width="50" height="25" src="/images/icon_logout.png"/>
+        </div>
+        <div th:if="${uId == null}">
+            <input th:onclick="'location.href=\'/moda/login.do\''" type="image" class="w70" id="login_btn" alt="Submit"
+                   width="50" height="25" src="/images/icon_login.png"/>
+        </div>
+    </div>
+
+    <!-- 가로 메뉴 -->
+    <ul class="horizontal-menu">
+        <li><a href="/product/itemlist">모든 상품</a></li>
+        <li>
+            <div class="dropdown">
+                <a class="dropbtn">
+                    <span class="dropbtn_icon">카테고리</span>
+                </a>
+                <div class="dropdown-content">
+                    <ul>
+                        <li th:each="category : ${categoryList}">
+                            <a th:text="${category.catgryNm}"></a>
+                            <ul th:if="${category.subCate != null and not #lists.isEmpty(category.subCate)}">
+                                <li th:each="subcategory : ${category.subCate}">
+                                    <a th:href="@{/product/itemlist( category=${subcategory.catgryNm} )}"
+                                       th:text="${subcategory.catgryNm}"></a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
+        </li>
+        <li>
+            <a th:if="${uAdmin == '0'}" th:onclick="'location.href=\'/moda/main/mypage.do\''" style="cursor: pointer">마이페이지</a>
+            <a th:if="${uAdmin == '1'}" onclick="openAdminPage()">관리자페이지</a>
+        </li>
+    </ul>
+    <!--default menu end-->
+
+    <section class="title_area">
+        <h3 class="title">주문 내역</h3>
+    </section>
+
+    <section class="item_list_area">
+        <div class="data_list">
+            <table>
+                <colgroup>
+                    <col width="10%"/>
+                    <col width="20%"/>
+                    <col width="20%"/>
+                    <col width="20%"/>
+                    <col width="20%"/>
+                    <col width="10%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th style="text-align: center;">주문번호</th>
+                    <th style="text-align: center;">상품사진</th>
+                    <th style="text-align: center;">상품명</th>
+                    <th style="text-align: center;">주문금액</th>
+                    <th style="text-align: center;">주문상태</th>
+                    <th style="text-align: center;"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(mypgList)}">
+                    <td colspan="6" style="text-align: center;">
+                        <div class="nodata">주문내역이 없습니다.</div>
+                    </td>
+                </tr>
+                <tr th:each="obj : ${mypgList}">
+                    <td th:text="${obj.ordNo}" style="text-align: center;"></td>
+                    <td style="text-align: center;"><img th:src="${obj.prodImg} + ${obj.prodImgDtl}"></td>
+                    <td style="text-align: center;"><a th:href="@{/mypage/mypageDetail.do(ordNo=${obj.ordNo})}"
+                                                       th:text="${obj.prodName}"></a></td>
+                    <td th:text="${obj.payMny} + '원'" style="text-align: center;"></td>
+                    <td th:text="${obj.ordStat}" style="text-align: center;"></td>
+                    <td style="text-align: center;">
+                        <div th:if="${obj.reviewYn == 'Y'}">
+                            <p style="font-size: 10px;">소중한 리뷰<br>감사합니다.</p>
+                        </div>
+                        <div th:unless="${obj.reviewYn == 'Y'}">
+                            <a th:href="@{'/dress/dressRegister.do?ordNo=' + ${obj.ordNo}}" class="btn btn-primary">리뷰
+                                작성</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </div></li>
-    <li>
-        <a th:if="${uAdmin == '0'}" th:onclick="'location.href=\'/moda/main/mypage.do\''" style="cursor: pointer">마이페이지</a>
-        <a th:if="${uAdmin == '1'}" onclick="openAdminPage()">관리자페이지</a>
-    </li>
-</ul>
-
-<section class="title_area">
-    <h3 class="title">주문 내역</h3>
-</section>
-
-<section class="item_list_area">
-    <div class="data_list">
-        <table>
-            <colgroup>
-                <col width="10%"/>
-                <col width="20%"/>
-                <col width="20%"/>
-                <col width="20%"/>
-                <col width="20%"/>
-                <col width="10%"/>
-            </colgroup>
-            <thead>
-            <tr>
-                <th style="text-align: center;">주문번호</th>
-                <th style="text-align: center;">상품사진</th>
-                <th style="text-align: center;">상품명</th>
-                <th style="text-align: center;">주문금액</th>
-                <th style="text-align: center;">주문상태</th>
-                <th style="text-align: center;"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${#lists.isEmpty(mypgList)}">
-                <td colspan="6" style="text-align: center;"><div class="nodata">주문내역이 없습니다.</div></td>
-            </tr>
-            <tr th:each="obj : ${mypgList}">
-                <td th:text="${obj.ordNo}" style="text-align: center;"></td>
-                <td style="text-align: center;"><img th:src="${obj.prodImg} + ${obj.prodImgDtl}"></td>
-                <td style="text-align: center;"><a th:href="@{/mypage/mypageDetail.do(ordNo=${obj.ordNo})}" th:text="${obj.prodName}"></a></td>
-                <td th:text="${obj.payMny} + '원'" style="text-align: center;"></td>
-                <td th:text="${obj.ordStat}" style="text-align: center;"></td>
-                <td style="text-align: center;">
-                    <div th:if="${obj.reviewYn == 'Y'}">
-                        <p>소중한 리뷰 감사합니다.</p>
-                    </div>
-                    <div th:unless="${obj.reviewYn == 'Y'}">
-                        <a th:href="@{'/dress/dressRegister.do?ordNo=' + ${obj.ordNo}}" class="btn btn-primary">리뷰 작성</a>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    </section>
+</div>
+<footer>
+    <div class="footer-main">
+        <hr>
+        <div class="footer-links">
+            <div class="right-aligned-links">
+                <a href="#">개인정보처리방침</a>
+                <a href="#">서비스이용약관</a>
+                <a href="#">청소년 보호정책</a>
+                <a href="#">사업자정보확인</a>
+                <a href="#">구매안전서비스 가입사실확인</a>
+            </div>
+        </div>
+        <div class="footer-info">
+            <div class="company-info">
+                <p class="sub">주식회사 MODA</p>
+                <p class="decs">대표이사 : 000<br>
+                    00도 00시 00구 000 000 0동 00호<br>
+                    (00동, 0000000)<br>
+                    사업자등록번호 : 000-00-00000<br>
+                    통신판매업 신고번호 : 제0000-00000-0000호<br>
+                    개인정보관리책임자 : 000</p>
+            </div>
+            <div class="customer-center">
+                <p class="sub">고객센터</p>
+                <p class="decs">대표전화 : 0000-0000<br>
+                    운영시간 : AM 00:00 ~ PM 00:00 (0-0)<br>
+                    점심시간 : PM 00:00 ~ PM 00:00 (주말 및 공유일 휴무)<br>
+                    이메일 : 0000000@000000.000</p>
+            </div>
+        </div>
     </div>
-</section>
+</footer>
 </body>
 </html>

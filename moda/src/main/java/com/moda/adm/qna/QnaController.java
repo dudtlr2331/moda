@@ -1,5 +1,7 @@
 package com.moda.adm.qna;
 
+import com.moda.adm.category.CateVO;
+import com.moda.adm.category.service.CateService;
 import com.moda.adm.qna.service.QnaService;
 import com.moda.adm.search.SearchDto;
 import com.moda.cmm.MessageDto;
@@ -19,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QnaController {
     private final QnaService qnaService;
+    private final CateService cateService;
 
     //문의 관리 페이지
     @GetMapping("/adm/qna.do")
@@ -54,6 +57,11 @@ public class QnaController {
         model.addAttribute("qnas", qnas);
         model.addAttribute("uId", uId);
         model.addAttribute("uAdmin", uAdmin);
+        List<CateVO> cvo = cateService.selectCateList();
+        for (CateVO cateVO : cvo) {
+            cateVO.setSubCate(cateService.selectCateUnList(cateVO));
+        }
+        model.addAttribute("categoryList", cvo);
         return "html/moda/main/mypage-qna";
     }
 
@@ -67,6 +75,11 @@ public class QnaController {
         model.addAttribute("qna", qna);
         model.addAttribute("uId", uId);
         model.addAttribute("uAdmin", uAdmin);
+        List<CateVO> cvo = cateService.selectCateList();
+        for (CateVO cateVO : cvo) {
+            cateVO.setSubCate(cateService.selectCateUnList(cateVO));
+        }
+        model.addAttribute("categoryList", cvo);
         return "html/moda/main/qna_view";
     }
 

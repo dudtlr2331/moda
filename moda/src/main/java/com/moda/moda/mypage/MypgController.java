@@ -1,8 +1,8 @@
 package com.moda.moda.mypage;
 
-import com.moda.moda.member.MemberVO;
+import com.moda.adm.category.CateVO;
+import com.moda.adm.category.service.CateService;
 import com.moda.moda.mypage.service.MypgService;
-import com.moda.moda.order.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +15,12 @@ import java.util.List;
 @Controller
 public class MypgController {
     private final MypgService mypgService;
+    private final CateService cateService;
 
     @Autowired
-    public MypgController(MypgService mypgService) {
+    public MypgController(MypgService mypgService, CateService cateService) {
         this.mypgService = mypgService;
+        this.cateService = cateService;
     }
 
     // 주문내역
@@ -29,11 +31,13 @@ public class MypgController {
         model.addAttribute("uId", uId);
         model.addAttribute("uAdmin", uAdmin);
 
-        MemberVO loginInfo = (MemberVO) session.getAttribute("loginInfo");
-        String usrId = loginInfo.getUId();
+        List<CateVO> cvo = cateService.selectCateList();
+        for (CateVO cateVO : cvo) {
+            cateVO.setSubCate(cateService.selectCateUnList(cateVO));
+        }
+        List<MypgVO> mypgList = mypgService.selectMypgList(uId);
 
-        List<MypgVO> mypgList = mypgService.selectMypgList(usrId);
-
+        model.addAttribute("categoryList", cvo);
         model.addAttribute("mypgList", mypgList);
         return "html/moda/mypage/mypage_ord_list";
     }

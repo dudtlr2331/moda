@@ -1,6 +1,7 @@
 package com.moda.moda.order;
 
 import com.moda.moda.member.MemberVO;
+import com.moda.moda.member.service.MemberService;
 import com.moda.moda.order.service.OrderService;
 import com.moda.moda.product.ProdVO;
 import com.moda.moda.product.service.ProdService;
@@ -24,29 +25,34 @@ import static com.moda.cmm.OrderNumberGenerator.generateOrderNumber;
 public class OrderController {
     private final OrderService orderService;
     private final ProdService prodService;
+    private final MemberService memberService;
 
     @Autowired
-    public OrderController(OrderService orderService, ProdService prodService) {
+    public OrderController(OrderService orderService, ProdService prodService, MemberService memberService) {
         this.orderService = orderService;
         this.prodService = prodService;
+        this.memberService = memberService;
     }
 
     // 주문
     @RequestMapping("/order/order.do")
     public String order(Model model, OrderVO pvo, HttpSession session) {
+        String uId = (String) session.getAttribute("uId");
         String optionInfo[] = {pvo.getColorOption(), pvo.getSizeOption()};
 
         ProdVO detail = prodService.selectProdOne(pvo.getProdCode());
         List<OrderVO> orderList = orderService.selectOrdList(pvo);
 
         // 세션에서 로그인 정보 가져오기
-        MemberVO loginInfo = (MemberVO) session.getAttribute("loginInfo");
+        MemberVO loginInfo = memberService.findByMember(uId);
 
         // 로그인 정보를 모델에 추가
         model.addAttribute("loginInfo", loginInfo);
         model.addAttribute("optionInfo", optionInfo);
         model.addAttribute("detail", detail);
         model.addAttribute("orderList", orderList);
+
+        session.removeAttribute("QTY");
 
         return "html/moda/order/order";
     }

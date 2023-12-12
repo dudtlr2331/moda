@@ -17,7 +17,7 @@ import java.util.List;
 public class MainController {
     private final MemberService memberService;
     private final MainService mainService;
-private final CateService cateService;
+    private final CateService cateService;
     @Autowired
     public MainController(MemberService memberService, MainService mainService , CateService cateService) {
         this.memberService = memberService;
@@ -36,11 +36,13 @@ private final CateService cateService;
         // 상품 리스트 가져와서 모델에 추가
         List<MainVO> mainHomeList = mainService.selectListMainHome();
         model.addAttribute("mainHomeList", mainHomeList);
+
         List<CateVO> cvo = cateService.selectCateList();
         for (CateVO cateVO : cvo) {
             cateVO.setSubCate(cateService.selectCateUnList(cateVO));
         }
         model.addAttribute("categoryList", cvo);
+
         return "html/moda/main/main";
     }
 
@@ -58,6 +60,11 @@ private final CateService cateService;
         model.addAttribute("uEmail", memberInfo.getUEmail());
         model.addAttribute("uAddr", memberInfo.getUAddr());
         model.addAttribute("uPhone", memberInfo.getUPhone());
+        List<CateVO> cvo = cateService.selectCateList();
+        for (CateVO cateVO : cvo) {
+            cateVO.setSubCate(cateService.selectCateUnList(cateVO));
+        }
+        model.addAttribute("categoryList", cvo);
         return "html/moda/main/mypage";
     }
 }
