@@ -23,13 +23,13 @@ CREATE TABLE IF NOT EXISTS `category` (
 
 -- 테이블 데이터 moda.category:~2 rows (대략적) 내보내기
 INSERT INTO `category` (`GOODS_CATA_SEQ`, `CATGRY_CD`, `CATGRY_NM`, `NOTE_CONT`, `CLASS_LVL_CD`, `UPR_CLASS_CD`, `RGST_ID`, `RGST_DATE`, `USE_YN`) VALUES
-                                                                                                                                                       (1,'A100' , '상의' , '모든상의' , '1' , NULL , 'test1' , NOW() , 'Y'),
-                                                                                                                                                       (2,'B100' , '하의' , '모든하의' , '1' , NULL , 'test1' , NOW() , 'Y'),
-                                                                                                                                                       (3,'A101' , '아우터' , '아우터' , '2' , 'A100' , 'test1' , NOW() , 'Y'),
-                                                                                                                                                       (4,'A102' , '니트' , '니트' , '2' , 'A100' , 'test1' , NOW() , 'Y'),
-                                                                                                                                                       (5,'A103' , '기타상의' , '상의분류' , '2' , 'A100' , 'test1' , NOW() , 'Y'),
-                                                                                                                                                       (6,'B101' , '청바지' , '청바지' , '2' , 'B100' , 'test1' , NOW() , 'N'),
-                                                                                                                                                       (7,'B102' , '기타하의' , '하의분류' , '2' , 'B100' , 'test1' , NOW() , 'Y');
+(1,'A100' , '상의' , '모든상의' , '1' , NULL , 'test1' , NOW() , 'Y'),
+(2,'B100' , '하의' , '모든하의' , '1' , NULL , 'test1' , NOW() , 'Y'),
+(3,'A101' , '아우터' , '아우터' , '2' , 'A100' , 'test1' , NOW() , 'Y'),
+(4,'A102' , '니트' , '니트' , '2' , 'A100' , 'test1' , NOW() , 'Y'),
+(5,'A103' , '기타상의' , '상의분류' , '2' , 'A100' , 'test1' , NOW() , 'Y'),
+(6,'B101' , '청바지' , '청바지' , '2' , 'B100' , 'test1' , NOW() , 'N'),
+(7,'B102' , '기타하의' , '하의분류' , '2' , 'B100' , 'test1' , NOW() , 'Y');
 
 
 -- 테이블 moda.ord_base 구조 내보내기
