@@ -59,9 +59,7 @@
 <body>
 <!-- 로고 -->
 <div class="logo">
-    <form action="/main" method="GET">
-        <input type="image" name="logoimg" src="/images/logo.png" alt="로고 이미지">
-    </form>
+    <img th:onclick="'location.href=\'/main\''" src="/images/logo.png" alt="로고 이미지" style="cursor: pointer">
 </div>
 
 <!-- 입력 폼 -->
